@@ -7,6 +7,7 @@ import { AppService } from './app.service';
 import { LibraryTypesModule } from './library-types/library-types.module';
 import { LibraryModule } from './library/library.module';
 import { LocationModule } from './location/location.module';
+import { MediaModule } from './media/media.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { LocationModule } from './location/location.module';
     LibraryModule,
     LibraryTypesModule,
     LocationModule,
+    MediaModule,
   ],
   controllers: [AppController],
   providers: [AppService],

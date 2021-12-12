@@ -11,9 +11,9 @@ export class MediaService {
     @InjectRepository(Media)
     private mediaRepository: Repository<Media>,
   ) {}
-  // create(createMediaInput: CreateMediaInput) {
-  //   return 'This action adds a new media';
-  // }
+  create(createMediaInput: CreateMediaInput) {
+    return 'This action adds a new media';
+  }
 
   // findOne(id: number) {
   //   return `This action returns a #${id} media`;

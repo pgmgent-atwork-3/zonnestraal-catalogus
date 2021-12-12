@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query } from '@nestjs/graphql';
 import { MediaService } from './media.service';
 import { Media } from './entities/media.entity';
 
@@ -10,6 +10,11 @@ export class MediaResolver {
   // // createMedia(@Args('createMediaInput') createMediaInput: CreateMediaInput) {
   // //   return this.mediaService.create(createMediaInput);
   // // }
+
+  @Query(() => [Media], { name: 'getAllMedia' })
+  findAll() {
+    return this.mediaService.findAll();
+  }
 
   // @Query(() => Media, { name: 'media' })
   // findOne(@Args('id', { type: () => Int }) id: number) {

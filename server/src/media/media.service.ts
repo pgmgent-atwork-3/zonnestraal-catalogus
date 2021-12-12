@@ -1,8 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateMediaInput } from './dto/create-media.input';
-import { UpdateMediaInput } from './dto/update-media.input';
 import { Media } from './entities/media.entity';
 
 @Injectable()
@@ -11,8 +9,14 @@ export class MediaService {
     @InjectRepository(Media)
     private mediaRepository: Repository<Media>,
   ) {}
-  create(createMediaInput: CreateMediaInput) {
-    return 'This action adds a new media';
+  // create(createMediaInput: CreateMediaInput) {
+  //   return 'This action adds a new media';
+  // }
+
+  findAll(): Promise<Media[]> {
+    return this.mediaRepository.find({
+      relations: ['type', 'location'],
+    });
   }
 
   // findOne(id: number) {

@@ -2,6 +2,35 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type MediaTypes {
+  id: Float!
+  title: String
+  created_on: DateTime
+  edited_on: DateTime
+  language: String
+  meta_id: Int
+  media: [Media!]!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Media {
+  id: Float!
+  title: String
+  description: String
+  location: Location!
+  created_on: DateTime
+  edited_on: DateTime
+  hidden: String
+  type: MediaTypes!
+  show_home: String
+  language: String
+  meta_id: Int
+}
+
 type Location {
   id: Float!
   language: String!
@@ -17,13 +46,9 @@ type Location {
   show_overview: String
   created_on: DateTime
   edited_on: DateTime
+  media: [Media!]!
   library: [Library!]!
 }
-
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
 
 type Library {
   id: Float!
@@ -56,6 +81,8 @@ type Query {
   getAllLibraries: [Library!]!
   getNewLibraries: [Library!]!
   location(id: Int!): Location!
+  getAllMedia: [Media!]!
+  mediaTypes: [MediaTypes!]!
 }
 
 type Mutation {

@@ -7,6 +7,7 @@ import { AppService } from './app.service';
 import { LibraryTypesModule } from './library-types/library-types.module';
 import { LibraryModule } from './library/library.module';
 import { LocationModule } from './location/location.module';
+import { MediaRentModule } from './media-rent/media-rent.module';
 import { MediaTypesModule } from './media-types/media-types.module';
 import { MediaModule } from './media/media.module';
 
@@ -30,6 +31,7 @@ import { MediaModule } from './media/media.module';
     LocationModule,
     MediaModule,
     MediaTypesModule,
+    MediaRentModule,
   ],
   controllers: [AppController],
   providers: [AppService],

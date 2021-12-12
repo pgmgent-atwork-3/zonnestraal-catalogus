@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
+import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -14,6 +16,9 @@ import { AppService } from './app.service';
       database: 'zonnestr',
       entities: ['dist/**/*.entity{.ts,.js}', __dirname + '/entities/**/*.js'],
       synchronize: false,
+    }),
+    GraphQLModule.forRoot({
+      autoSchemaFile: join(process.cwd(), 'src/graphql-schema.gql'),
     }),
   ],
   controllers: [AppController],

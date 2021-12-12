@@ -54,6 +54,7 @@ type LibraryTypes {
 
 type Query {
   getAllLibraries: [Library!]!
+  getNewLibraries: [Library!]!
   location(id: Int!): Location!
 }
 

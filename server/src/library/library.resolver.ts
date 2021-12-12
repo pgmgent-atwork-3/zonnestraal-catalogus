@@ -17,6 +17,11 @@ export class LibraryResolver {
     return this.libraryService.findAll();
   }
 
+  @Query(() => [Library], { name: 'getNewLibraries' })
+  findNew() {
+    return this.libraryService.find();
+  }
+
   // @Query(() => Library, { name: 'library' })
   // findOne(@Args('id', { type: () => Int }) id: number) {
   //   return this.libraryService.findOne(id);

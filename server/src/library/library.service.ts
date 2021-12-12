@@ -19,6 +19,16 @@ export class LibraryService {
     return this.libraryRepository.find({ relations: ['type', 'location'] });
   }
 
+  find(): Promise<Library[]> {
+    return this.libraryRepository.find({
+      order: {
+        created_on: 'DESC',
+      },
+      take: 10,
+      relations: ['type', 'location'],
+    });
+  }
+
   // findOne(id: number) {
   //   return `This action returns a #${id} library`;
   // }

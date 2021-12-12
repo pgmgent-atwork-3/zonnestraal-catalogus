@@ -1,8 +1,10 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { Media } from 'src/media/entities/media.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -36,4 +38,8 @@ export class MediaTypes {
   @Column({ nullable: true })
   @Field(() => Int, { nullable: true })
   meta_id: number;
+
+  @OneToMany(() => Media, (media) => media.type)
+  @Field(() => [Media])
+  media: Media[];
 }

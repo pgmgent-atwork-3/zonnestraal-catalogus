@@ -1,4 +1,5 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { MediaTypes } from 'src/media-types/entities/media-type.entity';
 import { Location } from 'src/location/entities/location.entity';
 import {
   Column,
@@ -6,7 +7,6 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -31,6 +31,16 @@ export class Media {
   @Field(() => String, { nullable: true })
   description: string;
 
+  @ManyToOne(() => Location, (location) => location.media, {
+    eager: true,
+  })
+  @JoinColumn({
+    name: 'location_id',
+    referencedColumnName: 'id',
+  })
+  @Field(() => Location)
+  location: Location;
+
   @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
   @Field({ nullable: true })
   created_on: Date;
@@ -50,6 +60,16 @@ export class Media {
   })
   @Field({ nullable: true })
   hidden: Status;
+
+  @ManyToOne(() => MediaTypes, (mediaTypes) => mediaTypes.media, {
+    eager: true,
+  })
+  @JoinColumn({
+    name: 'type_id',
+    referencedColumnName: 'id',
+  })
+  @Field(() => MediaTypes)
+  type: MediaTypes;
 
   @Column({
     type: 'enum',

@@ -1,6 +1,6 @@
 import { ObjectType, Field, Int, Float } from '@nestjs/graphql';
 import { Library } from 'src/library/entities/library.entity';
-
+import { Media } from 'src/media/entities/media.entity';
 import {
   Column,
   CreateDateColumn,
@@ -81,6 +81,10 @@ export class Location {
   })
   @Field({ nullable: true })
   edited_on: Date;
+
+  @OneToMany(() => Media, (media) => media.location)
+  @Field(() => [Media])
+  media: Media[];
 
   @OneToMany(() => Library, (library) => library.location)
   @Field(() => [Library])

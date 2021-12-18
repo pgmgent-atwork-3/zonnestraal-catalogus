@@ -12,7 +12,8 @@ import { MediaRentModule } from './media-rent/media-rent.module';
 import { MediaTypesModule } from './media-types/media-types.module';
 import { MediaModule } from './media/media.module';
 import { LibraryRentModule } from './library-rent/library-rent.module';
-
+import { MediaFixedReservationsModule } from './media-fixed-reservations/media-fixed-reservations.module';
+import { MediaFixedReservationsExceptionsModule } from './media-fixed-reservations-exceptions/media-fixed-reservations-exceptions.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -36,6 +37,8 @@ import { LibraryRentModule } from './library-rent/library-rent.module';
     MediaTypesModule,
     MediaRentModule,
     LibraryRentModule,
+    MediaFixedReservationsModule,
+    MediaFixedReservationsExceptionsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

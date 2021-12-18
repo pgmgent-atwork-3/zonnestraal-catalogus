@@ -16,7 +16,9 @@ export class LibraryService {
   // }
 
   findAll(): Promise<Library[]> {
-    return this.libraryRepository.find({ relations: ['type', 'location'] });
+    return this.libraryRepository.find({
+      relations: ['type', 'location', 'rent', 'reservation'],
+    });
   }
 
   find(): Promise<Library[]> {
@@ -25,7 +27,7 @@ export class LibraryService {
         created_on: 'DESC',
       },
       take: 10,
-      relations: ['type', 'location'],
+      relations: ['type', 'location', 'rent', 'reservation'],
     });
   }
 

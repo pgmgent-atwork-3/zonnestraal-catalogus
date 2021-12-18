@@ -2,6 +2,30 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type LibraryRent {
+  id: Float!
+  name: String
+  library: Library!
+  rent_from: DateTime
+  rent_till: DateTime
+  returned: String
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type LibraryTypes {
+  id: Float!
+  title: String
+  language: String
+  created_on: DateTime
+  meta_id: Int
+  edited_on: DateTime
+  library: [Library!]!
+}
+
 type MediaTypes {
   id: Float!
   title: String
@@ -11,11 +35,6 @@ type MediaTypes {
   meta_id: Int
   media: [Media!]!
 }
-
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
 
 type MediaRent {
   id: Float!
@@ -75,16 +94,16 @@ type Library {
   type: LibraryTypes!
   language: String
   meta_id: Int
+  rent: [LibraryRent!]!
+  reservation: [LibraryReservation!]!
 }
 
-type LibraryTypes {
+type LibraryReservation {
   id: Float!
-  title: String
-  language: String
+  library: Library!
+  name: String
+  deleted: String
   created_on: DateTime
-  meta_id: Int
-  edited_on: DateTime
-  library: [Library!]!
 }
 
 type MostPopularMedia {
@@ -98,20 +117,39 @@ type MostPopularMedia {
 type Query {
   getAllLibraries: [Library!]!
   getNewLibraries: [Library!]!
+  libraryReservation(id: Int!): LibraryReservation!
   location(id: Int!): Location!
   getAllMedia: [Media!]!
   getMostCommonlyMedia: [MostPopularMedia!]!
   mediaTypes: [MediaTypes!]!
   mediaRent(id: Int!): MediaRent!
+  libraryRent(id: Int!): LibraryRent!
 }
 
 type Mutation {
+  createLibraryReservation(createLibraryReservationInput: CreateLibraryReservationInput!): LibraryReservation!
+  updateLibraryReservation(updateLibraryReservationInput: UpdateLibraryReservationInput!): LibraryReservation!
+  removeLibraryReservation(id: Int!): LibraryReservation!
   createLocation(createLocationInput: CreateLocationInput!): Location!
   updateLocation(updateLocationInput: UpdateLocationInput!): Location!
   removeLocation(id: Int!): Location!
   createMediaRent(createMediaRentInput: CreateMediaRentInput!): MediaRent!
   updateMediaRent(updateMediaRentInput: UpdateMediaRentInput!): MediaRent!
   removeMediaRent(id: Int!): MediaRent!
+  createLibraryRent(createLibraryRentInput: CreateLibraryRentInput!): LibraryRent!
+  updateLibraryRent(updateLibraryRentInput: UpdateLibraryRentInput!): LibraryRent!
+  removeLibraryRent(id: Int!): LibraryRent!
+}
+
+input CreateLibraryReservationInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateLibraryReservationInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
 }
 
 input CreateLocationInput {
@@ -131,6 +169,17 @@ input CreateMediaRentInput {
 }
 
 input UpdateMediaRentInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateLibraryRentInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateLibraryRentInput {
   """Example field (placeholder)"""
   exampleField: Int
   id: Int!

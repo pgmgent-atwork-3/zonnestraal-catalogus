@@ -7,10 +7,15 @@ describe('MediaFixedReservationsResolver', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [MediaFixedReservationsResolver, MediaFixedReservationsService],
+      providers: [
+        MediaFixedReservationsResolver,
+        MediaFixedReservationsService,
+      ],
     }).compile();
 
-    resolver = module.get<MediaFixedReservationsResolver>(MediaFixedReservationsResolver);
+    resolver = module.get<MediaFixedReservationsResolver>(
+      MediaFixedReservationsResolver,
+    );
   });
 
   it('should be defined', () => {

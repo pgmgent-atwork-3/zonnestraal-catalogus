@@ -4,7 +4,9 @@ import { UpdateMediaFixedReservationsExceptionsInput } from './dto/update-media-
 
 @Injectable()
 export class MediaFixedReservationsExceptionsService {
-  create(createMediaFixedReservationsExceptionsInput: CreateMediaFixedReservationsExceptionsInput) {
+  create(
+    createMediaFixedReservationsExceptionsInput: CreateMediaFixedReservationsExceptionsInput,
+  ) {
     return 'This action adds a new mediaFixedReservationsException';
   }
 

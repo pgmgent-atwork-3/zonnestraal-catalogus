@@ -6,7 +6,9 @@ import { UpdateMediaFixedReservationsExceptionsInput } from './dto/update-media-
 
 @Resolver(() => MediaFixedReservationsExceptions)
 export class MediaFixedReservationsExceptionsResolver {
-  constructor(private readonly mediaFixedReservationsExceptionsService: MediaFixedReservationsExceptionsService) {}
+  constructor(
+    private readonly mediaFixedReservationsExceptionsService: MediaFixedReservationsExceptionsService,
+  ) {}
 
   // @Mutation(() => MediaFixedReservationsException)
   // createMediaFixedReservationsException(@Args('createMediaFixedReservationsExceptionInput') createMediaFixedReservationsExceptionInput: CreateMediaFixedReservationsExceptionInput) {

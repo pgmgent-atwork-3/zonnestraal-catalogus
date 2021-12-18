@@ -1,11 +1,14 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { MediaFixedReservationsExceptions } from 'src/media-fixed-reservations-exceptions/entities/media-fixed-reservations-exceptions.entity';
 import { Media } from 'src/media/entities/media.entity';
 
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -38,4 +41,31 @@ export class MediaFixedReservations {
   @Field(() => String, { nullable: true })
   name: string;
 
+  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
+  @Field({ nullable: true })
+  from: Date;
+
+  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
+  @Field({ nullable: true })
+  till: Date;
+
+  @Column({
+    type: 'enum',
+    enum: Status,
+    default: Status.WEEKLY,
+    nullable: true,
+  })
+  @Field({ nullable: true })
+  frequency: Status;
+
+  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
+  @Field({ nullable: true })
+  created_on: Date;
+
+  @OneToMany(
+    () => MediaFixedReservationsExceptions,
+    (mediaFixedReservations) => mediaFixedReservations.fixed_reservations,
+  )
+  @Field(() => [MediaFixedReservationsExceptions])
+  excepions: MediaFixedReservationsExceptions[];
 }

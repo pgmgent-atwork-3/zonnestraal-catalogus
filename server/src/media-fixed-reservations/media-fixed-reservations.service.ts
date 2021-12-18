@@ -23,7 +23,10 @@ export class MediaFixedReservationsService {
     return `This action returns a #${id} mediaFixedReservation`;
   }
 
-  update(id: number, updateMediaFixedReservationsInput: UpdateMediaFixedReservationsInput) {
+  update(
+    id: number,
+    updateMediaFixedReservationsInput: UpdateMediaFixedReservationsInput,
+  ) {
     return `This action updates a #${id} mediaFixedReservation`;
   }
 

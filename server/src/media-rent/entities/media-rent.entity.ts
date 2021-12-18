@@ -42,7 +42,7 @@ export class MediaRent {
   @Field({ nullable: true })
   returned: Status;
 
-  @ManyToOne(() => Media, (media) => media.rent, {
+  @ManyToOne(() => Library, (media) => media.rent, {
     eager: true,
   })
   @JoinColumn({

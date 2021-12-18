@@ -1,8 +1,11 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field } from '@nestjs/graphql';
+import { Library } from 'src/library/entities/library.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -21,6 +24,16 @@ export class LibraryRent {
   @Column({ nullable: true })
   @Field(() => String, { nullable: true })
   name: string;
+
+  @ManyToOne(() => Library, (library) => library.rent, {
+    eager: true,
+  })
+  @JoinColumn({
+    name: 'library_id',
+    referencedColumnName: 'id',
+  })
+  @Field(() => Library)
+  library: Library;
 
   @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
   @Field({ nullable: true })

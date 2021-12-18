@@ -9,7 +9,9 @@ describe('MediaFixedReservationsExceptionsService', () => {
       providers: [MediaFixedReservationsExceptionsService],
     }).compile();
 
-    service = module.get<MediaFixedReservationsExceptionsService>(MediaFixedReservationsExceptionsService);
+    service = module.get<MediaFixedReservationsExceptionsService>(
+      MediaFixedReservationsExceptionsService,
+    );
   });
 
   it('should be defined', () => {

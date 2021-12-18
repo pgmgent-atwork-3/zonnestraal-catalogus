@@ -9,7 +9,10 @@ export class LibraryRentResolver {
   constructor(private readonly libraryRentService: LibraryRentService) {}
 
   @Mutation(() => LibraryRent)
-  createLibraryRent(@Args('createLibraryRentInput') createLibraryRentInput: CreateLibraryRentInput) {
+  createLibraryRent(
+    @Args('createLibraryRentInput')
+    createLibraryRentInput: CreateLibraryRentInput,
+  ) {
     return this.libraryRentService.create(createLibraryRentInput);
   }
 
@@ -24,8 +27,14 @@ export class LibraryRentResolver {
   }
 
   @Mutation(() => LibraryRent)
-  updateLibraryRent(@Args('updateLibraryRentInput') updateLibraryRentInput: UpdateLibraryRentInput) {
-    return this.libraryRentService.update(updateLibraryRentInput.id, updateLibraryRentInput);
+  updateLibraryRent(
+    @Args('updateLibraryRentInput')
+    updateLibraryRentInput: UpdateLibraryRentInput,
+  ) {
+    return this.libraryRentService.update(
+      updateLibraryRentInput.id,
+      updateLibraryRentInput,
+    );
   }
 
   @Mutation(() => LibraryRent)

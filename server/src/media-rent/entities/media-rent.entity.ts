@@ -50,5 +50,5 @@ export class MediaRent {
     referencedColumnName: 'id',
   })
   @Field(() => Media)
-  media: Media;
+  media: Me
 }

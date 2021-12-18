@@ -7,9 +7,11 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { MediaRent } from 'src/media-rent/entities/media-rent.entity';
 
 export enum Status {
   YES = 'Y',
@@ -87,4 +89,11 @@ export class Media {
   @Column({ nullable: true })
   @Field(() => Int, { nullable: true })
   meta_id: number;
+
+  @OneToMany(() => MediaRent, (mediaRent) => mediaRent.media, {
+    cascade: ['insert', 'update', 'remove'],
+  })
+  @JoinColumn()
+  @Field(() => [MediaRent])
+  rent: MediaRent[];
 }

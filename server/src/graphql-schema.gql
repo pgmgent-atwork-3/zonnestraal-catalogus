@@ -17,6 +17,15 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type MediaRent {
+  id: Float!
+  name: String
+  rent_from: DateTime
+  rent_till: DateTime
+  returned: String
+  media: Media!
+}
+
 type Media {
   id: Float!
   title: String
@@ -29,6 +38,7 @@ type Media {
   show_home: String
   language: String
   meta_id: Int
+  rent: [MediaRent!]!
 }
 
 type Location {
@@ -77,18 +87,31 @@ type LibraryTypes {
   library: [Library!]!
 }
 
+type MostPopularMedia {
+  id: Float!
+  title: String
+  description: String
+  type: String
+  total: Float!
+}
+
 type Query {
   getAllLibraries: [Library!]!
   getNewLibraries: [Library!]!
   location(id: Int!): Location!
   getAllMedia: [Media!]!
+  getMostCommonlyMedia: [MostPopularMedia!]!
   mediaTypes: [MediaTypes!]!
+  mediaRent(id: Int!): MediaRent!
 }
 
 type Mutation {
   createLocation(createLocationInput: CreateLocationInput!): Location!
   updateLocation(updateLocationInput: UpdateLocationInput!): Location!
   removeLocation(id: Int!): Location!
+  createMediaRent(createMediaRentInput: CreateMediaRentInput!): MediaRent!
+  updateMediaRent(updateMediaRentInput: UpdateMediaRentInput!): MediaRent!
+  removeMediaRent(id: Int!): MediaRent!
 }
 
 input CreateLocationInput {
@@ -97,6 +120,17 @@ input CreateLocationInput {
 }
 
 input UpdateLocationInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateMediaRentInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateMediaRentInput {
   """Example field (placeholder)"""
   exampleField: Int
   id: Int!

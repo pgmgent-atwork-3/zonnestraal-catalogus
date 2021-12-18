@@ -12,6 +12,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { MediaRent } from 'src/media-rent/entities/media-rent.entity';
+import { MediaFixedReservations } from 'src/media-fixed-reservations/entities/media-fixed-reservations.entity';
 
 export enum Status {
   YES = 'Y',
@@ -96,4 +97,15 @@ export class Media {
   @JoinColumn()
   @Field(() => [MediaRent])
   rent: MediaRent[];
+
+  @OneToMany(
+    () => MediaFixedReservations,
+    (mediaFixedReservations) => mediaFixedReservations.media,
+    {
+      cascade: ['insert', 'update', 'remove'],
+    },
+  )
+  @JoinColumn()
+  @Field(() => [MediaFixedReservations])
+  fixedReservation: MediaFixedReservations[];
 }

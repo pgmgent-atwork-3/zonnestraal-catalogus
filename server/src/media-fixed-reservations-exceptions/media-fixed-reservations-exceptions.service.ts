@@ -1,26 +1,26 @@
 import { Injectable } from '@nestjs/common';
-import { CreateMediaFixedReservationsExceptionInput } from './dto/create-media-fixed-reservations-exception.input';
-import { UpdateMediaFixedReservationsExceptionInput } from './dto/update-media-fixed-reservations-exception.input';
+import { CreateMediaFixedReservationsExceptionsInput } from './dto/create-media-fixed-reservations-exceptions.input';
+import { UpdateMediaFixedReservationsExceptionsInput } from './dto/update-media-fixed-reservations-exceptions.input';
 
 @Injectable()
 export class MediaFixedReservationsExceptionsService {
-  create(createMediaFixedReservationsExceptionInput: CreateMediaFixedReservationsExceptionInput) {
+  create(createMediaFixedReservationsExceptionsInput: CreateMediaFixedReservationsExceptionsInput) {
     return 'This action adds a new mediaFixedReservationsException';
   }
 
-  findAll() {
-    return `This action returns all mediaFixedReservationsExceptions`;
-  }
+  // findAll() {
+  //   return `This action returns all mediaFixedReservationsExceptions`;
+  // }
 
-  findOne(id: number) {
-    return `This action returns a #${id} mediaFixedReservationsException`;
-  }
+  // findOne(id: number) {
+  //   return `This action returns a #${id} mediaFixedReservationsException`;
+  // }
 
-  update(id: number, updateMediaFixedReservationsExceptionInput: UpdateMediaFixedReservationsExceptionInput) {
-    return `This action updates a #${id} mediaFixedReservationsException`;
-  }
+  // update(id: number, updateMediaFixedReservationsExceptionInput: UpdateMediaFixedReservationsExceptionInput) {
+  //   return `This action updates a #${id} mediaFixedReservationsException`;
+  // }
 
-  remove(id: number) {
-    return `This action removes a #${id} mediaFixedReservationsException`;
-  }
+  // remove(id: number) {
+  //   return `This action removes a #${id} mediaFixedReservationsException`;
+  // }
 }

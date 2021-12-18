@@ -1,10 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { CreateMediaFixedReservationInput } from './dto/create-media-fixed-reservation.input';
-import { UpdateMediaFixedReservationInput } from './dto/update-media-fixed-reservation.input';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { CreateMediaFixedReservationsInput } from './dto/create-media-fixed-reservations.input';
+import { UpdateMediaFixedReservationsInput } from './dto/update-media-fixed-reservations.input';
+import { MediaFixedReservations } from './entities/media-fixed-reservations.entity';
 
 @Injectable()
 export class MediaFixedReservationsService {
-  create(createMediaFixedReservationInput: CreateMediaFixedReservationInput) {
+  constructor(
+    @InjectRepository(MediaFixedReservations)
+    private mediaFixedReservationsRepository: Repository<MediaFixedReservations>,
+  ) {}
+  create(createMediaFixedReservationsInput: CreateMediaFixedReservationsInput) {
     return 'This action adds a new mediaFixedReservation';
   }
 
@@ -16,7 +23,7 @@ export class MediaFixedReservationsService {
     return `This action returns a #${id} mediaFixedReservation`;
   }
 
-  update(id: number, updateMediaFixedReservationInput: UpdateMediaFixedReservationInput) {
+  update(id: number, updateMediaFixedReservationsInput: UpdateMediaFixedReservationsInput) {
     return `This action updates a #${id} mediaFixedReservation`;
   }
 

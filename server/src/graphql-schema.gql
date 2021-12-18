@@ -45,6 +45,12 @@ type MediaRent {
   media: Media!
 }
 
+type MediaFixedReservations {
+  id: Float!
+  media: Media
+  name: String
+}
+
 type Media {
   id: Float!
   title: String
@@ -58,6 +64,7 @@ type Media {
   language: String
   meta_id: Int
   rent: [MediaRent!]!
+  fixedReservation: [MediaFixedReservations!]!
 }
 
 type Location {

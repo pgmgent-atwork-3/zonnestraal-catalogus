@@ -16,7 +16,10 @@ export class LibraryReservationService {
     return `This action returns a #${id} libraryReservation`;
   }
 
-  update(id: number, updateLibraryReservationInput: UpdateLibraryReservationInput) {
+  update(
+    id: number,
+    updateLibraryReservationInput: UpdateLibraryReservationInput,
+  ) {
     return `This action updates a #${id} libraryReservation`;
   }
 

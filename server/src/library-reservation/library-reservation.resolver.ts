@@ -6,10 +6,15 @@ import { UpdateLibraryReservationInput } from './dto/update-library-reservation.
 
 @Resolver(() => LibraryReservation)
 export class LibraryReservationResolver {
-  constructor(private readonly libraryReservationService: LibraryReservationService) {}
+  constructor(
+    private readonly libraryReservationService: LibraryReservationService,
+  ) {}
 
   @Mutation(() => LibraryReservation)
-  createLibraryReservation(@Args('createLibraryReservationInput') createLibraryReservationInput: CreateLibraryReservationInput) {
+  createLibraryReservation(
+    @Args('createLibraryReservationInput')
+    createLibraryReservationInput: CreateLibraryReservationInput,
+  ) {
     return this.libraryReservationService.create(createLibraryReservationInput);
   }
 
@@ -24,8 +29,14 @@ export class LibraryReservationResolver {
   }
 
   @Mutation(() => LibraryReservation)
-  updateLibraryReservation(@Args('updateLibraryReservationInput') updateLibraryReservationInput: UpdateLibraryReservationInput) {
-    return this.libraryReservationService.update(updateLibraryReservationInput.id, updateLibraryReservationInput);
+  updateLibraryReservation(
+    @Args('updateLibraryReservationInput')
+    updateLibraryReservationInput: UpdateLibraryReservationInput,
+  ) {
+    return this.libraryReservationService.update(
+      updateLibraryReservationInput.id,
+      updateLibraryReservationInput,
+    );
   }
 
   @Mutation(() => LibraryReservation)

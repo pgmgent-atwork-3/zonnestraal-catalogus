@@ -16,7 +16,7 @@ export class MediaService {
 
   findAll(): Promise<Media[]> {
     return this.mediaRepository.find({
-      relations: ['type', 'location'],
+      relations: ['type', 'location', 'fixedReservation', 'rent'],
     });
   }
   find(): Promise<MostPopularMedia[]> {

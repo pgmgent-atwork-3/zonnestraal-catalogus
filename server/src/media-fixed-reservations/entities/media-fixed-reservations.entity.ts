@@ -49,6 +49,14 @@ export class MediaFixedReservations {
   @Field({ nullable: true })
   till: Date;
 
+  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
+  @Field({ nullable: true })
+  start: Date;
+
+  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
+  @Field({ nullable: true })
+  end: Date;
+
   @Column({
     type: 'enum',
     enum: Status,
@@ -66,6 +74,6 @@ export class MediaFixedReservations {
     () => MediaFixedReservationsExceptions,
     (mediaFixedReservations) => mediaFixedReservations.fixed_reservations,
   )
-  @Field(() => [MediaFixedReservationsExceptions])
+  @Field(() => [MediaFixedReservationsExceptions], { nullable: true })
   excepions: MediaFixedReservationsExceptions[];
 }

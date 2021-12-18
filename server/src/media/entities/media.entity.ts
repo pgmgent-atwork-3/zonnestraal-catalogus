@@ -95,7 +95,7 @@ export class Media {
     cascade: ['insert', 'update', 'remove'],
   })
   @JoinColumn()
-  @Field(() => [MediaRent])
+  @Field(() => [MediaRent], { nullable: true })
   rent: MediaRent[];
 
   @OneToMany(

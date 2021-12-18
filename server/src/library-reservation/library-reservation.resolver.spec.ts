@@ -10,7 +10,9 @@ describe('LibraryReservationResolver', () => {
       providers: [LibraryReservationResolver, LibraryReservationService],
     }).compile();
 
-    resolver = module.get<LibraryReservationResolver>(LibraryReservationResolver);
+    resolver = module.get<LibraryReservationResolver>(
+      LibraryReservationResolver,
+    );
   });
 
   it('should be defined', () => {

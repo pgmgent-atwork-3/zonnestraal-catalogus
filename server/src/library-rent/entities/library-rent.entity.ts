@@ -5,13 +5,15 @@ import {
   Entity,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+
 export enum Status {
   YES = 'Y',
   NO = 'N',
 }
+
 @ObjectType()
 @Entity()
-export class LibraryReservation {
+export class LibraryRent {
   @PrimaryGeneratedColumn('increment')
   @Field()
   id: number;
@@ -20,6 +22,14 @@ export class LibraryReservation {
   @Field(() => String, { nullable: true })
   name: string;
 
+  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
+  @Field({ nullable: true })
+  rent_from: Date;
+
+  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
+  @Field({ nullable: true })
+  rent_till: Date;
+
   @Column({
     type: 'enum',
     enum: Status,
@@ -27,9 +37,5 @@ export class LibraryReservation {
     nullable: true,
   })
   @Field({ nullable: true })
-  deleted: Status;
-
-  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
-  @Field({ nullable: true })
-  created_on: Date;
+  returned: Status;
 }

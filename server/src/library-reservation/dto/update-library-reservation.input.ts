@@ -2,7 +2,9 @@ import { CreateLibraryReservationInput } from './create-library-reservation.inpu
 import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
 
 @InputType()
-export class UpdateLibraryReservationInput extends PartialType(CreateLibraryReservationInput) {
+export class UpdateLibraryReservationInput extends PartialType(
+  CreateLibraryReservationInput,
+) {
   @Field(() => Int)
   id: number;
 }

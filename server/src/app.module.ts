@@ -11,6 +11,7 @@ import { LocationModule } from './location/location.module';
 import { MediaRentModule } from './media-rent/media-rent.module';
 import { MediaTypesModule } from './media-types/media-types.module';
 import { MediaModule } from './media/media.module';
+import { LibraryRentModule } from './library-rent/library-rent.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { MediaModule } from './media/media.module';
     MediaModule,
     MediaTypesModule,
     MediaRentModule,
+    LibraryRentModule,
   ],
   controllers: [AppController],
   providers: [AppService],

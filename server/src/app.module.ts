@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { LibraryReservationModule } from './library-reservation/library-reservation.module';
 import { LibraryTypesModule } from './library-types/library-types.module';
 import { LibraryModule } from './library/library.module';
 import { LocationModule } from './location/location.module';
@@ -27,6 +28,7 @@ import { MediaModule } from './media/media.module';
       autoSchemaFile: join(process.cwd(), 'src/graphql-schema.gql'),
     }),
     LibraryModule,
+    LibraryReservationModule,
     LibraryTypesModule,
     LocationModule,
     MediaModule,

@@ -1,5 +1,12 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { ProfilesGroupsRights } from 'src/profiles-groups-rights/entities/profiles-groups-rights.entity';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @ObjectType()
 @Entity()
@@ -11,4 +18,15 @@ export class ProfilesGroups {
   @Column({ nullable: true })
   @Field(() => String, { nullable: true })
   name: string;
+
+  @OneToMany(
+    () => ProfilesGroupsRights,
+    (profilesGroupsRights) => profilesGroupsRights.group,
+    {
+      cascade: ['insert', 'update', 'remove'],
+    },
+  )
+  @JoinColumn()
+  @Field(() => [ProfilesGroupsRights])
+  role: ProfilesGroupsRights[];
 }

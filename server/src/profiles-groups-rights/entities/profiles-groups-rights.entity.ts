@@ -1,6 +1,14 @@
 import { ObjectType, Field } from '@nestjs/graphql';
+import { ProfilesGroups } from 'src/profiles-groups/entities/profiles-groups.entity';
+import { Profiles } from 'src/profiles/entities/profiles.entity';
 
-import { CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @ObjectType()
 @Entity()
@@ -8,6 +16,24 @@ export class ProfilesGroupsRights {
   @PrimaryGeneratedColumn('increment')
   @Field()
   id: number;
+
+  @ManyToOne(() => Profiles, (profiles) => profiles.role, { eager: true })
+  @JoinColumn({
+    name: 'profile_id',
+    referencedColumnName: 'id',
+  })
+  @Field(() => Profiles)
+  profile: Profiles;
+
+  @ManyToOne(() => ProfilesGroups, (profilesGroups) => profilesGroups.role, {
+    eager: true,
+  })
+  @JoinColumn({
+    name: 'group_id',
+    referencedColumnName: 'id',
+  })
+  @Field(() => ProfilesGroups)
+  group: ProfilesGroups;
 
   @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP' })
   @Field({ nullable: true })

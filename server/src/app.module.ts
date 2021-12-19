@@ -15,6 +15,9 @@ import { LibraryRentModule } from './library-rent/library-rent.module';
 import { MediaFixedReservationsModule } from './media-fixed-reservations/media-fixed-reservations.module';
 import { MediaFixedReservationsExceptionsModule } from './media-fixed-reservations-exceptions/media-fixed-reservations-exceptions.module';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
+import { ProfilesModule } from './profiles/profiles.module';
+import { ProfilesGroupsModule } from './profiles-groups/profiles-groups.module';
+import { ProfilesGroupsRightsModule } from './profiles-groups-rights/profiles-groups-rights.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -41,6 +44,9 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
     LibraryRentModule,
     MediaFixedReservationsModule,
     MediaFixedReservationsExceptionsModule,
+    ProfilesModule,
+    ProfilesGroupsModule,
+    ProfilesGroupsRightsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

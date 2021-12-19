@@ -143,6 +143,7 @@ type Query {
   location(id: Int!): Location!
   getAllMedia: [Media!]!
   getMostCommonlyMedia: [MostPopularMedia!]!
+  getMediaById(id: Int!): Media!
   mediaTypes: [MediaTypes!]!
   mediaRent(id: Int!): MediaRent!
   libraryRent(id: Int!): LibraryRent!

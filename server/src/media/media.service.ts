@@ -31,9 +31,12 @@ export class MediaService {
     );
   }
 
-  // findOne(id: number) {
-  //   return `This action returns a #${id} media`;
-  // }
+  findOne(id: number) {
+    return this.mediaRepository.findOne({
+      relations: ['type', 'location', 'fixedReservation', 'rent'],
+      where: { id: id },
+    });
+  }
 
   // update(id: number, updateMediaInput: UpdateMediaInput) {
   //   return `This action updates a #${id} media`;

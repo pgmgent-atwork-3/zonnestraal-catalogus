@@ -9,7 +9,9 @@ describe('ProfilesGroupsRightsService', () => {
       providers: [ProfilesGroupsRightsService],
     }).compile();
 
-    service = module.get<ProfilesGroupsRightsService>(ProfilesGroupsRightsService);
+    service = module.get<ProfilesGroupsRightsService>(
+      ProfilesGroupsRightsService,
+    );
   });
 
   it('should be defined', () => {

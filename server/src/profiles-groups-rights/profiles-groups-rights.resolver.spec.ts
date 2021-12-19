@@ -10,7 +10,9 @@ describe('ProfilesGroupsRightsResolver', () => {
       providers: [ProfilesGroupsRightsResolver, ProfilesGroupsRightsService],
     }).compile();
 
-    resolver = module.get<ProfilesGroupsRightsResolver>(ProfilesGroupsRightsResolver);
+    resolver = module.get<ProfilesGroupsRightsResolver>(
+      ProfilesGroupsRightsResolver,
+    );
   });
 
   it('should be defined', () => {

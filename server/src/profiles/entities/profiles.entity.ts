@@ -1,8 +1,11 @@
 import { ObjectType, Field } from '@nestjs/graphql';
+import { ProfilesGroupsRights } from 'src/profiles-groups-rights/entities/profiles-groups-rights.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -52,4 +55,15 @@ export class Profiles {
   @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP' })
   @Field({ nullable: true })
   last_login: Date;
+
+  @OneToMany(
+    () => ProfilesGroupsRights,
+    (profilesGroupsRights) => profilesGroupsRights.profile,
+    {
+      cascade: ['insert', 'update', 'remove'],
+    },
+  )
+  @JoinColumn()
+  @Field(() => [ProfilesGroupsRights])
+  role: ProfilesGroupsRights[];
 }

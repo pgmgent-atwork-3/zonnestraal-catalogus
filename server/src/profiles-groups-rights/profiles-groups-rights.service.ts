@@ -16,7 +16,10 @@ export class ProfilesGroupsRightsService {
     return `This action returns a #${id} profilesGroupsRight`;
   }
 
-  update(id: number, updateProfilesGroupsRightInput: UpdateProfilesGroupsRightInput) {
+  update(
+    id: number,
+    updateProfilesGroupsRightInput: UpdateProfilesGroupsRightInput,
+  ) {
     return `This action updates a #${id} profilesGroupsRight`;
   }
 

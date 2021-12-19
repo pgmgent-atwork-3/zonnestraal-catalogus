@@ -14,7 +14,6 @@ import { MediaModule } from './media/media.module';
 import { LibraryRentModule } from './library-rent/library-rent.module';
 import { MediaFixedReservationsModule } from './media-fixed-reservations/media-fixed-reservations.module';
 import { MediaFixedReservationsExceptionsModule } from './media-fixed-reservations-exceptions/media-fixed-reservations-exceptions.module';
-import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { ProfilesModule } from './profiles/profiles.module';
 import { ProfilesGroupsModule } from './profiles-groups/profiles-groups.module';
 import { ProfilesGroupsRightsModule } from './profiles-groups-rights/profiles-groups-rights.module';
@@ -28,19 +27,12 @@ import { DatabaseConfig } from './database.config';
       load: [config],
     }),
     TypeOrmModule.forRootAsync({
-      // type: 'mysql',
-      // host: 'localhost',
-      // port: 3306,
-      // username: 'root',
-      // password: 'root',
-      // database: 'zonnestr',
-      // entities: ['dist/**/*.entity{.ts,.js}', __dirname + '/entities/**/*.js'],
-      // synchronize: false,
       imports: [ConfigModule],
       useClass: DatabaseConfig,
     }),
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/graphql-schema.gql'),
+      context: ({ req }) => ({ headers: req.headers }),
     }),
     LibraryModule,
     LibraryReservationModule,

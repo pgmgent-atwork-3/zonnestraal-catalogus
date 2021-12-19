@@ -1,4 +1,4 @@
-import { InputType, Field } from '@nestjs/graphql';
+import { Field, InputType } from '@nestjs/graphql';
 import {
   IsEmail,
   IsNotEmpty,
@@ -6,17 +6,8 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { Column } from 'typeorm';
-
-export enum Status {
-  ACTIVE = 'active',
-  INACTIVE = 'inactive',
-  DELETED = 'deleted',
-  BLOCKED = 'blocked',
-}
-
 @InputType()
-export class CreateProfileInput {
+export class LoginInput {
   @IsNotEmpty()
   @IsEmail()
   @Field()

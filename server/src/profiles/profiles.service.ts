@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { CreateProfileInput } from './dto/create-profile.input';
 import { UpdateProfileInput } from './dto/update-profile.input';
 import { Profiles } from './entities/profiles.entity';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class ProfilesService {
@@ -11,13 +12,19 @@ export class ProfilesService {
     @InjectRepository(Profiles)
     private profileRepository: Repository<Profiles>,
   ) {}
-  // async create(createProfileInput: CreateProfileInput): Promise<Profiles> {
-  //   const profile = this.profileRepository.create(createProfileInput);
-  //   return this.profileRepository.save(profile);
-  // }
+  async create(createProfileInput: CreateProfileInput): Promise<Profiles> {
+    const profile = this.profileRepository.create(createProfileInput);
+    const salt = await bcrypt.genSalt();
+    profile.password = await bcrypt.hash(createProfileInput.password, salt);
+    return this.profileRepository.save(profile);
+  }
 
   findAll(): Promise<Profiles[]> {
     return this.profileRepository.find({ relations: ['role', 'rent'] });
+  }
+
+  findOneByEmail(email: string) {
+    return this.profileRepository.findOne({ where: { email: email } });
   }
 
   // findOne(id: number) {

@@ -169,6 +169,11 @@ type MostPopularMedia {
   total: Float!
 }
 
+type SignInResponse {
+  id: String!
+  access_token: String!
+}
+
 type Query {
   getAllLibraries: [Library!]!
   getNewLibraries: [Library!]!
@@ -197,6 +202,8 @@ type Mutation {
   createLibraryRent(createLibraryRentInput: CreateLibraryRentInput!): LibraryRent!
   updateLibraryRent(updateLibraryRentInput: UpdateLibraryRentInput!): LibraryRent!
   removeLibraryRent(id: Int!): LibraryRent!
+  createUser(createProfileInput: CreateProfileInput!): Profiles!
+  login(password: String!, email: String!): SignInResponse!
 }
 
 input CreateLibraryReservationInput {
@@ -241,4 +248,9 @@ input UpdateLibraryRentInput {
   """Example field (placeholder)"""
   exampleField: Int
   id: Int!
+}
+
+input CreateProfileInput {
+  email: String!
+  password: String!
 }

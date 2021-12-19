@@ -1,4 +1,8 @@
 import { ObjectType, Field } from '@nestjs/graphql';
+import { LibraryRent } from 'src/library-rent/entities/library-rent.entity';
+import { LibraryReservation } from 'src/library-reservation/entities/library-reservation.entity';
+import { MediaFixedReservations } from 'src/media-fixed-reservations/entities/media-fixed-reservations.entity';
+import { MediaRent } from 'src/media-rent/entities/media-rent.entity';
 import { ProfilesGroupsRights } from 'src/profiles-groups-rights/entities/profiles-groups-rights.entity';
 import {
   Column,
@@ -66,4 +70,40 @@ export class Profiles {
   @JoinColumn()
   @Field(() => [ProfilesGroupsRights])
   role: ProfilesGroupsRights[];
+
+  @OneToMany(() => MediaRent, (mediaRent) => mediaRent.profile, {
+    cascade: ['insert', 'update', 'remove'],
+  })
+  @JoinColumn()
+  @Field(() => [MediaRent])
+  mediaRent: MediaRent[];
+
+  @OneToMany(
+    () => MediaFixedReservations,
+    (mediaFixedReservations) => mediaFixedReservations.profile,
+    {
+      cascade: ['insert', 'update', 'remove'],
+    },
+  )
+  @JoinColumn()
+  @Field(() => [MediaFixedReservations])
+  mediaFixedReservation: MediaFixedReservations[];
+
+  @OneToMany(() => LibraryRent, (libraryRent) => libraryRent.profile, {
+    cascade: ['insert', 'update', 'remove'],
+  })
+  @JoinColumn()
+  @Field(() => [LibraryRent])
+  libraryRent: LibraryRent[];
+
+  @OneToMany(
+    () => LibraryReservation,
+    (libraryReservation) => libraryReservation.profile,
+    {
+      cascade: ['insert', 'update', 'remove'],
+    },
+  )
+  @JoinColumn()
+  @Field(() => [LibraryReservation])
+  libraryReservation: LibraryReservation[];
 }

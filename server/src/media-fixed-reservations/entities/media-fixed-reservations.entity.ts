@@ -1,6 +1,7 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { MediaFixedReservationsExceptions } from 'src/media-fixed-reservations-exceptions/entities/media-fixed-reservations-exceptions.entity';
 import { Media } from 'src/media/entities/media.entity';
+import { Profiles } from 'src/profiles/entities/profiles.entity';
 
 import {
   Column,
@@ -86,4 +87,15 @@ export class MediaFixedReservations {
   )
   @Field(() => [MediaFixedReservationsExceptions], { nullable: true })
   excepions: MediaFixedReservationsExceptions[];
+
+  @ManyToOne(() => Profiles, (profiles) => profiles.mediaFixedReservation, {
+    eager: true,
+    nullable: true,
+  })
+  @JoinColumn({
+    name: 'profile_id',
+    referencedColumnName: 'id',
+  })
+  @Field(() => Profiles, { nullable: true })
+  profile: Profiles;
 }

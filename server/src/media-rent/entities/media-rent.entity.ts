@@ -1,5 +1,6 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Media } from 'src/media/entities/media.entity';
+import { Profiles } from 'src/profiles/entities/profiles.entity';
 import {
   Column,
   CreateDateColumn,
@@ -51,4 +52,14 @@ export class MediaRent {
   })
   @Field(() => Media)
   media: Media;
+
+  @ManyToOne(() => Profiles, (profiles) => profiles.mediaRent, {
+    eager: true,
+  })
+  @JoinColumn({
+    name: 'profile_id',
+    referencedColumnName: 'id',
+  })
+  @Field(() => Profiles)
+  profile: Profiles;
 }

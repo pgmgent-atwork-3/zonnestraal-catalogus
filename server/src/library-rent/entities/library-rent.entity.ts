@@ -1,5 +1,6 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Library } from 'src/library/entities/library.entity';
+import { Profiles } from 'src/profiles/entities/profiles.entity';
 import {
   Column,
   CreateDateColumn,
@@ -51,4 +52,14 @@ export class LibraryRent {
   })
   @Field({ nullable: true })
   returned: Status;
+
+  @ManyToOne(() => Profiles, (profiles) => profiles.libraryRent, {
+    eager: true,
+  })
+  @JoinColumn({
+    name: 'profile_id',
+    referencedColumnName: 'id',
+  })
+  @Field(() => Profiles)
+  profile: Profiles;
 }

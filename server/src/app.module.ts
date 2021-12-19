@@ -18,18 +18,26 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { ProfilesModule } from './profiles/profiles.module';
 import { ProfilesGroupsModule } from './profiles-groups/profiles-groups.module';
 import { ProfilesGroupsRightsModule } from './profiles-groups-rights/profiles-groups-rights.module';
+import { ConfigModule } from '@nestjs/config';
+import { config } from './config';
+import { DatabaseConfig } from './database.config';
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'root',
-      database: 'zonnestr',
-      entities: ['dist/**/*.entity{.ts,.js}', __dirname + '/entities/**/*.js'],
-      synchronize: false,
-      namingStrategy: new SnakeNamingStrategy(),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [config],
+    }),
+    TypeOrmModule.forRootAsync({
+      // type: 'mysql',
+      // host: 'localhost',
+      // port: 3306,
+      // username: 'root',
+      // password: 'root',
+      // database: 'zonnestr',
+      // entities: ['dist/**/*.entity{.ts,.js}', __dirname + '/entities/**/*.js'],
+      // synchronize: false,
+      imports: [ConfigModule],
+      useClass: DatabaseConfig,
     }),
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/graphql-schema.gql'),

@@ -22,10 +22,10 @@ export class LibraryResolver {
     return this.libraryService.find();
   }
 
-  // @Query(() => Library, { name: 'library' })
-  // findOne(@Args('id', { type: () => Int }) id: number) {
-  //   return this.libraryService.findOne(id);
-  // }
+  @Query(() => Library, { name: 'getLibraryById' })
+  findOne(@Args('id', { type: () => Int }) id: number) {
+    return this.libraryService.findOne(id);
+  }
 
   // @Mutation(() => Library)
   // updateLibrary(@Args('updateLibraryInput') updateLibraryInput: UpdateLibraryInput) {

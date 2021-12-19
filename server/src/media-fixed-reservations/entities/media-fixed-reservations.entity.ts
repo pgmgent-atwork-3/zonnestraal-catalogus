@@ -41,21 +41,31 @@ export class MediaFixedReservations {
   @Field(() => String, { nullable: true })
   name: string;
 
-  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
+  @CreateDateColumn({
+    nullable: true,
+  })
   @Field({ nullable: true })
   from: Date;
 
-  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
+  @CreateDateColumn({ nullable: true })
   @Field({ nullable: true })
   till: Date;
 
-  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
-  @Field({ nullable: true })
-  start: Date;
+  // @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
+  // @Field({ nullable: true })
+  // start: Date;
 
-  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
+  @Column({ nullable: true })
   @Field({ nullable: true })
-  end: Date;
+  start: string;
+
+  // @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
+  // @Field({ nullable: true })
+  // end: Date;
+
+  @Column({ nullable: true })
+  @Field({ nullable: true })
+  end: string;
 
   @Column({
     type: 'enum',

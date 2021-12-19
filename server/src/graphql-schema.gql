@@ -58,8 +58,8 @@ type MediaFixedReservations {
   name: String
   from: DateTime
   till: DateTime
-  start: DateTime
-  end: DateTime
+  start: String
+  end: String
   frequency: String
   created_on: DateTime
   excepions: [MediaFixedReservationsExceptions!]
@@ -138,6 +138,7 @@ type MostPopularMedia {
 type Query {
   getAllLibraries: [Library!]!
   getNewLibraries: [Library!]!
+  getLibraryById(id: Int!): Library!
   libraryReservation(id: Int!): LibraryReservation!
   location(id: Int!): Location!
   getAllMedia: [Media!]!

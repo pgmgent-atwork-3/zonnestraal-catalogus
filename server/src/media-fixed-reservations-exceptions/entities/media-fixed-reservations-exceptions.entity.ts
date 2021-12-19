@@ -1,6 +1,12 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { MediaFixedReservations } from 'src/media-fixed-reservations/entities/media-fixed-reservations.entity';
-import { CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @ObjectType()
 @Entity()

@@ -31,9 +31,12 @@ export class LibraryService {
     });
   }
 
-  // findOne(id: number) {
-  //   return `This action returns a #${id} library`;
-  // }
+  findOne(id: number) {
+    return this.libraryRepository.findOne({
+      relations: ['type', 'location', 'rent', 'reservation'],
+      where: { id: id },
+    });
+  }
 
   // update(id: number, updateLibraryInput: UpdateLibraryInput) {
   //   return `This action updates a #${id} library`;

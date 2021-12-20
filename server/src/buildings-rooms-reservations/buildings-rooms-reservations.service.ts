@@ -4,7 +4,9 @@ import { UpdateBuildingsRoomsReservationInput } from './dto/update-buildings-roo
 
 @Injectable()
 export class BuildingsRoomsReservationsService {
-  create(createBuildingsRoomsReservationInput: CreateBuildingsRoomsReservationInput) {
+  create(
+    createBuildingsRoomsReservationInput: CreateBuildingsRoomsReservationInput,
+  ) {
     return 'This action adds a new buildingsRoomsReservation';
   }
 
@@ -16,7 +18,10 @@ export class BuildingsRoomsReservationsService {
     return `This action returns a #${id} buildingsRoomsReservation`;
   }
 
-  update(id: number, updateBuildingsRoomsReservationInput: UpdateBuildingsRoomsReservationInput) {
+  update(
+    id: number,
+    updateBuildingsRoomsReservationInput: UpdateBuildingsRoomsReservationInput,
+  ) {
     return `This action updates a #${id} buildingsRoomsReservation`;
   }
 

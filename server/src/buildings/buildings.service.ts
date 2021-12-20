@@ -1,15 +1,22 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateBuildingInput } from './dto/create-building.input';
 import { UpdateBuildingInput } from './dto/update-building.input';
+import { Buildings } from './entities/buildings.entity';
 
 @Injectable()
 export class BuildingsService {
+  constructor(
+    @InjectRepository(Buildings)
+    private buildingsRepository: Repository<Buildings>,
+  ) {}
   create(createBuildingInput: CreateBuildingInput) {
     return 'This action adds a new building';
   }
 
-  findAll() {
-    return `This action returns all buildings`;
+  findAll(): Promise<Buildings[]> {
+    return this.buildingsRepository.find();
   }
 
   findOne(id: number) {

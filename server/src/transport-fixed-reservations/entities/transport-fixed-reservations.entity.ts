@@ -89,7 +89,7 @@ export class TransportFixedReservations {
   @OneToMany(
     () => TransportFixedReservationsExceptions,
     (transportFixedReservationsExceptions) =>
-      transportFixedReservationsExceptions.fixed_reservations,
+      transportFixedReservationsExceptions.fixedReservations,
   )
   @Field(() => [TransportFixedReservationsExceptions], { nullable: true })
   excepions: TransportFixedReservationsExceptions[];

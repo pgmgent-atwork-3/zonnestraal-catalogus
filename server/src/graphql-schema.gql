@@ -155,7 +155,7 @@ type ProfilesGroupsRights {
 
 type TransportFixedReservationsExceptions {
   id: Float!
-  fixed_reservations: TransportFixedReservations!
+  fixedReservations: TransportFixedReservations!
   date: DateTime
   created_on: DateTime
 }
@@ -212,7 +212,7 @@ type Profiles {
   url: String
   registered_on: DateTime
   last_login: DateTime
-  role: [ProfilesGroupsRights!]!
+  role: [ProfilesGroupsRights!]
   mediaRent: [MediaRent!]!
   mediaFixedReservation: [MediaFixedReservations!]!
   libraryRent: [LibraryRent!]!
@@ -306,6 +306,7 @@ type Query {
   buildingsFixedReservation(id: Int!): BuildingsFixedReservations!
   buildingsFixedReservationsExceptions: [BuildingsFixedReservationsExceptions!]!
   buildingsFixedReservationsException(id: Int!): BuildingsFixedReservationsExceptions!
+  getAllCars: [Transport!]!
   transport(id: Int!): Transport!
   transportReservations: [TransportReservations!]!
   transportReservation(id: Int!): TransportReservations!

@@ -15,7 +15,7 @@ export class TransportResolver {
     return this.transportService.create(createTransportInput);
   }
 
-  @Query(() => [Transport], { name: 'transport' })
+  @Query(() => [Transport], { name: 'getAllCars' })
   findAll() {
     return this.transportService.findAll();
   }

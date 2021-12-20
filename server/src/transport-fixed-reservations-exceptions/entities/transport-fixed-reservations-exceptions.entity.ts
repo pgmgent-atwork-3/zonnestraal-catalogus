@@ -27,7 +27,7 @@ export class TransportFixedReservationsExceptions {
     referencedColumnName: 'id',
   })
   @Field(() => TransportFixedReservations)
-  fixed_reservations: TransportFixedReservations;
+  fixedReservations: TransportFixedReservations;
 
   @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
   @Field({ nullable: true })

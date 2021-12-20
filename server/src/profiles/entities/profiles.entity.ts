@@ -69,10 +69,11 @@ export class Profiles {
     (profilesGroupsRights) => profilesGroupsRights.profile,
     {
       cascade: ['insert', 'update', 'remove'],
+      nullable: true,
     },
   )
   @JoinColumn()
-  @Field(() => [ProfilesGroupsRights])
+  @Field(() => [ProfilesGroupsRights], { nullable: true })
   role: ProfilesGroupsRights[];
 
   @OneToMany(() => MediaRent, (mediaRent) => mediaRent.profile, {

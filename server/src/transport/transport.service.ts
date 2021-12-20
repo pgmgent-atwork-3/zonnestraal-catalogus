@@ -1,15 +1,24 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateTransportInput } from './dto/create-transport.input';
 import { UpdateTransportInput } from './dto/update-transport.input';
+import { Transport } from './entities/transport.entity';
 
 @Injectable()
 export class TransportService {
+  constructor(
+    @InjectRepository(Transport)
+    private transportRepository: Repository<Transport>,
+  ) {}
   create(createTransportInput: CreateTransportInput) {
     return 'This action adds a new transport';
   }
 
-  findAll() {
-    return `This action returns all transport`;
+  findAll(): Promise<Transport[]> {
+    return this.transportRepository.find({
+      relations: ['reservation', 'fixedReservation'],
+    });
   }
 
   findOne(id: number) {

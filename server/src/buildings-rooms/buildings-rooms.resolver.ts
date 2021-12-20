@@ -9,7 +9,10 @@ export class BuildingsRoomsResolver {
   constructor(private readonly buildingsRoomsService: BuildingsRoomsService) {}
 
   @Mutation(() => BuildingsRooms)
-  createBuildingsRoom(@Args('createBuildingsRoomInput') createBuildingsRoomInput: CreateBuildingsRoomInput) {
+  createBuildingsRoom(
+    @Args('createBuildingsRoomInput')
+    createBuildingsRoomInput: CreateBuildingsRoomInput,
+  ) {
     return this.buildingsRoomsService.create(createBuildingsRoomInput);
   }
 
@@ -24,8 +27,14 @@ export class BuildingsRoomsResolver {
   }
 
   @Mutation(() => BuildingsRooms)
-  updateBuildingsRoom(@Args('updateBuildingsRoomInput') updateBuildingsRoomInput: UpdateBuildingsRoomInput) {
-    return this.buildingsRoomsService.update(updateBuildingsRoomInput.id, updateBuildingsRoomInput);
+  updateBuildingsRoom(
+    @Args('updateBuildingsRoomInput')
+    updateBuildingsRoomInput: UpdateBuildingsRoomInput,
+  ) {
+    return this.buildingsRoomsService.update(
+      updateBuildingsRoomInput.id,
+      updateBuildingsRoomInput,
+    );
   }
 
   @Mutation(() => BuildingsRooms)

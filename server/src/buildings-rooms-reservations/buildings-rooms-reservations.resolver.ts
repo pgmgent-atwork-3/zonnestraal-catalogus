@@ -6,26 +6,43 @@ import { UpdateBuildingsRoomsReservationInput } from './dto/update-buildings-roo
 
 @Resolver(() => BuildingsRoomsReservations)
 export class BuildingsRoomsReservationsResolver {
-  constructor(private readonly buildingsRoomsReservationsService: BuildingsRoomsReservationsService) {}
+  constructor(
+    private readonly buildingsRoomsReservationsService: BuildingsRoomsReservationsService,
+  ) {}
 
   @Mutation(() => BuildingsRoomsReservations)
-  createBuildingsRoomsReservation(@Args('createBuildingsRoomsReservationInput') createBuildingsRoomsReservationInput: CreateBuildingsRoomsReservationInput) {
-    return this.buildingsRoomsReservationsService.create(createBuildingsRoomsReservationInput);
+  createBuildingsRoomsReservation(
+    @Args('createBuildingsRoomsReservationInput')
+    createBuildingsRoomsReservationInput: CreateBuildingsRoomsReservationInput,
+  ) {
+    return this.buildingsRoomsReservationsService.create(
+      createBuildingsRoomsReservationInput,
+    );
   }
 
-  @Query(() => [BuildingsRoomsReservations], { name: 'buildingsRoomsReservations' })
+  @Query(() => [BuildingsRoomsReservations], {
+    name: 'buildingsRoomsReservations',
+  })
   findAll() {
     return this.buildingsRoomsReservationsService.findAll();
   }
 
-  @Query(() => BuildingsRoomsReservations, { name: 'buildingsRoomsReservation' })
+  @Query(() => BuildingsRoomsReservations, {
+    name: 'buildingsRoomsReservation',
+  })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.buildingsRoomsReservationsService.findOne(id);
   }
 
   @Mutation(() => BuildingsRoomsReservations)
-  updateBuildingsRoomsReservation(@Args('updateBuildingsRoomsReservationInput') updateBuildingsRoomsReservationInput: UpdateBuildingsRoomsReservationInput) {
-    return this.buildingsRoomsReservationsService.update(updateBuildingsRoomsReservationInput.id, updateBuildingsRoomsReservationInput);
+  updateBuildingsRoomsReservation(
+    @Args('updateBuildingsRoomsReservationInput')
+    updateBuildingsRoomsReservationInput: UpdateBuildingsRoomsReservationInput,
+  ) {
+    return this.buildingsRoomsReservationsService.update(
+      updateBuildingsRoomsReservationInput.id,
+      updateBuildingsRoomsReservationInput,
+    );
   }
 
   @Mutation(() => BuildingsRoomsReservations)

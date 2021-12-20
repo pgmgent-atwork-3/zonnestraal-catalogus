@@ -16,7 +16,7 @@ export class BuildingsRoomsResolver {
     return this.buildingsRoomsService.create(createBuildingsRoomInput);
   }
 
-  @Query(() => [BuildingsRooms], { name: 'buildingsRooms' })
+  @Query(() => [BuildingsRooms], { name: 'getAllbuildingsRooms' })
   findAll() {
     return this.buildingsRoomsService.findAll();
   }

@@ -4,7 +4,9 @@ import { UpdateTransportFixedReservationsExceptionInput } from './dto/update-tra
 
 @Injectable()
 export class TransportFixedReservationsExceptionsService {
-  create(createTransportFixedReservationsExceptionInput: CreateTransportFixedReservationsExceptionInput) {
+  create(
+    createTransportFixedReservationsExceptionInput: CreateTransportFixedReservationsExceptionInput,
+  ) {
     return 'This action adds a new transportFixedReservationsException';
   }
 
@@ -16,7 +18,10 @@ export class TransportFixedReservationsExceptionsService {
     return `This action returns a #${id} transportFixedReservationsException`;
   }
 
-  update(id: number, updateTransportFixedReservationsExceptionInput: UpdateTransportFixedReservationsExceptionInput) {
+  update(
+    id: number,
+    updateTransportFixedReservationsExceptionInput: UpdateTransportFixedReservationsExceptionInput,
+  ) {
     return `This action updates a #${id} transportFixedReservationsException`;
   }
 

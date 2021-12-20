@@ -2,7 +2,9 @@ import { CreateTransportFixedReservationsExceptionInput } from './create-transpo
 import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
 
 @InputType()
-export class UpdateTransportFixedReservationsExceptionInput extends PartialType(CreateTransportFixedReservationsExceptionInput) {
+export class UpdateTransportFixedReservationsExceptionInput extends PartialType(
+  CreateTransportFixedReservationsExceptionInput,
+) {
   @Field(() => Int)
   id: number;
 }

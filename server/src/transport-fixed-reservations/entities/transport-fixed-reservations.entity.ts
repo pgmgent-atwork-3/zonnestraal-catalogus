@@ -1,5 +1,6 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Profiles } from 'src/profiles/entities/profiles.entity';
+import { TransportFixedReservationsExceptions } from 'src/transport-fixed-reservations-exceptions/entities/transport-fixed-reservations-exceptions.entity';
 import { Transport } from 'src/transport/entities/transport.entity';
 import {
   Column,
@@ -7,6 +8,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -83,4 +85,12 @@ export class TransportFixedReservations {
   @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
   @Field({ nullable: true })
   created_on: Date;
+
+  @OneToMany(
+    () => TransportFixedReservationsExceptions,
+    (transportFixedReservationsExceptions) =>
+      transportFixedReservationsExceptions.fixed_reservations,
+  )
+  @Field(() => [TransportFixedReservationsExceptions], { nullable: true })
+  excepions: TransportFixedReservationsExceptions[];
 }

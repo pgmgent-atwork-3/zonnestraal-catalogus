@@ -6,6 +6,7 @@ import { LibraryReservation } from 'src/library-reservation/entities/library-res
 import { MediaFixedReservations } from 'src/media-fixed-reservations/entities/media-fixed-reservations.entity';
 import { MediaRent } from 'src/media-rent/entities/media-rent.entity';
 import { ProfilesGroupsRights } from 'src/profiles-groups-rights/entities/profiles-groups-rights.entity';
+import { TransportFixedReservations } from 'src/transport-fixed-reservations/entities/transport-fixed-reservations.entity';
 import { TransportReservations } from 'src/transport-reservations/entities/transport-reservations.entity';
 import {
   Column,
@@ -142,4 +143,15 @@ export class Profiles {
   @JoinColumn()
   @Field(() => [TransportReservations])
   transportReservation: TransportReservations[];
+
+  @OneToMany(
+    () => TransportFixedReservations,
+    (transportFixedReservations) => transportFixedReservations.profile,
+    {
+      cascade: ['insert', 'update', 'remove'],
+    },
+  )
+  @JoinColumn()
+  @Field(() => [TransportFixedReservations])
+  transportFixedReservations: TransportFixedReservations[];
 }

@@ -1,4 +1,5 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { TransportFixedReservations } from 'src/transport-fixed-reservations/entities/transport-fixed-reservations.entity';
 import { TransportReservations } from 'src/transport-reservations/entities/transport-reservations.entity';
 import {
   Column,
@@ -88,4 +89,15 @@ export class Transport {
   @JoinColumn()
   @Field(() => [TransportReservations])
   reservation: TransportReservations[];
+
+  @OneToMany(
+    () => TransportFixedReservations,
+    (transportFixedReservations) => transportFixedReservations.transport,
+    {
+      cascade: ['insert', 'update', 'remove'],
+    },
+  )
+  @JoinColumn()
+  @Field(() => [TransportFixedReservations])
+  fixedReservation: TransportFixedReservations[];
 }

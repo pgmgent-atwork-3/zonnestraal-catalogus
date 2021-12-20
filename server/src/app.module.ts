@@ -20,6 +20,7 @@ import { ProfilesGroupsRightsModule } from './profiles-groups-rights/profiles-gr
 import { ConfigModule } from '@nestjs/config';
 import { config } from './config';
 import { DatabaseConfig } from './database.config';
+import { BuildingsModule } from './buildings/buildings.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -47,6 +48,7 @@ import { DatabaseConfig } from './database.config';
     ProfilesModule,
     ProfilesGroupsModule,
     ProfilesGroupsRightsModule,
+    BuildingsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

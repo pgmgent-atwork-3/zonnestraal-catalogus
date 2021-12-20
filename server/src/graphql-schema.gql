@@ -2,6 +2,18 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type MediaFixedReservationsExceptions {
+  id: Float!
+  fixed_reservations: MediaFixedReservations!
+  date: DateTime
+  created_on: DateTime
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type MediaTypes {
   id: Float!
   title: String
@@ -10,25 +22,6 @@ type MediaTypes {
   language: String
   meta_id: Int
   media: [Media!]!
-}
-
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
-type Media {
-  id: Float!
-  title: String
-  description: String
-  location: Location!
-  created_on: DateTime
-  edited_on: DateTime
-  hidden: String
-  type: MediaTypes!
-  show_home: String
-  language: String
-  meta_id: Int
 }
 
 type Location {
@@ -50,6 +43,96 @@ type Location {
   library: [Library!]!
 }
 
+type MediaRent {
+  id: Float!
+  name: String
+  rent_from: DateTime
+  rent_till: DateTime
+  returned: String
+  media: Media!
+  profile: Profiles!
+}
+
+type Media {
+  id: Float!
+  title: String
+  description: String
+  location: Location!
+  created_on: DateTime
+  edited_on: DateTime
+  hidden: String
+  type: MediaTypes!
+  show_home: String
+  language: String
+  meta_id: Int
+  rent: [MediaRent!]
+  fixedReservation: [MediaFixedReservations!]!
+}
+
+type MediaFixedReservations {
+  id: Float!
+  media: Media
+  name: String
+  from: DateTime
+  till: DateTime
+  start: String
+  end: String
+  frequency: String
+  created_on: DateTime
+  excepions: [MediaFixedReservationsExceptions!]
+  profile: Profiles
+}
+
+type ProfilesGroups {
+  id: Float!
+  name: String
+  role: [ProfilesGroupsRights!]!
+}
+
+type ProfilesGroupsRights {
+  id: Float!
+  profile: Profiles!
+  group: ProfilesGroups!
+  starts_on: DateTime
+  expires_on: DateTime
+}
+
+type Profiles {
+  id: Float!
+  email: String!
+  password: String!
+  status: String!
+  display_name: String
+  url: String
+  registered_on: DateTime
+  last_login: DateTime
+  role: [ProfilesGroupsRights!]!
+  mediaRent: [MediaRent!]!
+  mediaFixedReservation: [MediaFixedReservations!]!
+  libraryRent: [LibraryRent!]!
+  libraryReservation: [LibraryReservation!]!
+}
+
+type LibraryRent {
+  id: Float!
+  name: String
+  library: Library!
+  rent_from: DateTime
+  rent_till: DateTime
+  returned: String
+  profile: Profiles!
+}
+
+type LibraryTypes {
+  id: Float!
+  title: String
+  language: String
+  created_on: DateTime
+  meta_id: Int
+  edited_on: DateTime
+  library: [Library!]!
+}
+
 type Library {
   id: Float!
   serial: Int!
@@ -65,30 +148,73 @@ type Library {
   type: LibraryTypes!
   language: String
   meta_id: Int
+  rent: [LibraryRent!]!
+  reservation: [LibraryReservation!]!
 }
 
-type LibraryTypes {
+type LibraryReservation {
+  id: Float!
+  library: Library!
+  name: String
+  deleted: String
+  created_on: DateTime
+  profile: Profiles!
+}
+
+type MostPopularMedia {
   id: Float!
   title: String
-  language: String
-  created_on: DateTime
-  meta_id: Int
-  edited_on: DateTime
-  library: [Library!]!
+  description: String
+  type: String
+  total: Float!
+}
+
+type SignInResponse {
+  id: String!
+  access_token: String!
 }
 
 type Query {
   getAllLibraries: [Library!]!
   getNewLibraries: [Library!]!
+  getLibraryById(id: Int!): Library!
+  libraryReservation(id: Int!): LibraryReservation!
   location(id: Int!): Location!
   getAllMedia: [Media!]!
+  getMostCommonlyMedia: [MostPopularMedia!]!
+  getMediaById(id: Int!): Media!
   mediaTypes: [MediaTypes!]!
+  mediaRent(id: Int!): MediaRent!
+  libraryRent(id: Int!): LibraryRent!
+  getAllUsers: [Profiles!]!
 }
 
 type Mutation {
+  createLibraryReservation(createLibraryReservationInput: CreateLibraryReservationInput!): LibraryReservation!
+  updateLibraryReservation(updateLibraryReservationInput: UpdateLibraryReservationInput!): LibraryReservation!
+  removeLibraryReservation(id: Int!): LibraryReservation!
   createLocation(createLocationInput: CreateLocationInput!): Location!
   updateLocation(updateLocationInput: UpdateLocationInput!): Location!
   removeLocation(id: Int!): Location!
+  createMediaRent(createMediaRentInput: CreateMediaRentInput!): MediaRent!
+  updateMediaRent(updateMediaRentInput: UpdateMediaRentInput!): MediaRent!
+  removeMediaRent(id: Int!): MediaRent!
+  createLibraryRent(createLibraryRentInput: CreateLibraryRentInput!): LibraryRent!
+  updateLibraryRent(updateLibraryRentInput: UpdateLibraryRentInput!): LibraryRent!
+  removeLibraryRent(id: Int!): LibraryRent!
+  createUser(createProfileInput: CreateProfileInput!): Profiles!
+  login(password: String!, email: String!): SignInResponse!
+}
+
+input CreateLibraryReservationInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateLibraryReservationInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
 }
 
 input CreateLocationInput {
@@ -100,4 +226,31 @@ input UpdateLocationInput {
   """Example field (placeholder)"""
   exampleField: Int
   id: Int!
+}
+
+input CreateMediaRentInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateMediaRentInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateLibraryRentInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateLibraryRentInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateProfileInput {
+  email: String!
+  password: String!
 }

@@ -1,4 +1,6 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { LibraryRent } from 'src/library-rent/entities/library-rent.entity';
+import { LibraryReservation } from 'src/library-reservation/entities/library-reservation.entity';
 import { LibraryTypes } from 'src/library-types/entities/library-types.entity';
 import { Location } from 'src/location/entities/location.entity';
 import {
@@ -7,6 +9,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryColumn,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -95,4 +98,22 @@ export class Library {
   @Column({ nullable: true })
   @Field(() => Int, { nullable: true })
   meta_id: number;
+
+  @OneToMany(() => LibraryRent, (libraryRent) => libraryRent.library, {
+    cascade: ['insert', 'update', 'remove'],
+  })
+  @JoinColumn()
+  @Field(() => [LibraryRent])
+  rent: LibraryRent[];
+
+  @OneToMany(
+    () => LibraryReservation,
+    (libraryReservation) => libraryReservation.library,
+    {
+      cascade: ['insert', 'update', 'remove'],
+    },
+  )
+  @JoinColumn()
+  @Field(() => [LibraryReservation])
+  reservation: LibraryReservation[];
 }

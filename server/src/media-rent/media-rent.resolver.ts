@@ -9,7 +9,9 @@ export class MediaRentResolver {
   constructor(private readonly mediaRentService: MediaRentService) {}
 
   @Mutation(() => MediaRent)
-  createMediaRent(@Args('createMediaRentInput') createMediaRentInput: CreateMediaRentInput) {
+  createMediaRent(
+    @Args('createMediaRentInput') createMediaRentInput: CreateMediaRentInput,
+  ) {
     return this.mediaRentService.create(createMediaRentInput);
   }
 
@@ -24,8 +26,13 @@ export class MediaRentResolver {
   }
 
   @Mutation(() => MediaRent)
-  updateMediaRent(@Args('updateMediaRentInput') updateMediaRentInput: UpdateMediaRentInput) {
-    return this.mediaRentService.update(updateMediaRentInput.id, updateMediaRentInput);
+  updateMediaRent(
+    @Args('updateMediaRentInput') updateMediaRentInput: UpdateMediaRentInput,
+  ) {
+    return this.mediaRentService.update(
+      updateMediaRentInput.id,
+      updateMediaRentInput,
+    );
   }
 
   @Mutation(() => MediaRent)

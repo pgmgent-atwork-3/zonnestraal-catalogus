@@ -1,6 +1,7 @@
-import { Resolver, Query } from '@nestjs/graphql';
+import { Resolver, Query, Args, Int } from '@nestjs/graphql';
 import { MediaService } from './media.service';
 import { Media } from './entities/media.entity';
+import { MostPopularMedia } from './entities/most-popular-media';
 
 @Resolver(() => Media)
 export class MediaResolver {
@@ -16,10 +17,15 @@ export class MediaResolver {
     return this.mediaService.findAll();
   }
 
-  // @Query(() => Media, { name: 'media' })
-  // findOne(@Args('id', { type: () => Int }) id: number) {
-  //   return this.mediaService.findOne(id);
-  // }
+  @Query(() => [MostPopularMedia], { name: 'getMostCommonlyMedia' })
+  find() {
+    return this.mediaService.find();
+  }
+
+  @Query(() => Media, { name: 'getMediaById' })
+  findOne(@Args('id', { type: () => Int }) id: number) {
+    return this.mediaService.findOne(id);
+  }
 
   // @Mutation(() => Media)
   // updateMedia(@Args('updateMediaInput') updateMediaInput: UpdateMediaInput) {

@@ -1,8 +1,12 @@
 import { ObjectType, Field } from '@nestjs/graphql';
+import { Media } from 'src/media/entities/media.entity';
+import { Profiles } from 'src/profiles/entities/profiles.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -38,4 +42,24 @@ export class MediaRent {
   })
   @Field({ nullable: true })
   returned: Status;
+
+  @ManyToOne(() => Media, (media) => media.rent, {
+    eager: true,
+  })
+  @JoinColumn({
+    name: 'media_id',
+    referencedColumnName: 'id',
+  })
+  @Field(() => Media)
+  media: Media;
+
+  @ManyToOne(() => Profiles, (profiles) => profiles.mediaRent, {
+    eager: true,
+  })
+  @JoinColumn({
+    name: 'profile_id',
+    referencedColumnName: 'id',
+  })
+  @Field(() => Profiles)
+  profile: Profiles;
 }

@@ -23,6 +23,8 @@ import { DatabaseConfig } from './database.config';
 import { BuildingsModule } from './buildings/buildings.module';
 import { BuildingsRoomsModule } from './buildings-rooms/buildings-rooms.module';
 import { BuildingsRoomsReservationsModule } from './buildings-rooms-reservations/buildings-rooms-reservations.module';
+import { BuildingsFixedReservationsModule } from './buildings-fixed-reservations/buildings-fixed-reservations.module';
+import { BuildingsFixedReservationsExceptionsModule } from './buildings-fixed-reservations-exceptions/buildings-fixed-reservations-exceptions.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -53,6 +55,8 @@ import { BuildingsRoomsReservationsModule } from './buildings-rooms-reservations
     BuildingsModule,
     BuildingsRoomsModule,
     BuildingsRoomsReservationsModule,
+    BuildingsFixedReservationsModule,
+    BuildingsFixedReservationsExceptionsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -108,4 +108,15 @@ export class Media {
   @JoinColumn()
   @Field(() => [MediaFixedReservations])
   fixedReservation: MediaFixedReservations[];
+
+  @OneToMany(
+    () => MediaFixedReservations,
+    (mediaFixedReservations) => mediaFixedReservations.media,
+    {
+      cascade: ['insert', 'update', 'remove'],
+    },
+  )
+  @JoinColumn()
+  @Field(() => [MediaFixedReservations])
+  fixedReservation: MediaFixedReservations[];
 }

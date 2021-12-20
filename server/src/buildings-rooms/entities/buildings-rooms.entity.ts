@@ -1,4 +1,5 @@
 import { ObjectType, Field } from '@nestjs/graphql';
+import { BuildingsFixedReservations } from 'src/buildings-fixed-reservations/entities/buildings-fixed-reservations.entity';
 import { BuildingsRoomsReservations } from 'src/buildings-rooms-reservations/entities/buildings-rooms-reservations.entity';
 import { Buildings } from 'src/buildings/entities/buildings.entity';
 import {
@@ -45,4 +46,15 @@ export class BuildingsRooms {
   @JoinColumn()
   @Field(() => [BuildingsRoomsReservations])
   roomReservation: BuildingsRoomsReservations[];
+
+  @OneToMany(
+    () => BuildingsFixedReservations,
+    (buildingsFixedReservations) => buildingsFixedReservations.room,
+    {
+      cascade: ['insert', 'update', 'remove'],
+    },
+  )
+  @JoinColumn()
+  @Field(() => [BuildingsFixedReservations])
+  fixedReservation: BuildingsFixedReservations[];
 }

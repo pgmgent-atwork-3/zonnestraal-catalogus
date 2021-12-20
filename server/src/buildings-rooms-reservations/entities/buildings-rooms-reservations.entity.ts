@@ -1,8 +1,12 @@
 import { ObjectType, Field } from '@nestjs/graphql';
+import { BuildingsRooms } from 'src/buildings-rooms/entities/buildings-rooms.entity';
+import { Profiles } from 'src/profiles/entities/profiles.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -14,9 +18,33 @@ export class BuildingsRoomsReservations {
   @Field()
   id: number;
 
+  @ManyToOne(
+    () => BuildingsRooms,
+    (buildingsRooms) => buildingsRooms.roomReservation,
+    {
+      eager: true,
+    },
+  )
+  @JoinColumn({
+    name: 'building_room_id',
+    referencedColumnName: 'id',
+  })
+  @Field(() => BuildingsRooms)
+  room: BuildingsRooms;
+
   @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
   @Field({ nullable: true })
   from: Date;
+
+  @ManyToOne(() => Profiles, (profiles) => profiles.roomReservation, {
+    eager: true,
+  })
+  @JoinColumn({
+    name: 'profile_id',
+    referencedColumnName: 'id',
+  })
+  @Field(() => Profiles)
+  profile: Profiles;
 
   @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
   @Field({ nullable: true })

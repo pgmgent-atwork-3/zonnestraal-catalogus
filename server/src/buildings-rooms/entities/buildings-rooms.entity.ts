@@ -1,10 +1,12 @@
 import { ObjectType, Field } from '@nestjs/graphql';
+import { BuildingsRoomsReservations } from 'src/buildings-rooms-reservations/entities/buildings-rooms-reservations.entity';
 import { Buildings } from 'src/buildings/entities/buildings.entity';
 import {
   Column,
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -32,4 +34,15 @@ export class BuildingsRooms {
   @Column({ nullable: true })
   @Field(() => String, { nullable: true })
   color_calendar: string;
+
+  @OneToMany(
+    () => BuildingsRoomsReservations,
+    (buildingsRoomsReservations) => buildingsRoomsReservations.room,
+    {
+      cascade: ['insert', 'update', 'remove'],
+    },
+  )
+  @JoinColumn()
+  @Field(() => [BuildingsRoomsReservations])
+  roomReservation: BuildingsRoomsReservations[];
 }

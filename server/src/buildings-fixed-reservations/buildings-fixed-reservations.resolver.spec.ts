@@ -7,10 +7,15 @@ describe('BuildingsFixedReservationsResolver', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [BuildingsFixedReservationsResolver, BuildingsFixedReservationsService],
+      providers: [
+        BuildingsFixedReservationsResolver,
+        BuildingsFixedReservationsService,
+      ],
     }).compile();
 
-    resolver = module.get<BuildingsFixedReservationsResolver>(BuildingsFixedReservationsResolver);
+    resolver = module.get<BuildingsFixedReservationsResolver>(
+      BuildingsFixedReservationsResolver,
+    );
   });
 
   it('should be defined', () => {

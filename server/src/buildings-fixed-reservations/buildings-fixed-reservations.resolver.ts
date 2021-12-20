@@ -6,26 +6,43 @@ import { UpdateBuildingsFixedReservationInput } from './dto/update-buildings-fix
 
 @Resolver(() => BuildingsFixedReservations)
 export class BuildingsFixedReservationsResolver {
-  constructor(private readonly buildingsFixedReservationsService: BuildingsFixedReservationsService) {}
+  constructor(
+    private readonly buildingsFixedReservationsService: BuildingsFixedReservationsService,
+  ) {}
 
   @Mutation(() => BuildingsFixedReservations)
-  createBuildingsFixedReservation(@Args('createBuildingsFixedReservationInput') createBuildingsFixedReservationInput: CreateBuildingsFixedReservationInput) {
-    return this.buildingsFixedReservationsService.create(createBuildingsFixedReservationInput);
+  createBuildingsFixedReservation(
+    @Args('createBuildingsFixedReservationInput')
+    createBuildingsFixedReservationInput: CreateBuildingsFixedReservationInput,
+  ) {
+    return this.buildingsFixedReservationsService.create(
+      createBuildingsFixedReservationInput,
+    );
   }
 
-  @Query(() => [BuildingsFixedReservations], { name: 'buildingsFixedReservations' })
+  @Query(() => [BuildingsFixedReservations], {
+    name: 'buildingsFixedReservations',
+  })
   findAll() {
     return this.buildingsFixedReservationsService.findAll();
   }
 
-  @Query(() => BuildingsFixedReservations, { name: 'buildingsFixedReservation' })
+  @Query(() => BuildingsFixedReservations, {
+    name: 'buildingsFixedReservation',
+  })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.buildingsFixedReservationsService.findOne(id);
   }
 
   @Mutation(() => BuildingsFixedReservations)
-  updateBuildingsFixedReservation(@Args('updateBuildingsFixedReservationInput') updateBuildingsFixedReservationInput: UpdateBuildingsFixedReservationInput) {
-    return this.buildingsFixedReservationsService.update(updateBuildingsFixedReservationInput.id, updateBuildingsFixedReservationInput);
+  updateBuildingsFixedReservation(
+    @Args('updateBuildingsFixedReservationInput')
+    updateBuildingsFixedReservationInput: UpdateBuildingsFixedReservationInput,
+  ) {
+    return this.buildingsFixedReservationsService.update(
+      updateBuildingsFixedReservationInput.id,
+      updateBuildingsFixedReservationInput,
+    );
   }
 
   @Mutation(() => BuildingsFixedReservations)

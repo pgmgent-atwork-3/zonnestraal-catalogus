@@ -4,7 +4,9 @@ import { UpdateBuildingsFixedReservationsExceptionInput } from './dto/update-bui
 
 @Injectable()
 export class BuildingsFixedReservationsExceptionsService {
-  create(createBuildingsFixedReservationsExceptionInput: CreateBuildingsFixedReservationsExceptionInput) {
+  create(
+    createBuildingsFixedReservationsExceptionInput: CreateBuildingsFixedReservationsExceptionInput,
+  ) {
     return 'This action adds a new buildingsFixedReservationsException';
   }
 
@@ -16,7 +18,10 @@ export class BuildingsFixedReservationsExceptionsService {
     return `This action returns a #${id} buildingsFixedReservationsException`;
   }
 
-  update(id: number, updateBuildingsFixedReservationsExceptionInput: UpdateBuildingsFixedReservationsExceptionInput) {
+  update(
+    id: number,
+    updateBuildingsFixedReservationsExceptionInput: UpdateBuildingsFixedReservationsExceptionInput,
+  ) {
     return `This action updates a #${id} buildingsFixedReservationsException`;
   }
 

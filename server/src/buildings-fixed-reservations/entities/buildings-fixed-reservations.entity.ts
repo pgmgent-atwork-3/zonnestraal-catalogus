@@ -1,4 +1,5 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field } from '@nestjs/graphql';
+import { BuildingsFixedReservationsExceptions } from 'src/buildings-fixed-reservations-exceptions/entities/buildings-fixed-reservations-exceptions.entity';
 import { BuildingsRooms } from 'src/buildings-rooms/entities/buildings-rooms.entity';
 import { Profiles } from 'src/profiles/entities/profiles.entity';
 import {
@@ -7,6 +8,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -43,10 +45,14 @@ export class BuildingsFixedReservations {
   @Field(() => String, { nullable: true })
   name: string;
 
-  @ManyToOne(() => Profiles, (profiles) => profiles.mediaFixedReservation, {
-    eager: true,
-    nullable: true,
-  })
+  @ManyToOne(
+    () => Profiles,
+    (profiles) => profiles.buildingsFixedReservations,
+    {
+      eager: true,
+      nullable: true,
+    },
+  )
   @JoinColumn({
     name: 'profile_id',
     referencedColumnName: 'id',
@@ -84,4 +90,12 @@ export class BuildingsFixedReservations {
   @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
   @Field({ nullable: true })
   created_on: Date;
+
+  @OneToMany(
+    () => BuildingsFixedReservationsExceptions,
+    (buildingsFixedReservationsExceptions) =>
+      buildingsFixedReservationsExceptions.fixed_reservations,
+  )
+  @Field(() => [BuildingsFixedReservationsExceptions], { nullable: true })
+  excepions: BuildingsFixedReservationsExceptions[];
 }

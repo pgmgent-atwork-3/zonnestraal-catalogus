@@ -6,30 +6,49 @@ import { UpdateBuildingsFixedReservationsExceptionInput } from './dto/update-bui
 
 @Resolver(() => BuildingsFixedReservationsExceptions)
 export class BuildingsFixedReservationsExceptionsResolver {
-  constructor(private readonly buildingsFixedReservationsExceptionsService: BuildingsFixedReservationsExceptionsService) {}
+  constructor(
+    private readonly buildingsFixedReservationsExceptionsService: BuildingsFixedReservationsExceptionsService,
+  ) {}
 
   @Mutation(() => BuildingsFixedReservationsExceptions)
-  createBuildingsFixedReservationsException(@Args('createBuildingsFixedReservationsExceptionInput') createBuildingsFixedReservationsExceptionInput: CreateBuildingsFixedReservationsExceptionInput) {
-    return this.buildingsFixedReservationsExceptionsService.create(createBuildingsFixedReservationsExceptionInput);
+  createBuildingsFixedReservationsException(
+    @Args('createBuildingsFixedReservationsExceptionInput')
+    createBuildingsFixedReservationsExceptionInput: CreateBuildingsFixedReservationsExceptionInput,
+  ) {
+    return this.buildingsFixedReservationsExceptionsService.create(
+      createBuildingsFixedReservationsExceptionInput,
+    );
   }
 
-  @Query(() => [BuildingsFixedReservationsExceptions], { name: 'buildingsFixedReservationsExceptions' })
+  @Query(() => [BuildingsFixedReservationsExceptions], {
+    name: 'buildingsFixedReservationsExceptions',
+  })
   findAll() {
     return this.buildingsFixedReservationsExceptionsService.findAll();
   }
 
-  @Query(() => BuildingsFixedReservationsExceptions, { name: 'buildingsFixedReservationsException' })
+  @Query(() => BuildingsFixedReservationsExceptions, {
+    name: 'buildingsFixedReservationsException',
+  })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.buildingsFixedReservationsExceptionsService.findOne(id);
   }
 
   @Mutation(() => BuildingsFixedReservationsExceptions)
-  updateBuildingsFixedReservationsException(@Args('updateBuildingsFixedReservationsExceptionInput') updateBuildingsFixedReservationsExceptionInput: UpdateBuildingsFixedReservationsExceptionInput) {
-    return this.buildingsFixedReservationsExceptionsService.update(updateBuildingsFixedReservationsExceptionInput.id, updateBuildingsFixedReservationsExceptionInput);
+  updateBuildingsFixedReservationsException(
+    @Args('updateBuildingsFixedReservationsExceptionInput')
+    updateBuildingsFixedReservationsExceptionInput: UpdateBuildingsFixedReservationsExceptionInput,
+  ) {
+    return this.buildingsFixedReservationsExceptionsService.update(
+      updateBuildingsFixedReservationsExceptionInput.id,
+      updateBuildingsFixedReservationsExceptionInput,
+    );
   }
 
   @Mutation(() => BuildingsFixedReservationsExceptions)
-  removeBuildingsFixedReservationsException(@Args('id', { type: () => Int }) id: number) {
+  removeBuildingsFixedReservationsException(
+    @Args('id', { type: () => Int }) id: number,
+  ) {
     return this.buildingsFixedReservationsExceptionsService.remove(id);
   }
 }

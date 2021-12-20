@@ -1,8 +1,11 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { BuildingsRooms } from 'src/buildings-rooms/entities/buildings-rooms.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -13,6 +16,17 @@ export class Buildings {
   @PrimaryGeneratedColumn('increment')
   @Field()
   id: number;
+
+  @OneToMany(
+    () => BuildingsRooms,
+    (buildingsRooms) => buildingsRooms.building,
+    {
+      cascade: ['insert', 'update', 'remove'],
+    },
+  )
+  @JoinColumn()
+  @Field(() => [BuildingsRooms])
+  room: BuildingsRooms[];
 
   @Column()
   @Field(() => String)

@@ -2,7 +2,9 @@ import { CreateBuildingsFixedReservationInput } from './create-buildings-fixed-r
 import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
 
 @InputType()
-export class UpdateBuildingsFixedReservationInput extends PartialType(CreateBuildingsFixedReservationInput) {
+export class UpdateBuildingsFixedReservationInput extends PartialType(
+  CreateBuildingsFixedReservationInput,
+) {
   @Field(() => Int)
   id: number;
 }

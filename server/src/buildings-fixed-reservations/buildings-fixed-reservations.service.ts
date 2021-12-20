@@ -4,7 +4,9 @@ import { UpdateBuildingsFixedReservationInput } from './dto/update-buildings-fix
 
 @Injectable()
 export class BuildingsFixedReservationsService {
-  create(createBuildingsFixedReservationInput: CreateBuildingsFixedReservationInput) {
+  create(
+    createBuildingsFixedReservationInput: CreateBuildingsFixedReservationInput,
+  ) {
     return 'This action adds a new buildingsFixedReservation';
   }
 
@@ -16,7 +18,10 @@ export class BuildingsFixedReservationsService {
     return `This action returns a #${id} buildingsFixedReservation`;
   }
 
-  update(id: number, updateBuildingsFixedReservationInput: UpdateBuildingsFixedReservationInput) {
+  update(
+    id: number,
+    updateBuildingsFixedReservationInput: UpdateBuildingsFixedReservationInput,
+  ) {
     return `This action updates a #${id} buildingsFixedReservation`;
   }
 

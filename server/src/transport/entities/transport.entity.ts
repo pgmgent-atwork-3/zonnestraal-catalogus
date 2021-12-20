@@ -1,5 +1,14 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { TransportReservations } from 'src/transport-reservations/entities/transport-reservations.entity';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 export enum Status {
   YES = 'Y',
@@ -68,4 +77,15 @@ export class Transport {
   })
   @Field({ nullable: true })
   edited_on: Date;
+
+  @OneToMany(
+    () => TransportReservations,
+    (transportReservations) => transportReservations.transport,
+    {
+      cascade: ['insert', 'update', 'remove'],
+    },
+  )
+  @JoinColumn()
+  @Field(() => [TransportReservations])
+  reservation: TransportReservations[];
 }

@@ -1,16 +1,16 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { TransportReservationsService } from './transport-reservations.service';
-import { TransportReservation } from './entities/transport-reservation.entity';
+import { TransportReservations } from './entities/transport-reservations.entity';
 import { CreateTransportReservationInput } from './dto/create-transport-reservation.input';
 import { UpdateTransportReservationInput } from './dto/update-transport-reservation.input';
 
-@Resolver(() => TransportReservation)
+@Resolver(() => TransportReservations)
 export class TransportReservationsResolver {
   constructor(
     private readonly transportReservationsService: TransportReservationsService,
   ) {}
 
-  @Mutation(() => TransportReservation)
+  @Mutation(() => TransportReservations)
   createTransportReservation(
     @Args('createTransportReservationInput')
     createTransportReservationInput: CreateTransportReservationInput,
@@ -20,17 +20,17 @@ export class TransportReservationsResolver {
     );
   }
 
-  @Query(() => [TransportReservation], { name: 'transportReservations' })
+  @Query(() => [TransportReservations], { name: 'transportReservations' })
   findAll() {
     return this.transportReservationsService.findAll();
   }
 
-  @Query(() => TransportReservation, { name: 'transportReservation' })
+  @Query(() => TransportReservations, { name: 'transportReservation' })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.transportReservationsService.findOne(id);
   }
 
-  @Mutation(() => TransportReservation)
+  @Mutation(() => TransportReservations)
   updateTransportReservation(
     @Args('updateTransportReservationInput')
     updateTransportReservationInput: UpdateTransportReservationInput,
@@ -41,7 +41,7 @@ export class TransportReservationsResolver {
     );
   }
 
-  @Mutation(() => TransportReservation)
+  @Mutation(() => TransportReservations)
   removeTransportReservation(@Args('id', { type: () => Int }) id: number) {
     return this.transportReservationsService.remove(id);
   }

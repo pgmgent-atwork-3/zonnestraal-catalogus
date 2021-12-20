@@ -1,4 +1,5 @@
 import { ObjectType, Field } from '@nestjs/graphql';
+import { BuildingsFixedReservations } from 'src/buildings-fixed-reservations/entities/buildings-fixed-reservations.entity';
 import { BuildingsRoomsReservations } from 'src/buildings-rooms-reservations/entities/buildings-rooms-reservations.entity';
 import { LibraryRent } from 'src/library-rent/entities/library-rent.entity';
 import { LibraryReservation } from 'src/library-reservation/entities/library-reservation.entity';
@@ -118,4 +119,15 @@ export class Profiles {
   @JoinColumn()
   @Field(() => [BuildingsRoomsReservations])
   roomReservation: BuildingsRoomsReservations[];
+
+  @OneToMany(
+    () => BuildingsFixedReservations,
+    (buildingsFixedReservations) => buildingsFixedReservations.profile,
+    {
+      cascade: ['insert', 'update', 'remove'],
+    },
+  )
+  @JoinColumn()
+  @Field(() => [BuildingsFixedReservations])
+  buildingsFixedReservations: BuildingsFixedReservations[];
 }

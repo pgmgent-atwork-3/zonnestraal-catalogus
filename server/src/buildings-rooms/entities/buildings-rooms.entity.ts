@@ -41,10 +41,11 @@ export class BuildingsRooms {
     (buildingsRoomsReservations) => buildingsRoomsReservations.room,
     {
       cascade: ['insert', 'update', 'remove'],
+      nullable: true,
     },
   )
   @JoinColumn()
-  @Field(() => [BuildingsRoomsReservations])
+  @Field(() => [BuildingsRoomsReservations], { nullable: true })
   roomReservation: BuildingsRoomsReservations[];
 
   @OneToMany(
@@ -52,9 +53,10 @@ export class BuildingsRooms {
     (buildingsFixedReservations) => buildingsFixedReservations.room,
     {
       cascade: ['insert', 'update', 'remove'],
+      nullable: true,
     },
   )
   @JoinColumn()
-  @Field(() => [BuildingsFixedReservations])
+  @Field(() => [BuildingsFixedReservations], { nullable: true })
   fixedReservation: BuildingsFixedReservations[];
 }

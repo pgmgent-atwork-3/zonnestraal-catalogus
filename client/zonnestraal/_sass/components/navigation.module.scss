@@ -1,0 +1,28 @@
+@import '../abstracts/variables';
+
+.nav {
+  height: 5rem;
+  padding: 1rem;
+  background: transparent;
+  border: 1px solid $darkBlue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+
+    li a {
+      margin: 1rem 2rem;
+      color: $black;
+      text-decoration: none;
+
+      &:hover {
+        color: $secondaryColor;
+      }
+    }
+  }
+}

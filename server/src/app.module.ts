@@ -25,6 +25,8 @@ import { BuildingsRoomsModule } from './buildings-rooms/buildings-rooms.module';
 import { BuildingsRoomsReservationsModule } from './buildings-rooms-reservations/buildings-rooms-reservations.module';
 import { BuildingsFixedReservationsModule } from './buildings-fixed-reservations/buildings-fixed-reservations.module';
 import { BuildingsFixedReservationsExceptionsModule } from './buildings-fixed-reservations-exceptions/buildings-fixed-reservations-exceptions.module';
+import { TransportModule } from './transport/transport.module';
+import { TransportReservationsModule } from './transport-reservations/transport-reservations.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -57,6 +59,8 @@ import { BuildingsFixedReservationsExceptionsModule } from './buildings-fixed-re
     BuildingsRoomsReservationsModule,
     BuildingsFixedReservationsModule,
     BuildingsFixedReservationsExceptionsModule,
+    TransportModule,
+    TransportReservationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

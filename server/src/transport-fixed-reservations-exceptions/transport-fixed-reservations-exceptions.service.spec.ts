@@ -9,7 +9,9 @@ describe('TransportFixedReservationsExceptionsService', () => {
       providers: [TransportFixedReservationsExceptionsService],
     }).compile();
 
-    service = module.get<TransportFixedReservationsExceptionsService>(TransportFixedReservationsExceptionsService);
+    service = module.get<TransportFixedReservationsExceptionsService>(
+      TransportFixedReservationsExceptionsService,
+    );
   });
 
   it('should be defined', () => {

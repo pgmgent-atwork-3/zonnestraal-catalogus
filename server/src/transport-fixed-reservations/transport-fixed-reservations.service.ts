@@ -4,7 +4,9 @@ import { UpdateTransportFixedReservationInput } from './dto/update-transport-fix
 
 @Injectable()
 export class TransportFixedReservationsService {
-  create(createTransportFixedReservationInput: CreateTransportFixedReservationInput) {
+  create(
+    createTransportFixedReservationInput: CreateTransportFixedReservationInput,
+  ) {
     return 'This action adds a new transportFixedReservation';
   }
 
@@ -16,7 +18,10 @@ export class TransportFixedReservationsService {
     return `This action returns a #${id} transportFixedReservation`;
   }
 
-  update(id: number, updateTransportFixedReservationInput: UpdateTransportFixedReservationInput) {
+  update(
+    id: number,
+    updateTransportFixedReservationInput: UpdateTransportFixedReservationInput,
+  ) {
     return `This action updates a #${id} transportFixedReservation`;
   }
 

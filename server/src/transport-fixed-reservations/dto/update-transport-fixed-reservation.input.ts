@@ -2,7 +2,9 @@ import { CreateTransportFixedReservationInput } from './create-transport-fixed-r
 import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
 
 @InputType()
-export class UpdateTransportFixedReservationInput extends PartialType(CreateTransportFixedReservationInput) {
+export class UpdateTransportFixedReservationInput extends PartialType(
+  CreateTransportFixedReservationInput,
+) {
   @Field(() => Int)
   id: number;
 }

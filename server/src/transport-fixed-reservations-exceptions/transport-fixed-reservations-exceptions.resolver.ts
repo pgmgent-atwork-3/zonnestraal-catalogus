@@ -6,30 +6,49 @@ import { UpdateTransportFixedReservationsExceptionInput } from './dto/update-tra
 
 @Resolver(() => TransportFixedReservationsExceptions)
 export class TransportFixedReservationsExceptionsResolver {
-  constructor(private readonly transportFixedReservationsExceptionsService: TransportFixedReservationsExceptionsService) {}
+  constructor(
+    private readonly transportFixedReservationsExceptionsService: TransportFixedReservationsExceptionsService,
+  ) {}
 
   @Mutation(() => TransportFixedReservationsExceptions)
-  createTransportFixedReservationsException(@Args('createTransportFixedReservationsExceptionInput') createTransportFixedReservationsExceptionInput: CreateTransportFixedReservationsExceptionInput) {
-    return this.transportFixedReservationsExceptionsService.create(createTransportFixedReservationsExceptionInput);
+  createTransportFixedReservationsException(
+    @Args('createTransportFixedReservationsExceptionInput')
+    createTransportFixedReservationsExceptionInput: CreateTransportFixedReservationsExceptionInput,
+  ) {
+    return this.transportFixedReservationsExceptionsService.create(
+      createTransportFixedReservationsExceptionInput,
+    );
   }
 
-  @Query(() => [TransportFixedReservationsExceptions], { name: 'transportFixedReservationsExceptions' })
+  @Query(() => [TransportFixedReservationsExceptions], {
+    name: 'transportFixedReservationsExceptions',
+  })
   findAll() {
     return this.transportFixedReservationsExceptionsService.findAll();
   }
 
-  @Query(() => TransportFixedReservationsExceptions, { name: 'transportFixedReservationsException' })
+  @Query(() => TransportFixedReservationsExceptions, {
+    name: 'transportFixedReservationsException',
+  })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.transportFixedReservationsExceptionsService.findOne(id);
   }
 
   @Mutation(() => TransportFixedReservationsExceptions)
-  updateTransportFixedReservationsException(@Args('updateTransportFixedReservationsExceptionInput') updateTransportFixedReservationsExceptionInput: UpdateTransportFixedReservationsExceptionInput) {
-    return this.transportFixedReservationsExceptionsService.update(updateTransportFixedReservationsExceptionInput.id, updateTransportFixedReservationsExceptionInput);
+  updateTransportFixedReservationsException(
+    @Args('updateTransportFixedReservationsExceptionInput')
+    updateTransportFixedReservationsExceptionInput: UpdateTransportFixedReservationsExceptionInput,
+  ) {
+    return this.transportFixedReservationsExceptionsService.update(
+      updateTransportFixedReservationsExceptionInput.id,
+      updateTransportFixedReservationsExceptionInput,
+    );
   }
 
   @Mutation(() => TransportFixedReservationsExceptions)
-  removeTransportFixedReservationsException(@Args('id', { type: () => Int }) id: number) {
+  removeTransportFixedReservationsException(
+    @Args('id', { type: () => Int }) id: number,
+  ) {
     return this.transportFixedReservationsExceptionsService.remove(id);
   }
 }

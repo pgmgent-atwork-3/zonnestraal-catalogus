@@ -1,4 +1,5 @@
 import { Nav } from './Nav';
+import {Header} from './Header';
 
 interface BaseProps {
   children: any
@@ -11,6 +12,7 @@ const BaseLayout = ({ children }: BaseProps) => {
       <Nav/>
 
       <div>
+          <Header />
           { children }
       </div>
     </>

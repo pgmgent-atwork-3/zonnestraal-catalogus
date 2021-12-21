@@ -1,7 +1,26 @@
 import Head from "next/head";
 import Link from "next/link";
 
+
 function LibraryPage() {
+  const books = [
+    {
+      id: 1,
+      title: "Book one",
+      slug: "one"
+    },
+    {
+      id: 2,
+      title: "Book two",
+      slug: "two"
+    },
+    {
+      id: 3,
+      title: "Book three",
+      slug: "three"
+    },
+  ]
+
     return (
         <>
         <Head>
@@ -10,16 +29,38 @@ function LibraryPage() {
 
             <h1>This is the library</h1>
 
-            <h2>Most used books</h2>
+            <h2>Most used books test</h2>
+
             <ul>
-                <li>
-                    <Link href="/bibliotheek/Harry-Potter">Harry Potter</Link>
+              {books.map((b) => (
+                <li key={b.id}>
+                  <Link
+                    href={{
+                      pathname: '/blog/[slug]',
+                      query: { slug: b.title },
+                    }}
+                  >
+                    <a>{b.title}</a>
+                  </Link>
                 </li>
-                <li>
-                    <Link href="/bibliotheek/Marc-De-Belle">Marc De Bell</Link>
-                </li>
+              ))}
             </ul>
-        </>
+
+{/*             <ul>
+                {books.map((book) => {
+                  <li key={book.id}>
+                    <Link
+                      href={{
+                        pathname: '/bibliotheek/[slug]',
+                        query: { slug: book.title }
+                      }}
+                    >
+                      <a>{book.title}</a>
+                    </Link>
+                  </li>
+                })}
+            </ul>
+ */}        </>
     );
 };
 

@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import HeaderStyles from '../../_sass/layout/header.module.scss';
 
 interface Props {
     

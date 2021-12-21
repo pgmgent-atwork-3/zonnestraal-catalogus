@@ -23,7 +23,7 @@ export const Nav = (props: Props) => {
                     <Link href='/zalen'>Zalen</Link>
                 </li>
                 <li>
-                    <Link href='/aanmelden'>Aanmelden</Link>
+                    <Link href='/login'>Aanmelden</Link>
                 </li>
             </ul>
         </nav>

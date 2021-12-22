@@ -1,0 +1,63 @@
+@import '../_sass/abstracts/_variables';
+
+html,
+body {
+  color: $black;
+  background-color: $primaryColor;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+  color: $darkBlue;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.h-layout {
+  width: 95%;
+  padding: 1rem;
+  margin: 0 auto;
+}
+
+@media(max-width:1024px) {
+  .container {
+    width: 98%;
+    padding: .5rem;
+  }
+}
+
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+.image_wrapper {
+  width: 20rem;
+  margin: 0 auto;
+}
+@media(max-width:767px) {
+  .image_wrapper {
+    width: 10rem;
+    
+  }
+}
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0.5rem;
+  border-top: 1px solid black;
+}
+

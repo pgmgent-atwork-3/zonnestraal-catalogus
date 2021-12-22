@@ -2,8 +2,9 @@
 
 .header {
   padding: $padding-base $padding-big;
-  height: 100vh;
-  background: $lightGrey;
+  height: 4rem;
+  /* background: $lightGrey; */
+  background: $lightGrey; 
   position: fixed;
   top: 0;
   left: 0;
@@ -12,10 +13,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  border-bottom: 1px solid $primaryColor;
 
   @media (min-width: 64rem) {
     position: relative;
-    height: 7rem;
+    height: 5rem;
     flex-direction: row;
     justify-content: space-between;
   }

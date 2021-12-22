@@ -1,9 +1,12 @@
 @import '../abstracts/variables';
 
 .nav {
-  height: 50vh;
+  position: absolute;
+  top: 4rem;
+  height: 100vh;
+  width: 100vw;
   padding: 1rem;
-  background: transparent;
+  background: $white;
   /* border: 1px solid $darkBlue; */
   display: flex;
   align-items: center;
@@ -17,9 +20,14 @@
     list-style: none;
 
     li {
-      margin-bottom: $margin-big;
+      margin-bottom: $margin-huge;
+
+      &:last-of-type {
+        position: relative;
+      }
 
       a {
+        font-size: $headline5;
         margin: 1rem 2rem;
   
         &:hover {
@@ -29,14 +37,34 @@
     }
   }
 
-  @media (min-width: 64rem) {
+}
+
+@media (min-width: 64rem) {
+  .nav {
+    position: relative;
+    top: 0;
+    width: 60%;
+    height: 100%;
+    justify-content: start;
+    background: $lightGrey;
+
     ul {
       flex-direction: row;
-      justify-content: center;
       align-items: center;
 
       li {
         margin-bottom: 0;
+        margin-right: $margin-big;
+
+        &:last-of-type {
+          position: absolute;
+          right: 0;
+        }
+
+        a {
+          margin: 0;
+          font-size: $body;
+        }
       }
     }
   }

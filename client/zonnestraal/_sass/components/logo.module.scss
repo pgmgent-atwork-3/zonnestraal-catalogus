@@ -12,7 +12,15 @@
   }
 
   p {
-    display: inline-block;
+    font-size: $headline6;
+    font-weight: 400;
     margin-left: $margin-small;
+  }
+
+
+  @media (min-width: 64rem) {
+    p {
+      font-size: $headline5;
+    }  
   }
 }

@@ -11,10 +11,7 @@ const Nav = (props: Props) => {
     <nav className={navStyles.nav}>
         <ul>
             <li>
-                <Link href='/'>Logo</Link>
-            </li>
-            <li>
-                <Link href='/bibliotheek'>Bibliotheek</Link>
+                <Link href='/bibliotheek'>Bibliotheek / Mediatheek</Link>
             </li>
             <li>
                 <Link href='/voertuigen'>Voertuigen</Link>

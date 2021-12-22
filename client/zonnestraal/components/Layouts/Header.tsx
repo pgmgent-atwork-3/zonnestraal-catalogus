@@ -17,7 +17,7 @@ const Header = (props: Props) => {
           
           <Logo title='Zonnestraal catalogus'/>
 
-          <Button title='close'/>
+          <Button title='X'/>
 
           <Nav />
       </div>

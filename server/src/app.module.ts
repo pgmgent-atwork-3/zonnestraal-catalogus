@@ -20,6 +20,15 @@ import { ProfilesGroupsRightsModule } from './profiles-groups-rights/profiles-gr
 import { ConfigModule } from '@nestjs/config';
 import { config } from './config';
 import { DatabaseConfig } from './database.config';
+import { BuildingsModule } from './buildings/buildings.module';
+import { BuildingsRoomsModule } from './buildings-rooms/buildings-rooms.module';
+import { BuildingsRoomsReservationsModule } from './buildings-rooms-reservations/buildings-rooms-reservations.module';
+import { BuildingsFixedReservationsModule } from './buildings-fixed-reservations/buildings-fixed-reservations.module';
+import { BuildingsFixedReservationsExceptionsModule } from './buildings-fixed-reservations-exceptions/buildings-fixed-reservations-exceptions.module';
+import { TransportModule } from './transport/transport.module';
+import { TransportReservationsModule } from './transport-reservations/transport-reservations.module';
+import { TransportFixedReservationsModule } from './transport-fixed-reservations/transport-fixed-reservations.module';
+import { TransportFixedReservationsExceptionsModule } from './transport-fixed-reservations-exceptions/transport-fixed-reservations-exceptions.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -47,6 +56,15 @@ import { DatabaseConfig } from './database.config';
     ProfilesModule,
     ProfilesGroupsModule,
     ProfilesGroupsRightsModule,
+    BuildingsModule,
+    BuildingsRoomsModule,
+    BuildingsRoomsReservationsModule,
+    BuildingsFixedReservationsModule,
+    BuildingsFixedReservationsExceptionsModule,
+    TransportModule,
+    TransportReservationsModule,
+    TransportFixedReservationsModule,
+    TransportFixedReservationsExceptionsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

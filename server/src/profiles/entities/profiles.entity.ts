@@ -1,9 +1,13 @@
 import { ObjectType, Field } from '@nestjs/graphql';
+import { BuildingsFixedReservations } from 'src/buildings-fixed-reservations/entities/buildings-fixed-reservations.entity';
+import { BuildingsRoomsReservations } from 'src/buildings-rooms-reservations/entities/buildings-rooms-reservations.entity';
 import { LibraryRent } from 'src/library-rent/entities/library-rent.entity';
 import { LibraryReservation } from 'src/library-reservation/entities/library-reservation.entity';
 import { MediaFixedReservations } from 'src/media-fixed-reservations/entities/media-fixed-reservations.entity';
 import { MediaRent } from 'src/media-rent/entities/media-rent.entity';
 import { ProfilesGroupsRights } from 'src/profiles-groups-rights/entities/profiles-groups-rights.entity';
+import { TransportFixedReservations } from 'src/transport-fixed-reservations/entities/transport-fixed-reservations.entity';
+import { TransportReservations } from 'src/transport-reservations/entities/transport-reservations.entity';
 import {
   Column,
   CreateDateColumn,
@@ -65,10 +69,11 @@ export class Profiles {
     (profilesGroupsRights) => profilesGroupsRights.profile,
     {
       cascade: ['insert', 'update', 'remove'],
+      nullable: true,
     },
   )
   @JoinColumn()
-  @Field(() => [ProfilesGroupsRights])
+  @Field(() => [ProfilesGroupsRights], { nullable: true })
   role: ProfilesGroupsRights[];
 
   @OneToMany(() => MediaRent, (mediaRent) => mediaRent.profile, {
@@ -106,4 +111,48 @@ export class Profiles {
   @JoinColumn()
   @Field(() => [LibraryReservation])
   libraryReservation: LibraryReservation[];
+
+  @OneToMany(
+    () => BuildingsRoomsReservations,
+    (buildingsRoomsReservations) => buildingsRoomsReservations.profile,
+    {
+      cascade: ['insert', 'update', 'remove'],
+    },
+  )
+  @JoinColumn()
+  @Field(() => [BuildingsRoomsReservations])
+  roomReservation: BuildingsRoomsReservations[];
+
+  @OneToMany(
+    () => BuildingsFixedReservations,
+    (buildingsFixedReservations) => buildingsFixedReservations.profile,
+    {
+      cascade: ['insert', 'update', 'remove'],
+    },
+  )
+  @JoinColumn()
+  @Field(() => [BuildingsFixedReservations])
+  buildingsFixedReservations: BuildingsFixedReservations[];
+
+  @OneToMany(
+    () => TransportReservations,
+    (transportReservations) => transportReservations.profile,
+    {
+      cascade: ['insert', 'update', 'remove'],
+    },
+  )
+  @JoinColumn()
+  @Field(() => [TransportReservations])
+  transportReservation: TransportReservations[];
+
+  @OneToMany(
+    () => TransportFixedReservations,
+    (transportFixedReservations) => transportFixedReservations.profile,
+    {
+      cascade: ['insert', 'update', 'remove'],
+    },
+  )
+  @JoinColumn()
+  @Field(() => [TransportFixedReservations])
+  transportFixedReservations: TransportFixedReservations[];
 }

@@ -1,8 +1,7 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { MediaFixedReservationsExceptions } from 'src/media-fixed-reservations-exceptions/entities/media-fixed-reservations-exceptions.entity';
-import { Media } from 'src/media/entities/media.entity';
 import { Profiles } from 'src/profiles/entities/profiles.entity';
-
+import { TransportFixedReservationsExceptions } from 'src/transport-fixed-reservations-exceptions/entities/transport-fixed-reservations-exceptions.entity';
+import { Transport } from 'src/transport/entities/transport.entity';
 import {
   Column,
   CreateDateColumn,
@@ -22,25 +21,39 @@ export enum Status {
 
 @ObjectType()
 @Entity()
-export class MediaFixedReservations {
+export class TransportFixedReservations {
   @PrimaryGeneratedColumn('increment')
   @Field()
   id: number;
 
-  @ManyToOne(() => Media, (media) => media.fixedReservation, {
+  @ManyToOne(() => Transport, (transport) => transport.fixedReservation, {
     eager: true,
-    nullable: true,
   })
   @JoinColumn({
-    name: 'media_id',
+    name: 'transport_id',
     referencedColumnName: 'id',
   })
-  @Field(() => Media, { nullable: true })
-  media: Media;
+  @Field(() => Transport)
+  transport: Transport;
 
   @Column({ nullable: true })
   @Field(() => String, { nullable: true })
   name: string;
+
+  @ManyToOne(
+    () => Profiles,
+    (profiles) => profiles.transportFixedReservations,
+    {
+      eager: true,
+      nullable: true,
+    },
+  )
+  @JoinColumn({
+    name: 'profile_id',
+    referencedColumnName: 'id',
+  })
+  @Field(() => Profiles, { nullable: true })
+  profile: Profiles;
 
   @CreateDateColumn({
     nullable: true,
@@ -74,20 +87,10 @@ export class MediaFixedReservations {
   created_on: Date;
 
   @OneToMany(
-    () => MediaFixedReservationsExceptions,
-    (mediaFixedReservations) => mediaFixedReservations.fixed_reservations,
+    () => TransportFixedReservationsExceptions,
+    (transportFixedReservationsExceptions) =>
+      transportFixedReservationsExceptions.fixedReservations,
   )
-  @Field(() => [MediaFixedReservationsExceptions], { nullable: true })
-  excepions: MediaFixedReservationsExceptions[];
-
-  @ManyToOne(() => Profiles, (profiles) => profiles.mediaFixedReservation, {
-    eager: true,
-    nullable: true,
-  })
-  @JoinColumn({
-    name: 'profile_id',
-    referencedColumnName: 'id',
-  })
-  @Field(() => Profiles, { nullable: true })
-  profile: Profiles;
+  @Field(() => [TransportFixedReservationsExceptions], { nullable: true })
+  excepions: TransportFixedReservationsExceptions[];
 }

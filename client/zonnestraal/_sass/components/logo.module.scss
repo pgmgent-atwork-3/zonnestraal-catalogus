@@ -1,0 +1,18 @@
+@import '../abstracts/variables';
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  img {
+    margin-right: $margin-base;
+  }
+
+  p {
+    display: inline-block;
+    margin-left: $margin-small;
+  }
+}

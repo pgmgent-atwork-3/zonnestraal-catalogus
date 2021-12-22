@@ -1,7 +1,9 @@
+import Image from 'next/image';
 import React, { useState } from 'react';
 import HeaderStyles from '../../_sass/layout/header.module.scss';
 import Button from '../Buttons/Button';
 import Nav from './Nav';
+import Logo from '../Logo/Logo';
 
 interface Props {
     
@@ -12,9 +14,8 @@ const Header = (props: Props) => {
 
     return (
       <div className={HeaderStyles.header}>
-          <a href='/'>
-            <span>Zonnestraal vzw</span>
-          </a>
+          
+          <Logo title='Zonnestraal catalogus'/>
 
           <Button title='close'/>
 

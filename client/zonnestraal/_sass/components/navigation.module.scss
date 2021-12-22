@@ -3,7 +3,7 @@
 .nav {
   height: 50vh;
   padding: 1rem;
-  background: $lightGrey;
+  background: transparent;
   /* border: 1px solid $darkBlue; */
   display: flex;
   align-items: center;
@@ -17,7 +17,7 @@
     list-style: none;
 
     li {
-      margin-bottom: $margin-base;
+      margin-bottom: $margin-big;
 
       a {
         margin: 1rem 2rem;
@@ -25,6 +25,18 @@
         &:hover {
           color: $primaryColor;
         }
+      }
+    }
+  }
+
+  @media (min-width: 64rem) {
+    ul {
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+
+      li {
+        margin-bottom: 0;
       }
     }
   }

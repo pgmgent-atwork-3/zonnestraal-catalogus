@@ -67,3 +67,20 @@ h1 {
   margin-bottom: $margin-base;
 }
 
+h2 {
+  font-size: $headline3;
+  line-height: 1.2;
+  font-weight: 400;
+  margin-bottom: $margin-base;
+}
+
+h3 {
+  font-size: $headline4;
+  line-height: 1.2;
+  font-weight: 400;
+  margin-bottom: $margin-small;
+}
+
+.header {
+  background: red;
+}

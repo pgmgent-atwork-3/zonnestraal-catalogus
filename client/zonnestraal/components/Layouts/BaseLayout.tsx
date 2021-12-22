@@ -1,5 +1,4 @@
-import { Nav } from './Nav';
-import {Header} from './Header';
+import { Header, Nav } from '.';
 
 interface BaseProps {
   children: any
@@ -9,8 +8,6 @@ const BaseLayout = ({ children }: BaseProps) => {
 
   return (
     <>
-      <Nav/>
-
       <div>
           <Header />
           { children }

@@ -1,10 +1,10 @@
 @import '../abstracts/variables';
 
 .nav {
-  height: 5rem;
+  height: 50vh;
   padding: 1rem;
-  background: transparent;
-  border: 1px solid $darkBlue;
+  background: $lightGrey;
+  /* border: 1px solid $darkBlue; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -16,11 +16,15 @@
     align-items: center;
     list-style: none;
 
-    li a {
-      margin: 1rem 2rem;
+    li {
+      margin-bottom: $margin-base;
 
-      &:hover {
-        color: $secondaryColor;
+      a {
+        margin: 1rem 2rem;
+  
+        &:hover {
+          color: $primaryColor;
+        }
       }
     }
   }

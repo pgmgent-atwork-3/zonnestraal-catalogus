@@ -1,0 +1,10 @@
+@import '../../_sass/abstracts/variables';
+
+.container {
+  background: $yellow;
+  padding:  $padding-base;
+
+  p {
+    text-align: center;
+  }
+}

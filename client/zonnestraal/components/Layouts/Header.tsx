@@ -2,6 +2,7 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 import HeaderStyles from '../../_sass/layout/header.module.scss';
 import Button from '../Buttons/Button';
+import Burger from '../Menu/Burger';
 import Nav from './Nav';
 import Logo from '../Logo/Logo';
 
@@ -17,9 +18,9 @@ const Header = (props: Props) => {
           
           <Logo title='Zonnestraal catalogus'/>
 
-          <Button title='X'/>
+          <Burger open={open} setOpen={setOpen}/>
 
-          <Nav />
+          <Nav open={open}/>
       </div>
     )
 }

@@ -6,7 +6,7 @@ interface NavProps {
   open: Boolean;
 }
 
-const StyledNav = styled.nav`
+const StyledNav = styled.nav<{open: Boolean}>`
   position: absolute;
   top: 4rem;
   height: 100vh;

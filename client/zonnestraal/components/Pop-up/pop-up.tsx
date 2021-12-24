@@ -1,13 +1,22 @@
 import React from 'react';
-import PopUpStyles from '../Pop-up/pop-up.module.scss';
+import styled from 'styled-components';
 
-interface PopProps {
-  text: string
+type PopProps = {
+  text: string;
 }
 
-const popUp = ({ text }: PopProps) => {
+const popContainer = styled.div `
+  background: ${({ theme }) => theme.colors.yellow};
+  padding:  ${({ theme }) => theme.margins.normal};
+
+  p {
+    text-align: center;
+  }
+`
+
+const popUp = ({ text }:PopProps) => {
   return (
-    <div className={PopUpStyles.container}>
+    <div>
       <p>{ text }</p>
     </div>
   )

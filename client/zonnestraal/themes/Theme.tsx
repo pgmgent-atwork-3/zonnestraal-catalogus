@@ -41,6 +41,16 @@ const theme = {
     big: "7rem",
   },
 
+  paddings: {
+    extraSmall: "0.5rem",
+    small: "1rem",
+    normal: "1.5rem",
+    medium: "2rem",
+    large: "3rem",
+    extraLarge: "5rem",
+    big: "7rem",
+  },
+
   borderRadius: {
     small: "8px",
     medium: "25px",

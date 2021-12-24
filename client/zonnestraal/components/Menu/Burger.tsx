@@ -6,8 +6,8 @@ interface BurgerProps {
   setOpen: Function;
 }
 
-const StyledBurger = styled.div`
-  position: ${({ open }) => (open ? "fixed" : "absolute")};
+const StyledBurger = styled.div<{open: Boolean}>`
+  position: ${( {open} ) => (open ? "fixed" : "absolute")};
   top: 1rem;
   right: 2rem;
   display: flex;
@@ -35,20 +35,20 @@ const StyledBurger = styled.div`
     transform-origin: 1px;
 
     :first-child {
-      transform: ${({ open }) => (open ? "rotate(45deg)" : "rotate(0)")};
+      transform: ${( {open} ) => (open ? "rotate(45deg)" : "rotate(0)")};
     }
 
     :nth-child(2) {
-      opacity: ${({ open }) => (open ? "0" : "1")};
-      transform: ${({ open }) => (open ? "translateX(20px)" : "translateX(0)")};
+      opacity: ${( {open} ) => (open ? "0" : "1")};
+      transform: ${( {open} ) => (open ? "translateX(20px)" : "translateX(0)")};
     }
 
     :nth-child(3) {
-      transform: ${({ open }) => (open ? "rotate(-45deg)" : "rotate(0)")};
+      transform: ${( {open} ) => (open ? "rotate(-45deg)" : "rotate(0)")};
     }
   }
 
-  @media (min-width: ${(props) => props.theme.width.desktop}) {
+  @media (min-width: ${({theme}) => theme.width.desktop}) {
     display: none;
   }
 `
@@ -63,4 +63,4 @@ const Burger = ({ open, setOpen }: BurgerProps) => {
   )
 }
 
-export default Burger
+export default Burger;

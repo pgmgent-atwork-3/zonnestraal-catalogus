@@ -5,9 +5,9 @@ import Logo from '../Logo/Logo';
 import styled from 'styled-components';
 
 const StyledHeader = styled.div`
-  padding: $padding-base $padding-big;
+  padding: ${({ theme }) => theme.paddings.small};
   height: 4rem;
-  background: ${({ theme }) => theme.colors.yellow} 
+  background: ${({ theme }) => theme.colors.yellow};
   position: fixed;
   top: 0;
   left: 0;
@@ -24,6 +24,7 @@ const StyledHeader = styled.div`
     flex-direction: row;
     justify-content: space-between;
     background: ${({ theme }) => theme.colors.lightGrey}; 
+    padding: ${({ theme }) => theme.paddings.medium} ${({ theme }) => theme.paddings.large};
   } 
 
 `

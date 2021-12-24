@@ -1,10 +1,32 @@
-import Image from 'next/image';
 import React, { useState } from 'react';
-import HeaderStyles from '../../_sass/layout/header.module.scss';
-import Button from '../Buttons/Button';
 import Burger from '../Menu/Burger';
 import Nav from './Nav';
 import Logo from '../Logo/Logo';
+import styled from 'styled-components';
+
+const StyledHeader = styled.div`
+  padding: $padding-base $padding-big;
+  height: 4rem;
+  background: ${({ theme }) => theme.colors.yellow} 
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.yellow};
+
+  @media (min-width: ${({ theme }) => theme.width.desktop}) {
+    position: relative;
+    height: 5rem;
+    flex-direction: row;
+    justify-content: space-between;
+    background: ${({ theme }) => theme.colors.lightGrey}; 
+  } 
+
+`
 
 interface Props {
     
@@ -14,14 +36,14 @@ const Header = (props: Props) => {
   const [open, setOpen] = useState(false);
 
     return (
-      <div className={HeaderStyles.header}>
+      <StyledHeader>
           
           <Logo title='Zonnestraal catalogus'/>
 
           <Burger open={open} setOpen={setOpen}/>
 
           <Nav open={open}/>
-      </div>
+      </StyledHeader>
     )
 }
 

@@ -24,12 +24,15 @@ const MoreInfoContainer = styled.div<{show: Boolean}>`
   position: absolute;
   top: 20rem;
   display: ${({ show }) => (show ? "none" : "fixed")};
-  width: 80%;
+  width: 90%;
   background: ${({ theme }) => theme.colors.white};
   padding:  ${({ theme }) => theme.paddings.normal};
+  z-index: 100;
 
   @media (min-width: ${({theme}) => theme.width.desktop}) {
     top: 12rem;
+    left: 15rem;
+    width: 50%;
   }
 `
 
@@ -82,6 +85,36 @@ export default Home;
 
 const Books = 
 [
+  {
+    id: 42,
+    serial: 42,
+    title: "Ontdek wie je bent - Een speurtocht naar jezelf (m...",
+    description:"Interactieve map",
+    author:"BOSCH SUYKERBUYK",
+    year: null,
+    location_id: 1,
+    created_on: "2013-09-04 10:13:34",
+    edited_on: "2013-09-04 10:13:34",
+    hidden: "N",
+    type_id: 8,
+    language: "nl",
+    meta_id: 128
+  },
+  {
+    id: 24,
+    serial: 24,
+    title: "ANDERS ZIJN",
+    description:"Over mensen die anders zijn",
+    author:"VDA",
+    year: null,
+    location_id: 1,
+    created_on: "2013-09-04 09:16:16",
+    edited_on: "2013-09-04 09:16:16",
+    hidden: "N",
+    type_id: 1,
+    language: "nl",
+    meta_id: 92
+  },
   {
     id: 42,
     serial: 42,

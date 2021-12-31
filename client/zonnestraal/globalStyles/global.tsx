@@ -71,12 +71,14 @@ span {
 }
 
 input {
+  height: 2.5rem;
   display: block;
-  border: 1px solid ${({ theme }) => theme.colors.primaryColor};
+  border: 1px solid ${({ theme }) => theme.colors.grey};
   margin-top: ${({ theme }) => theme.margins.extraSmall};
   margin-bottom: ${({ theme }) => theme.margins.extraSmall};
   border-radius: ${({ theme }) => theme.borderRadius.small};
   padding: 0.5rem 1rem;
+  outline: none;
 }
 
 label {

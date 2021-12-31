@@ -41,13 +41,14 @@ h1 {
 }
 
 h2 {
-  font-size: ${({ theme }) => theme.fontSizes.headline5};
-  font-weight: 400;
+  color: ${({ theme }) => theme.colors.darkBlue};
+  font-size: ${({ theme }) => theme.fontSizes.headline4};
+  font-weight: 600;
   line-height: 1.2;
   margin-bottom: ${({ theme }) => theme.margins.small};
 
   @media (min-width: ${({ theme }) => theme.width.tablet}) {
-    font-size: ${({ theme }) => theme.fontSizes.headline6};
+    font-size: ${({ theme }) => theme.fontSizes.headline4};
   }
 }
 

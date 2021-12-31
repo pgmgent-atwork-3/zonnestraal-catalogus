@@ -6,16 +6,16 @@ import styled from 'styled-components';
 
 const StyledHeader = styled.div`
   padding: ${({ theme }) => theme.paddings.small};
-  height: 4rem;
-  background: ${({ theme }) => theme.colors.yellow};
-  position: fixed;
+  height: 5rem;
+  background: ${({ theme }) => theme.colors.lightGrey};
+  position: relative;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: center;
   border-bottom: 1px solid ${({ theme }) => theme.colors.yellow};
 
   @media (min-width: ${({ theme }) => theme.width.desktop}) {
@@ -38,7 +38,6 @@ const Header = (props: Props) => {
 
     return (
       <StyledHeader>
-          
           <Logo title='Zonnestraal catalogus'/>
 
           <Burger open={open} setOpen={setOpen}/>

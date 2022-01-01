@@ -3,6 +3,8 @@ import { BuildingsRoomsService } from './buildings-rooms.service';
 import { BuildingsRooms } from './entities/buildings-rooms.entity';
 import { CreateBuildingsRoomInput } from './dto/create-buildings-room.input';
 import { UpdateBuildingsRoomInput } from './dto/update-buildings-room.input';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { UseGuards } from '@nestjs/common';
 
 @Resolver(() => BuildingsRooms)
 export class BuildingsRoomsResolver {
@@ -16,6 +18,7 @@ export class BuildingsRoomsResolver {
     return this.buildingsRoomsService.create(createBuildingsRoomInput);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Query(() => [BuildingsRooms], { name: 'getAllbuildingsRooms' })
   findAll() {
     return this.buildingsRoomsService.findAll();

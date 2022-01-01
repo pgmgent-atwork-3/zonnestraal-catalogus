@@ -1,4 +1,5 @@
 import { ObjectType, Field } from '@nestjs/graphql';
+import { LibraryReservationDate } from 'src/library-reservation-date/entities/library-reservation-date.entity';
 import { Library } from 'src/library/entities/library.entity';
 import { Profiles } from 'src/profiles/entities/profiles.entity';
 import {
@@ -7,6 +8,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 export enum Status {
@@ -56,4 +58,15 @@ export class LibraryReservation {
   })
   @Field(() => Profiles)
   profile: Profiles;
+
+  @OneToMany(
+    () => LibraryReservationDate,
+    (libraryReservationDate) => libraryReservationDate.reservationTerm,
+    {
+      cascade: ['insert', 'update', 'remove'],
+    },
+  )
+  @JoinColumn()
+  @Field(() => [LibraryReservationDate])
+  term: LibraryReservationDate[];
 }

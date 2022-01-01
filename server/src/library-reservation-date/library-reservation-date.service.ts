@@ -16,7 +16,10 @@ export class LibraryReservationDateService {
     return `This action returns a #${id} libraryReservationDate`;
   }
 
-  update(id: number, updateLibraryReservationDateInput: UpdateLibraryReservationDateInput) {
+  update(
+    id: number,
+    updateLibraryReservationDateInput: UpdateLibraryReservationDateInput,
+  ) {
     return `This action updates a #${id} libraryReservationDate`;
   }
 

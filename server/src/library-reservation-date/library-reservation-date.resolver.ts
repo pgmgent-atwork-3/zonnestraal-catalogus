@@ -6,11 +6,18 @@ import { UpdateLibraryReservationDateInput } from './dto/update-library-reservat
 
 @Resolver(() => LibraryReservationDate)
 export class LibraryReservationDateResolver {
-  constructor(private readonly libraryReservationDateService: LibraryReservationDateService) {}
+  constructor(
+    private readonly libraryReservationDateService: LibraryReservationDateService,
+  ) {}
 
   @Mutation(() => LibraryReservationDate)
-  createLibraryReservationDate(@Args('createLibraryReservationDateInput') createLibraryReservationDateInput: CreateLibraryReservationDateInput) {
-    return this.libraryReservationDateService.create(createLibraryReservationDateInput);
+  createLibraryReservationDate(
+    @Args('createLibraryReservationDateInput')
+    createLibraryReservationDateInput: CreateLibraryReservationDateInput,
+  ) {
+    return this.libraryReservationDateService.create(
+      createLibraryReservationDateInput,
+    );
   }
 
   @Query(() => [LibraryReservationDate], { name: 'libraryReservationDate' })
@@ -24,8 +31,14 @@ export class LibraryReservationDateResolver {
   }
 
   @Mutation(() => LibraryReservationDate)
-  updateLibraryReservationDate(@Args('updateLibraryReservationDateInput') updateLibraryReservationDateInput: UpdateLibraryReservationDateInput) {
-    return this.libraryReservationDateService.update(updateLibraryReservationDateInput.id, updateLibraryReservationDateInput);
+  updateLibraryReservationDate(
+    @Args('updateLibraryReservationDateInput')
+    updateLibraryReservationDateInput: UpdateLibraryReservationDateInput,
+  ) {
+    return this.libraryReservationDateService.update(
+      updateLibraryReservationDateInput.id,
+      updateLibraryReservationDateInput,
+    );
   }
 
   @Mutation(() => LibraryReservationDate)

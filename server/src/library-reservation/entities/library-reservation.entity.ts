@@ -1,4 +1,4 @@
-import { ObjectType, Field } from '@nestjs/graphql';
+import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { LibraryReservationDate } from 'src/library-reservation-date/entities/library-reservation-date.entity';
 import { Library } from 'src/library/entities/library.entity';
 import { Profiles } from 'src/profiles/entities/profiles.entity';
@@ -69,4 +69,12 @@ export class LibraryReservation {
   @JoinColumn()
   @Field(() => [LibraryReservationDate])
   term: LibraryReservationDate[];
+
+  @Column({ nullable: true })
+  @Field(() => Int, { nullable: true })
+  library_id: number;
+
+  @Column({ nullable: true })
+  @Field(() => Int, { nullable: true })
+  profile_id: number;
 }

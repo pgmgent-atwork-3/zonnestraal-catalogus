@@ -1,6 +1,7 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { LibraryReservation } from 'src/library-reservation/entities/library-reservation.entity';
 import {
+  Column,
   CreateDateColumn,
   Entity,
   JoinColumn,
@@ -19,15 +20,13 @@ export class LibraryReservationDate {
   @ManyToOne(
     () => LibraryReservation,
     (libraryReservation) => libraryReservation.term,
-    {
-      eager: true,
-    },
+    { nullable: true },
   )
   @JoinColumn({
     name: 'library_reservation_id',
     referencedColumnName: 'id',
   })
-  @Field(() => LibraryReservation)
+  @Field(() => LibraryReservation, { nullable: true })
   reservationTerm: LibraryReservation;
 
   @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
@@ -48,4 +47,10 @@ export class LibraryReservationDate {
   })
   @Field({ nullable: true })
   edited_on: Date;
+
+  @Column({
+    nullable: true,
+  })
+  @Field({ nullable: true })
+  library_reservation_id: number;
 }

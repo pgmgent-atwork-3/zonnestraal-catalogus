@@ -22,11 +22,16 @@ export class MediaRentService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} mediaRent`;
+    return this.mediaRentRepository.findOne({ where: { id: id } });
   }
 
-  update(id: number, updateMediaRentInput: UpdateMediaRentInput) {
-    return `This action updates a #${id} mediaRent`;
+  async update(id: number, updateMediaRentInput: UpdateMediaRentInput) {
+    const rent = this.mediaRentRepository.create(updateMediaRentInput);
+    rent.id = id;
+    const one = await this.mediaRentRepository.findOne(rent.id);
+    rent.rent_from = one.rent_from;
+    rent.rent_till = one.rent_till;
+    return this.mediaRentRepository.save(rent);
   }
 
   remove(id: number) {

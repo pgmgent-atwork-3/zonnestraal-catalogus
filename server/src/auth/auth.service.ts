@@ -22,8 +22,14 @@ export class AuthService {
   }
   async login(user: any) {
     const role = await this.profilesGroupsRightsService.findOne(user.id);
+    let isAdmin = false;
+    if (role !== undefined) {
+      isAdmin = true;
+    } else {
+      isAdmin = false;
+    }
     //console.log(isAdmin.group.name);
-    const isAdmin = role.group.name;
+    //const isAdmin = role.group.name;
     const payload = { email: user.email, sub: user.id, isAdmin: isAdmin };
 
     return {

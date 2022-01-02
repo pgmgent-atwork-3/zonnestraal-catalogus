@@ -312,7 +312,8 @@ type Query {
   getMostCommonlyMedia: [MostPopularMedia!]!
   getMediaById(id: Int!): Media!
   mediaTypes: [MediaTypes!]!
-  mediaRent(id: Int!): MediaRent!
+  mediaRent: [MediaRent!]!
+  getOneMediaRent(id: Int!): MediaRent!
   libraryRent(id: Int!): LibraryRent!
   getAllUsers: [Profiles!]!
   profilesGroupsRight(id: Int!): ProfilesGroupsRights!
@@ -419,11 +420,8 @@ input CreateMediaRentInput {
 }
 
 input UpdateMediaRentInput {
-  media_id: Int
-  name: String
-  rent_from: DateTime
-  rent_till: DateTime
   id: Int!
+  returned: String
 }
 
 input CreateLibraryRentInput {

@@ -25,12 +25,13 @@ export class MediaRentResolver {
     return this.mediaRentService.findAll();
   }
 
-  @Query(() => MediaRent, { name: 'mediaRent' })
+  @Query(() => MediaRent, { name: 'getOneMediaRent' })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.mediaRentService.findOne(id);
   }
 
-  @Mutation(() => MediaRent)
+  @UseGuards(JwtAuthGuard)
+  @Mutation(() => MediaRent, { name: 'updateMediaRent' })
   updateMediaRent(
     @Args('updateMediaRentInput') updateMediaRentInput: UpdateMediaRentInput,
   ) {

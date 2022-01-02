@@ -1,8 +1,14 @@
-import { CreateMediaRentInput } from './create-media-rent.input';
-import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
+import { InputType, Field, Int } from '@nestjs/graphql';
 
+export enum Status {
+  YES = 'Y',
+  NO = 'N',
+}
 @InputType()
-export class UpdateMediaRentInput extends PartialType(CreateMediaRentInput) {
+export class UpdateMediaRentInput {
   @Field(() => Int)
   id: number;
+
+  @Field({ nullable: true })
+  returned: Status;
 }

@@ -23,6 +23,9 @@ export class LibraryReservationResolver {
     createLibraryReservationDateInput: CreateLibraryReservationDateInput,
     @GetUser() user,
   ) {
+    // const profile = user.id;
+    // createLibraryReservationInput.profile_id = profile;
+    // console.log(profile);
     return this.libraryReservationService.create(
       user.id,
       createLibraryReservationInput,
@@ -30,9 +33,10 @@ export class LibraryReservationResolver {
     );
   }
 
-  @Query(() => [LibraryReservation], { name: 'libraryReservation' })
-  findAll() {
-    return this.libraryReservationService.findAll();
+  @UseGuards(JwtAuthGuard)
+  @Query(() => [LibraryReservation], { name: 'GetAllLibraryReservationByUser' })
+  findAll(@Args('id', { type: () => Int }) id: number, @GetUser() user) {
+    return this.libraryReservationService.findAll(user.id);
   }
 
   @Query(() => LibraryReservation, { name: 'libraryReservation' })
@@ -40,7 +44,6 @@ export class LibraryReservationResolver {
     return this.libraryReservationService.findOne(id);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Mutation(() => LibraryReservation)
   updateLibraryReservation(
     @Args('updateLibraryReservationInput')

@@ -35,9 +35,12 @@ export class LibraryReservationService {
     return savedReservation;
   }
 
-  findAll() {
-    return `This action returns all libraryReservation`;
+  findAll(id: number) {
+    return this.libraryReservationRepository.find({
+      where: { profile_id: id },
+    });
   }
+
   findOne(id: number) {
     return `This action returns a #${id} libraryReservation`;
   }

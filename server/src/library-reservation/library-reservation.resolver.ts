@@ -35,7 +35,7 @@ export class LibraryReservationResolver {
 
   @UseGuards(JwtAuthGuard)
   @Query(() => [LibraryReservation], { name: 'GetAllLibraryReservationByUser' })
-  findAll(@Args('id', { type: () => Int }) id: number, @GetUser() user) {
+  findAll(@GetUser() user) {
     return this.libraryReservationService.findAll(user.id);
   }
 

@@ -10,15 +10,15 @@ export class LibraryReservationDateResolver {
     private readonly libraryReservationDateService: LibraryReservationDateService,
   ) {}
 
-  @Mutation(() => LibraryReservationDate)
-  createLibraryReservationDate(
-    @Args('createLibraryReservationDateInput')
-    createLibraryReservationDateInput: CreateLibraryReservationDateInput,
-  ) {
-    return this.libraryReservationDateService.create(
-      createLibraryReservationDateInput,
-    );
-  }
+  // @Mutation(() => LibraryReservationDate)
+  // createLibraryReservationDate(
+  //   @Args('createLibraryReservationDateInput')
+  //   createLibraryReservationDateInput: CreateLibraryReservationDateInput,
+  // ) {
+  //   return this.libraryReservationDateService.create(
+  //     createLibraryReservationDateInput,
+  //   );
+  // }
 
   @Query(() => [LibraryReservationDate], { name: 'libraryReservationDate' })
   findAll() {

@@ -269,6 +269,19 @@ type LibraryReservation {
   deleted: String
   created_on: DateTime
   profile: Profiles!
+  term: [LibraryReservationDate!]!
+  library_id: Int
+  profile_id: Int
+}
+
+type LibraryReservationDate {
+  id: Float!
+  reservationTerm: LibraryReservation
+  from: DateTime
+  till: DateTime
+  created_on: DateTime
+  edited_on: DateTime
+  library_reservation_id: Float
 }
 
 type MostPopularMedia {
@@ -289,6 +302,7 @@ type Query {
   getNewLibraries: [Library!]!
   getLibraryById(id: Int!): Library!
   libraryReservation(id: Int!): LibraryReservation!
+  libraryReservationDate(id: Int!): LibraryReservationDate!
   location(id: Int!): Location!
   getAllMedia: [Media!]!
   getMostCommonlyMedia: [MostPopularMedia!]!
@@ -317,9 +331,11 @@ type Query {
 }
 
 type Mutation {
-  createLibraryReservation(createLibraryReservationInput: CreateLibraryReservationInput!): LibraryReservation!
+  createLibraryReservation(createLibraryReservationDateInput: CreateLibraryReservationDateInput!, createLibraryReservationInput: CreateLibraryReservationInput!): LibraryReservation!
   updateLibraryReservation(updateLibraryReservationInput: UpdateLibraryReservationInput!): LibraryReservation!
   removeLibraryReservation(id: Int!): LibraryReservation!
+  updateLibraryReservationDate(updateLibraryReservationDateInput: UpdateLibraryReservationDateInput!): LibraryReservationDate!
+  removeLibraryReservationDate(id: Int!): LibraryReservationDate!
   createLocation(createLocationInput: CreateLocationInput!): Location!
   updateLocation(updateLocationInput: UpdateLocationInput!): Location!
   removeLocation(id: Int!): Location!
@@ -357,14 +373,29 @@ type Mutation {
   removeTransportFixedReservationsException(id: Int!): TransportFixedReservationsExceptions!
 }
 
+input CreateLibraryReservationDateInput {
+  from: DateTime!
+  till: DateTime!
+}
+
 input CreateLibraryReservationInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  library_id: Int!
+  name: String!
+  created_on: DateTime
+  createLibraryReservationDateInput: [CreateLibraryReservationDateInput!]!
 }
 
 input UpdateLibraryReservationInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  library_id: Int
+  name: String
+  created_on: DateTime
+  createLibraryReservationDateInput: [CreateLibraryReservationDateInput!]
+  id: Int!
+}
+
+input UpdateLibraryReservationDateInput {
+  from: DateTime
+  till: DateTime
   id: Int!
 }
 

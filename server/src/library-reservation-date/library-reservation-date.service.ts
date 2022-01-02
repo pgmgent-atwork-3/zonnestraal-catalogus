@@ -1,11 +1,21 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateLibraryReservationDateInput } from './dto/create-library-reservation-date.input';
 import { UpdateLibraryReservationDateInput } from './dto/update-library-reservation-date.input';
+import { LibraryReservationDate } from './entities/library-reservation-date.entity';
 
 @Injectable()
 export class LibraryReservationDateService {
+  constructor(
+    @InjectRepository(LibraryReservationDate)
+    private libraryReservationDateRepository: Repository<LibraryReservationDate>,
+  ) {}
   create(createLibraryReservationDateInput: CreateLibraryReservationDateInput) {
-    return 'This action adds a new libraryReservationDate';
+    const term = this.libraryReservationDateRepository.create(
+      createLibraryReservationDateInput,
+    );
+    return this.libraryReservationDateRepository.save(term);
   }
 
   findAll() {

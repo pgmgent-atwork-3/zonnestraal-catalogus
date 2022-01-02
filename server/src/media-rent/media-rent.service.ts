@@ -17,8 +17,10 @@ export class MediaRentService {
     return this.mediaRentRepository.save(rent);
   }
 
-  findAll() {
-    return `This action returns all mediaRent`;
+  findAll(id: number) {
+    return this.mediaRentRepository.find({
+      where: { profile_id: id },
+    });
   }
 
   findOne(id: number) {

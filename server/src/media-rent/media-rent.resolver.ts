@@ -20,9 +20,10 @@ export class MediaRentResolver {
     return this.mediaRentService.create(user.id, createMediaRentInput);
   }
 
-  @Query(() => [MediaRent], { name: 'mediaRent' })
-  findAll() {
-    return this.mediaRentService.findAll();
+  @UseGuards(JwtAuthGuard)
+  @Query(() => [MediaRent], { name: 'GetAllMediaRentByUser' })
+  findAll(@GetUser() user) {
+    return this.mediaRentService.findAll(user.id);
   }
 
   @Query(() => MediaRent, { name: 'getOneMediaRent' })

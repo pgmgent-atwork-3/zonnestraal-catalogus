@@ -59,8 +59,8 @@ export class LibraryReservation {
   @Field(() => Profiles)
   profile: Profiles;
 
-  @OneToOne(() => LibraryReservationDate)
-  @Field(() => LibraryReservationDate)
+  @OneToOne(() => LibraryReservationDate, { nullable: true })
+  @Field(() => LibraryReservationDate, { nullable: true })
   reservationDate: LibraryReservationDate;
 
   @Column({ nullable: true })

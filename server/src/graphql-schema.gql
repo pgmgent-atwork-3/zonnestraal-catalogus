@@ -273,7 +273,7 @@ type LibraryReservation {
   deleted: String
   created_on: DateTime
   profile: Profiles!
-  reservationDate: LibraryReservationDate!
+  reservationDate: LibraryReservationDate
   library_id: Int
   profile_id: Int
 }
@@ -313,7 +313,7 @@ type Query {
   getMostCommonlyMedia: [MostPopularMedia!]!
   getMediaById(id: Int!): Media!
   mediaTypes: [MediaTypes!]!
-  mediaRent: [MediaRent!]!
+  GetAllMediaRentByUser: [MediaRent!]!
   getOneMediaRent(id: Int!): MediaRent!
   libraryRent(id: Int!): LibraryRent!
   getAllUsers: [Profiles!]!

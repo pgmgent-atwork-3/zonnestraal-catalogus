@@ -1,6 +1,5 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
 import { IsInt, IsString } from 'class-validator';
-import { CreateLibraryReservationDateInput } from 'src/library-reservation-date/dto/create-library-reservation-date.input';
 
 @InputType()
 export class CreateLibraryReservationInput {
@@ -14,7 +13,4 @@ export class CreateLibraryReservationInput {
 
   @Field({ nullable: true })
   created_on: Date;
-
-  @Field(() => [CreateLibraryReservationDateInput])
-  createLibraryReservationDateInput: CreateLibraryReservationDateInput[];
 }

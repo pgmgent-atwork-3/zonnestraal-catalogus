@@ -231,6 +231,8 @@ type LibraryRent {
   rent_till: DateTime
   returned: String
   profile: Profiles!
+  profile_id: Int
+  library_id: Int
 }
 
 type LibraryTypes {
@@ -269,19 +271,19 @@ type LibraryReservation {
   deleted: String
   created_on: DateTime
   profile: Profiles!
-  term: [LibraryReservationDate!]!
+  reservationDate: LibraryReservationDate!
   library_id: Int
   profile_id: Int
 }
 
 type LibraryReservationDate {
   id: Float!
-  reservationTerm: LibraryReservation
   from: DateTime
   till: DateTime
   created_on: DateTime
   edited_on: DateTime
   library_reservation_id: Float
+  library_reservation: LibraryReservation!
 }
 
 type MostPopularMedia {
@@ -311,6 +313,7 @@ type Query {
   mediaRent(id: Int!): MediaRent!
   libraryRent(id: Int!): LibraryRent!
   getAllUsers: [Profiles!]!
+  profilesGroupsRight(id: Int!): ProfilesGroupsRights!
   getAllbuildings: [Buildings!]!
   getAllbuildingsRooms: [BuildingsRooms!]!
   buildingsRoom(id: Int!): BuildingsRooms!
@@ -382,14 +385,12 @@ input CreateLibraryReservationInput {
   library_id: Int!
   name: String!
   created_on: DateTime
-  createLibraryReservationDateInput: [CreateLibraryReservationDateInput!]!
 }
 
 input UpdateLibraryReservationInput {
   library_id: Int
   name: String
   created_on: DateTime
-  createLibraryReservationDateInput: [CreateLibraryReservationDateInput!]
   id: Int!
 }
 
@@ -422,13 +423,17 @@ input UpdateMediaRentInput {
 }
 
 input CreateLibraryRentInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  library_id: Int!
+  name: String!
+  rent_from: DateTime!
+  rent_till: DateTime!
 }
 
 input UpdateLibraryRentInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  library_id: Int
+  name: String
+  rent_from: DateTime
+  rent_till: DateTime
   id: Int!
 }
 

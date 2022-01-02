@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { ProfilesGroupsRightsService } from 'src/profiles-groups-rights/profiles-groups-rights.service';
 import { ProfilesService } from 'src/profiles/profiles.service';
 
 @Injectable()
@@ -8,6 +9,7 @@ export class AuthService {
   constructor(
     private profilesService: ProfilesService,
     private jwtService: JwtService,
+    private profilesGroupsRightsService: ProfilesGroupsRightsService,
   ) {}
   async validateUser(email: string, pass: string): Promise<any> {
     const user = await this.profilesService.findOneByEmail(email);
@@ -19,7 +21,10 @@ export class AuthService {
     throw new HttpException('Wrong Email or Password', HttpStatus.FORBIDDEN);
   }
   async login(user: any) {
-    const payload = { email: user.email, sub: user.id };
+    const role = await this.profilesGroupsRightsService.findOne(user.id);
+    //console.log(isAdmin.group.name);
+    const isAdmin = role.group.name;
+    const payload = { email: user.email, sub: user.id, isAdmin: isAdmin };
 
     return {
       id: user.id,

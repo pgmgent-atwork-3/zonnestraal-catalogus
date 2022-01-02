@@ -6,6 +6,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -17,17 +18,17 @@ export class LibraryReservationDate {
   @Field()
   id: number;
 
-  @ManyToOne(
-    () => LibraryReservation,
-    (libraryReservation) => libraryReservation.term,
-    { nullable: true },
-  )
-  @JoinColumn({
-    name: 'library_reservation_id',
-    referencedColumnName: 'id',
-  })
-  @Field(() => LibraryReservation, { nullable: true })
-  reservationTerm: LibraryReservation;
+  // @ManyToOne(
+  //   () => LibraryReservation,
+  //   (libraryReservation) => libraryReservation.term,
+  //   { nullable: true },
+  // )
+  // @JoinColumn({
+  //   name: 'library_reservation_id',
+  //   referencedColumnName: 'id',
+  // })
+  // @Field(() => LibraryReservation, { nullable: true })
+  // reservationTerm: LibraryReservation;
 
   @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
   @Field({ nullable: true })
@@ -53,4 +54,18 @@ export class LibraryReservationDate {
   })
   @Field({ nullable: true })
   library_reservation_id: number;
+
+  @OneToOne(
+    () => LibraryReservation,
+    (libraryReservation) => libraryReservation,
+    {
+      cascade: ['insert', 'update', 'remove'],
+    },
+  )
+  @JoinColumn({
+    name: 'library_reservation_id',
+    referencedColumnName: 'id',
+  })
+  @Field(() => LibraryReservation)
+  library_reservation: LibraryReservation;
 }

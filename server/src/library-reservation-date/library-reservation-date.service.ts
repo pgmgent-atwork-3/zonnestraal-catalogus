@@ -11,10 +11,14 @@ export class LibraryReservationDateService {
     @InjectRepository(LibraryReservationDate)
     private libraryReservationDateRepository: Repository<LibraryReservationDate>,
   ) {}
-  create(createLibraryReservationDateInput: CreateLibraryReservationDateInput) {
+  create(
+    createLibraryReservationDateInput: CreateLibraryReservationDateInput,
+    reservationId: number,
+  ) {
     const term = this.libraryReservationDateRepository.create(
       createLibraryReservationDateInput,
     );
+    term.library_reservation_id = reservationId;
     return this.libraryReservationDateRepository.save(term);
   }
 

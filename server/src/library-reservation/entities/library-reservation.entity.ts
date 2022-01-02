@@ -8,7 +8,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
-  OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 export enum Status {
@@ -59,16 +59,9 @@ export class LibraryReservation {
   @Field(() => Profiles)
   profile: Profiles;
 
-  @OneToMany(
-    () => LibraryReservationDate,
-    (libraryReservationDate) => libraryReservationDate.reservationTerm,
-    {
-      cascade: ['insert', 'update', 'remove'],
-    },
-  )
-  @JoinColumn()
-  @Field(() => [LibraryReservationDate])
-  term: LibraryReservationDate[];
+  @OneToOne(() => LibraryReservationDate)
+  @Field(() => LibraryReservationDate)
+  reservationDate: LibraryReservationDate;
 
   @Column({ nullable: true })
   @Field(() => Int, { nullable: true })

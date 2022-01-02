@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateLibraryReservationDateInput } from 'src/library-reservation-date/dto/create-library-reservation-date.input';
-import { LibraryReservationDate } from 'src/library-reservation-date/entities/library-reservation-date.entity';
 import { LibraryReservationDateService } from 'src/library-reservation-date/library-reservation-date.service';
 import { Repository } from 'typeorm';
 import { CreateLibraryReservationInput } from './dto/create-library-reservation.input';
@@ -25,24 +24,15 @@ export class LibraryReservationService {
       createLibraryReservationInput,
     );
     reservation.profile_id = id;
-    // const term: LibraryReservationDate =
-    //   await this.libraryReservationDateService.create(
-    //     createLibraryReservationDateInput,
-    //   );
-    // // reservation.term = await this.libraryReservationDateService.create<any[]>(
-    //   createLibraryReservationDateInput,
-    // );
-    // term.library_reservation_id = reservation.id;
-    const term = await this.libraryReservationDateService.create(
-      createLibraryReservationDateInput,
+    const savedReservation = await this.libraryReservationRepository.save(
+      reservation,
     );
-    // const d = this.libraryReservationDateService.create(
-    //   createLibraryReservationDateInput,
-    // );
-    term.library_reservation_id = reservation.id;
-
-    //reservation.term = term;
-    return this.libraryReservationRepository.save(reservation);
+    savedReservation.reservationDate =
+      await this.libraryReservationDateService.create(
+        createLibraryReservationDateInput,
+        savedReservation.id,
+      );
+    return savedReservation;
   }
 
   findAll() {

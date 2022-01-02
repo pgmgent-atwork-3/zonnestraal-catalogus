@@ -40,6 +40,7 @@ export class LibraryReservationResolver {
     return this.libraryReservationService.findOne(id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Mutation(() => LibraryReservation)
   updateLibraryReservation(
     @Args('updateLibraryReservationInput')

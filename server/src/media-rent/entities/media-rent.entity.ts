@@ -1,4 +1,4 @@
-import { ObjectType, Field } from '@nestjs/graphql';
+import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Media } from 'src/media/entities/media.entity';
 import { Profiles } from 'src/profiles/entities/profiles.entity';
 import {
@@ -62,4 +62,12 @@ export class MediaRent {
   })
   @Field(() => Profiles)
   profile: Profiles;
+
+  @Column({ nullable: true })
+  @Field(() => Int, { nullable: true })
+  profile_id: number;
+
+  @Column({ nullable: true })
+  @Field(() => Int, { nullable: true })
+  media_id: number;
 }

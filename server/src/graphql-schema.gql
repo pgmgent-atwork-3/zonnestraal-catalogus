@@ -107,6 +107,8 @@ type MediaRent {
   returned: String
   media: Media!
   profile: Profiles!
+  profile_id: Int
+  media_id: Int
 }
 
 type Media {
@@ -410,13 +412,17 @@ input UpdateLocationInput {
 }
 
 input CreateMediaRentInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  media_id: Int!
+  name: String!
+  rent_from: DateTime!
+  rent_till: DateTime!
 }
 
 input UpdateMediaRentInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  media_id: Int
+  name: String
+  rent_from: DateTime
+  rent_till: DateTime
   id: Int!
 }
 

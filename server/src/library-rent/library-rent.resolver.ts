@@ -31,6 +31,7 @@ export class LibraryRentResolver {
     return this.libraryRentService.findOne(id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Mutation(() => LibraryRent)
   updateLibraryRent(
     @Args('updateLibraryRentInput')

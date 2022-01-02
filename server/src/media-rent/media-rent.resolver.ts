@@ -3,16 +3,21 @@ import { MediaRentService } from './media-rent.service';
 import { MediaRent } from './entities/media-rent.entity';
 import { CreateMediaRentInput } from './dto/create-media-rent.input';
 import { UpdateMediaRentInput } from './dto/update-media-rent.input';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { UseGuards } from '@nestjs/common';
+import { GetUser } from 'src/auth/getUserFromToken';
 
 @Resolver(() => MediaRent)
 export class MediaRentResolver {
   constructor(private readonly mediaRentService: MediaRentService) {}
 
-  @Mutation(() => MediaRent)
+  @UseGuards(JwtAuthGuard)
+  @Mutation(() => MediaRent, { name: 'createMediaRent' })
   createMediaRent(
     @Args('createMediaRentInput') createMediaRentInput: CreateMediaRentInput,
+    @GetUser() user,
   ) {
-    return this.mediaRentService.create(createMediaRentInput);
+    return this.mediaRentService.create(user.id, createMediaRentInput);
   }
 
   @Query(() => [MediaRent], { name: 'mediaRent' })

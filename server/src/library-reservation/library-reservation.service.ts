@@ -45,7 +45,11 @@ export class LibraryReservationService {
     id: number,
     updateLibraryReservationInput: UpdateLibraryReservationInput,
   ) {
-    return `This action updates a #${id} libraryReservation`;
+    const reservation = this.libraryReservationRepository.create(
+      updateLibraryReservationInput,
+    );
+    reservation.id = id;
+    return this.libraryReservationRepository.save(reservation);
   }
   remove(id: number) {
     return `This action removes a #${id} libraryReservation`;

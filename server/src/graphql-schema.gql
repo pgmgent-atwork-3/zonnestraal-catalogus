@@ -388,10 +388,8 @@ input CreateLibraryReservationInput {
 }
 
 input UpdateLibraryReservationInput {
-  library_id: Int
-  name: String
-  created_on: DateTime
   id: Int!
+  deleted: String
 }
 
 input UpdateLibraryReservationDateInput {
@@ -430,11 +428,8 @@ input CreateLibraryRentInput {
 }
 
 input UpdateLibraryRentInput {
-  library_id: Int
-  name: String
-  rent_from: DateTime
-  rent_till: DateTime
   id: Int!
+  returned: String
 }
 
 input CreateProfileInput {

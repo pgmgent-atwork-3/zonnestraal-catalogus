@@ -26,7 +26,9 @@ export class LibraryRentService {
   }
 
   update(id: number, updateLibraryRentInput: UpdateLibraryRentInput) {
-    return `This action updates a #${id} libraryRent`;
+    const rent = this.libraryRentRepository.create(updateLibraryRentInput);
+    rent.id = id;
+    return this.libraryRentRepository.save(rent);
   }
 
   remove(id: number) {

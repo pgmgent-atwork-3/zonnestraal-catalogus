@@ -3,6 +3,10 @@ import { LibraryReservationService } from './library-reservation.service';
 import { LibraryReservation } from './entities/library-reservation.entity';
 import { CreateLibraryReservationInput } from './dto/create-library-reservation.input';
 import { UpdateLibraryReservationInput } from './dto/update-library-reservation.input';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { UseGuards } from '@nestjs/common';
+import { GetUser } from 'src/auth/getUserFromToken';
+import { CreateLibraryReservationDateInput } from 'src/library-reservation-date/dto/create-library-reservation-date.input';
 
 @Resolver(() => LibraryReservation)
 export class LibraryReservationResolver {
@@ -10,17 +14,29 @@ export class LibraryReservationResolver {
     private readonly libraryReservationService: LibraryReservationService,
   ) {}
 
-  @Mutation(() => LibraryReservation)
+  @UseGuards(JwtAuthGuard)
+  @Mutation(() => LibraryReservation, { name: 'createLibraryReservation' })
   createLibraryReservation(
     @Args('createLibraryReservationInput')
     createLibraryReservationInput: CreateLibraryReservationInput,
+    @Args('createLibraryReservationDateInput')
+    createLibraryReservationDateInput: CreateLibraryReservationDateInput,
+    @GetUser() user,
   ) {
-    return this.libraryReservationService.create(createLibraryReservationInput);
+    // const profile = user.id;
+    // createLibraryReservationInput.profile_id = profile;
+    // console.log(profile);
+    return this.libraryReservationService.create(
+      user.id,
+      createLibraryReservationInput,
+      createLibraryReservationDateInput,
+    );
   }
 
-  @Query(() => [LibraryReservation], { name: 'libraryReservation' })
-  findAll() {
-    return this.libraryReservationService.findAll();
+  @UseGuards(JwtAuthGuard)
+  @Query(() => [LibraryReservation], { name: 'GetAllLibraryReservationByUser' })
+  findAll(@GetUser() user) {
+    return this.libraryReservationService.findAll(user.id);
   }
 
   @Query(() => LibraryReservation, { name: 'libraryReservation' })

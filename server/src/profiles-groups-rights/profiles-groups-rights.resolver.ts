@@ -20,10 +20,10 @@ export class ProfilesGroupsRightsResolver {
   //   return this.profilesGroupsRightsService.findAll();
   // }
 
-  // @Query(() => ProfilesGroupsRights, { name: 'profilesGroupsRight' })
-  // findOne(@Args('id', { type: () => Int }) id: number) {
-  //   return this.profilesGroupsRightsService.findOne(id);
-  // }
+  @Query(() => ProfilesGroupsRights, { name: 'profilesGroupsRight' })
+  findOne(@Args('id', { type: () => Int }) id: number) {
+    return this.profilesGroupsRightsService.findOne(id);
+  }
 
   // @Mutation(() => ProfilesGroupsRights)
   // updateProfilesGroupsRight(@Args('updateProfilesGroupsRightInput') updateProfilesGroupsRightInput: UpdateProfilesGroupsRightInput) {

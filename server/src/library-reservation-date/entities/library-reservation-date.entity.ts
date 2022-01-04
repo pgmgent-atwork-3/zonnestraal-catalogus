@@ -1,22 +1,34 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { Profiles } from 'src/profiles/entities/profiles.entity';
-import { Transport } from 'src/transport/entities/transport.entity';
+import { LibraryReservation } from 'src/library-reservation/entities/library-reservation.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
 @ObjectType()
 @Entity()
-export class TransportReservations {
+export class LibraryReservationDate {
   @PrimaryGeneratedColumn('increment')
   @Field()
   id: number;
+
+  // @ManyToOne(
+  //   () => LibraryReservation,
+  //   (libraryReservation) => libraryReservation.term,
+  //   { nullable: true },
+  // )
+  // @JoinColumn({
+  //   name: 'library_reservation_id',
+  //   referencedColumnName: 'id',
+  // })
+  // @Field(() => LibraryReservation, { nullable: true })
+  // reservationTerm: LibraryReservation;
 
   @Column({
     type: 'timestamptz',
@@ -34,20 +46,6 @@ export class TransportReservations {
   @Field({ nullable: true })
   till_date: Date;
 
-  @ManyToOne(() => Profiles, (profiles) => profiles.transportReservation, {
-    eager: true,
-  })
-  @JoinColumn({
-    name: 'profile_id',
-    referencedColumnName: 'id',
-  })
-  @Field(() => Profiles)
-  profile: Profiles;
-
-  @Column({ nullable: true })
-  @Field(() => String, { nullable: true })
-  name: string;
-
   @CreateDateColumn({
     type: 'timestamptz',
     default: () => 'CURRENT_TIMESTAMP',
@@ -64,13 +62,23 @@ export class TransportReservations {
   @Field({ nullable: true })
   edited_on: Date;
 
-  @ManyToOne(() => Transport, (transport) => transport.reservation, {
-    eager: true,
+  @Column({
+    nullable: true,
   })
+  @Field({ nullable: true })
+  library_reservation_id: number;
+
+  @OneToOne(
+    () => LibraryReservation,
+    (libraryReservation) => libraryReservation,
+    {
+      cascade: ['insert', 'update', 'remove'],
+    },
+  )
   @JoinColumn({
-    name: 'transport_id',
+    name: 'library_reservation_id',
     referencedColumnName: 'id',
   })
-  @Field(() => Transport)
-  transport: Transport;
+  @Field(() => LibraryReservation)
+  library_reservation: LibraryReservation;
 }

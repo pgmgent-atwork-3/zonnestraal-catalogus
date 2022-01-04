@@ -1,4 +1,5 @@
-import { ObjectType, Field } from '@nestjs/graphql';
+import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { LibraryReservationDate } from 'src/library-reservation-date/entities/library-reservation-date.entity';
 import { Library } from 'src/library/entities/library.entity';
 import { Profiles } from 'src/profiles/entities/profiles.entity';
 import {
@@ -7,6 +8,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 export enum Status {
@@ -43,7 +45,11 @@ export class LibraryReservation {
   @Field({ nullable: true })
   deleted: Status;
 
-  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+    nullable: true,
+  })
   @Field({ nullable: true })
   created_on: Date;
 
@@ -56,4 +62,16 @@ export class LibraryReservation {
   })
   @Field(() => Profiles)
   profile: Profiles;
+
+  @OneToOne(() => LibraryReservationDate, { nullable: true })
+  @Field(() => LibraryReservationDate, { nullable: true })
+  reservationDate: LibraryReservationDate;
+
+  @Column({ nullable: true })
+  @Field(() => Int, { nullable: true })
+  library_id: number;
+
+  @Column({ nullable: true })
+  @Field(() => Int, { nullable: true })
+  profile_id: number;
 }

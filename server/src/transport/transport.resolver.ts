@@ -3,6 +3,8 @@ import { TransportService } from './transport.service';
 import { Transport } from './entities/transport.entity';
 import { CreateTransportInput } from './dto/create-transport.input';
 import { UpdateTransportInput } from './dto/update-transport.input';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { UseGuards } from '@nestjs/common';
 
 @Resolver(() => Transport)
 export class TransportResolver {
@@ -15,6 +17,7 @@ export class TransportResolver {
     return this.transportService.create(createTransportInput);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Query(() => [Transport], { name: 'getAllCars' })
   findAll() {
     return this.transportService.findAll();

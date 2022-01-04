@@ -5,7 +5,7 @@
 type BuildingsFixedReservationsExceptions {
   id: Float!
   fixed_reservations: BuildingsFixedReservations!
-  date: DateTime
+  date: String
   created_on: DateTime
 }
 
@@ -17,9 +17,9 @@ scalar DateTime
 type BuildingsRoomsReservations {
   id: Float!
   room: BuildingsRooms!
-  from: DateTime
+  from_date: DateTime
   profile: Profiles!
-  till: DateTime
+  till_date: DateTime
   name: String
   created_on: DateTime
   edited_on: DateTime
@@ -54,10 +54,10 @@ type BuildingsFixedReservations {
   room: BuildingsRooms
   name: String
   profile: Profiles
-  from: DateTime
-  till: DateTime
-  start: String
-  end: String
+  from_date: DateTime
+  till_date: DateTime
+  start_time: String
+  end_time: String
   frequency: String
   created_on: DateTime
   excepions: [BuildingsFixedReservationsExceptions!]
@@ -66,7 +66,7 @@ type BuildingsFixedReservations {
 type MediaFixedReservationsExceptions {
   id: Float!
   fixed_reservations: MediaFixedReservations!
-  date: DateTime
+  date: String
   created_on: DateTime
 }
 
@@ -107,6 +107,8 @@ type MediaRent {
   returned: String
   media: Media!
   profile: Profiles!
+  profile_id: Int
+  media_id: Int
 }
 
 type Media {
@@ -129,10 +131,10 @@ type MediaFixedReservations {
   id: Float!
   media: Media
   name: String
-  from: DateTime
-  till: DateTime
-  start: String
-  end: String
+  from_date: String
+  till_date: String
+  start_time: String
+  end_time: String
   frequency: String
   created_on: DateTime
   excepions: [MediaFixedReservationsExceptions!]
@@ -156,14 +158,14 @@ type ProfilesGroupsRights {
 type TransportFixedReservationsExceptions {
   id: Float!
   fixedReservations: TransportFixedReservations!
-  date: DateTime
+  date: String
   created_on: DateTime
 }
 
 type TransportReservations {
   id: Float!
-  from: DateTime
-  till: DateTime
+  from_date: DateTime
+  till_date: DateTime
   profile: Profiles!
   name: String
   created_on: DateTime
@@ -194,10 +196,10 @@ type TransportFixedReservations {
   transport: Transport!
   name: String
   profile: Profiles
-  from: DateTime
-  till: DateTime
-  start: String
-  end: String
+  from_date: String
+  till_date: String
+  start_time: String
+  end_time: String
   frequency: String
   created_on: DateTime
   excepions: [TransportFixedReservationsExceptions!]
@@ -231,6 +233,8 @@ type LibraryRent {
   rent_till: DateTime
   returned: String
   profile: Profiles!
+  profile_id: Int
+  library_id: Int
 }
 
 type LibraryTypes {
@@ -269,6 +273,19 @@ type LibraryReservation {
   deleted: String
   created_on: DateTime
   profile: Profiles!
+  reservationDate: LibraryReservationDate
+  library_id: Int
+  profile_id: Int
+}
+
+type LibraryReservationDate {
+  id: Float!
+  from_date: DateTime
+  till_date: DateTime
+  created_on: DateTime
+  edited_on: DateTime
+  library_reservation_id: Float
+  library_reservation: LibraryReservation!
 }
 
 type MostPopularMedia {
@@ -288,15 +305,19 @@ type Query {
   getAllLibraries: [Library!]!
   getNewLibraries: [Library!]!
   getLibraryById(id: Int!): Library!
+  GetAllLibraryReservationByUser: [LibraryReservation!]!
   libraryReservation(id: Int!): LibraryReservation!
+  libraryReservationDate(id: Int!): LibraryReservationDate!
   location(id: Int!): Location!
   getAllMedia: [Media!]!
   getMostCommonlyMedia: [MostPopularMedia!]!
   getMediaById(id: Int!): Media!
   mediaTypes: [MediaTypes!]!
-  mediaRent(id: Int!): MediaRent!
+  GetAllMediaRentByUser: [MediaRent!]!
+  getOneMediaRent(id: Int!): MediaRent!
   libraryRent(id: Int!): LibraryRent!
   getAllUsers: [Profiles!]!
+  profilesGroupsRight(id: Int!): ProfilesGroupsRights!
   getAllbuildings: [Buildings!]!
   getAllbuildingsRooms: [BuildingsRooms!]!
   buildingsRoom(id: Int!): BuildingsRooms!
@@ -317,9 +338,11 @@ type Query {
 }
 
 type Mutation {
-  createLibraryReservation(createLibraryReservationInput: CreateLibraryReservationInput!): LibraryReservation!
+  createLibraryReservation(createLibraryReservationDateInput: CreateLibraryReservationDateInput!, createLibraryReservationInput: CreateLibraryReservationInput!): LibraryReservation!
   updateLibraryReservation(updateLibraryReservationInput: UpdateLibraryReservationInput!): LibraryReservation!
   removeLibraryReservation(id: Int!): LibraryReservation!
+  updateLibraryReservationDate(updateLibraryReservationDateInput: UpdateLibraryReservationDateInput!): LibraryReservationDate!
+  removeLibraryReservationDate(id: Int!): LibraryReservationDate!
   createLocation(createLocationInput: CreateLocationInput!): Location!
   updateLocation(updateLocationInput: UpdateLocationInput!): Location!
   removeLocation(id: Int!): Location!
@@ -357,14 +380,25 @@ type Mutation {
   removeTransportFixedReservationsException(id: Int!): TransportFixedReservationsExceptions!
 }
 
+input CreateLibraryReservationDateInput {
+  from_date: DateTime!
+  till_date: DateTime!
+}
+
 input CreateLibraryReservationInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  library_id: Int!
+  name: String!
+  created_on: DateTime
 }
 
 input UpdateLibraryReservationInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  id: Int!
+  deleted: String
+}
+
+input UpdateLibraryReservationDateInput {
+  from_date: DateTime
+  till_date: DateTime
   id: Int!
 }
 
@@ -380,25 +414,27 @@ input UpdateLocationInput {
 }
 
 input CreateMediaRentInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  media_id: Int!
+  name: String!
+  rent_from: DateTime!
+  rent_till: DateTime!
 }
 
 input UpdateMediaRentInput {
-  """Example field (placeholder)"""
-  exampleField: Int
   id: Int!
+  returned: String
 }
 
 input CreateLibraryRentInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  library_id: Int!
+  name: String!
+  rent_from: DateTime!
+  rent_till: DateTime!
 }
 
 input UpdateLibraryRentInput {
-  """Example field (placeholder)"""
-  exampleField: Int
   id: Int!
+  returned: String
 }
 
 input CreateProfileInput {

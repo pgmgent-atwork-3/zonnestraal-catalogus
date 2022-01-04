@@ -1,9 +1,8 @@
-import { ObjectType, Field } from '@nestjs/graphql';
+import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Media } from 'src/media/entities/media.entity';
 import { Profiles } from 'src/profiles/entities/profiles.entity';
 import {
   Column,
-  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
@@ -26,11 +25,11 @@ export class MediaRent {
   @Field(() => String, { nullable: true })
   name: string;
 
-  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP' })
+  @Column({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   @Field({ nullable: true })
   rent_from: Date;
 
-  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP' })
+  @Column({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   @Field({ nullable: true })
   rent_till: Date;
 
@@ -62,4 +61,12 @@ export class MediaRent {
   })
   @Field(() => Profiles)
   profile: Profiles;
+
+  @Column({ nullable: true })
+  @Field(() => Int, { nullable: true })
+  profile_id: number;
+
+  @Column({ nullable: true })
+  @Field(() => Int, { nullable: true })
+  media_id: number;
 }

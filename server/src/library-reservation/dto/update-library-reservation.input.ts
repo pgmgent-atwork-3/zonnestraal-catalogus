@@ -1,10 +1,15 @@
-import { CreateLibraryReservationInput } from './create-library-reservation.input';
-import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
+import { InputType, Field, Int } from '@nestjs/graphql';
+
+export enum Status {
+  YES = 'Y',
+  NO = 'N',
+}
 
 @InputType()
-export class UpdateLibraryReservationInput extends PartialType(
-  CreateLibraryReservationInput,
-) {
+export class UpdateLibraryReservationInput {
   @Field(() => Int)
   id: number;
+
+  @Field({ nullable: true })
+  deleted: Status;
 }

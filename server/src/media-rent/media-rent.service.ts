@@ -1,23 +1,39 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateMediaRentInput } from './dto/create-media-rent.input';
 import { UpdateMediaRentInput } from './dto/update-media-rent.input';
+import { MediaRent } from './entities/media-rent.entity';
 
 @Injectable()
 export class MediaRentService {
-  create(createMediaRentInput: CreateMediaRentInput) {
-    return 'This action adds a new mediaRent';
+  constructor(
+    @InjectRepository(MediaRent)
+    private mediaRentRepository: Repository<MediaRent>,
+  ) {}
+  async create(id: number, createMediaRentInput: CreateMediaRentInput) {
+    const rent = this.mediaRentRepository.create(createMediaRentInput);
+    rent.profile_id = id;
+    return this.mediaRentRepository.save(rent);
   }
 
-  findAll() {
-    return `This action returns all mediaRent`;
+  findAll(id: number) {
+    return this.mediaRentRepository.find({
+      where: { profile_id: id },
+    });
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} mediaRent`;
+    return this.mediaRentRepository.findOne({ where: { id: id } });
   }
 
-  update(id: number, updateMediaRentInput: UpdateMediaRentInput) {
-    return `This action updates a #${id} mediaRent`;
+  async update(id: number, updateMediaRentInput: UpdateMediaRentInput) {
+    const rent = this.mediaRentRepository.create(updateMediaRentInput);
+    rent.id = id;
+    const one = await this.mediaRentRepository.findOne(rent.id);
+    rent.rent_from = one.rent_from;
+    rent.rent_till = one.rent_till;
+    return this.mediaRentRepository.save(rent);
   }
 
   remove(id: number) {

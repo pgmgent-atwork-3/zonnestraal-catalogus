@@ -24,7 +24,11 @@ export class LibraryTypes {
   @Field(() => String, { nullable: true })
   language: string;
 
-  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+    nullable: true,
+  })
   @Field({ nullable: true })
   created_on: Date;
 
@@ -33,6 +37,7 @@ export class LibraryTypes {
   meta_id: number;
 
   @UpdateDateColumn({
+    type: 'timestamptz',
     onUpdate: 'CURRENT_TIMESTAMP',
     nullable: true,
   })

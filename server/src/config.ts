@@ -11,6 +11,9 @@ export const config = () => ({
     database: process.env.MYSQL_DATABASE,
     entities: ['dist/**/*.entity{.ts,.js}', __dirname + '/entities/**/*.js'],
     synchronize: false,
+    // ssl: true,
+    ssl: { rejectUnauthorized: false },
+    // options: { trustServerCertificate: true },
     namingStrategy: new SnakeNamingStrategy(),
   },
 });

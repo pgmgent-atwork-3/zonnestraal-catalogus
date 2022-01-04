@@ -32,9 +32,13 @@ export class BuildingsRoomsReservations {
   @Field(() => BuildingsRooms)
   room: BuildingsRooms;
 
-  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
+  @Column({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+    nullable: true,
+  })
   @Field({ nullable: true })
-  from: Date;
+  from_date: Date;
 
   @ManyToOne(() => Profiles, (profiles) => profiles.roomReservation, {
     eager: true,
@@ -46,19 +50,28 @@ export class BuildingsRoomsReservations {
   @Field(() => Profiles)
   profile: Profiles;
 
-  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
+  @Column({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+    nullable: true,
+  })
   @Field({ nullable: true })
-  till: Date;
+  till_date: Date;
 
   @Column({ nullable: true })
   @Field(() => String, { nullable: true })
   name: string;
 
-  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+    nullable: true,
+  })
   @Field({ nullable: true })
   created_on: Date;
 
   @UpdateDateColumn({
+    type: 'timestamptz',
     onUpdate: 'CURRENT_TIMESTAMP',
     nullable: true,
   })

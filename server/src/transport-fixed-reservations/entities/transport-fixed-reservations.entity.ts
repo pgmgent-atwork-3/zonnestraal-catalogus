@@ -55,23 +55,24 @@ export class TransportFixedReservations {
   @Field(() => Profiles, { nullable: true })
   profile: Profiles;
 
-  @CreateDateColumn({
+  @Column({
+    type: 'date',
     nullable: true,
   })
   @Field({ nullable: true })
-  from: Date;
+  from_date: string;
 
-  @CreateDateColumn({ nullable: true })
+  @Column({ type: 'date', nullable: true })
   @Field({ nullable: true })
-  till: Date;
+  till_date: string;
 
-  @Column({ nullable: true })
+  @Column({ type: 'time', nullable: true })
   @Field({ nullable: true })
-  start: string;
+  start_time: string;
 
-  @Column({ nullable: true })
+  @Column({ type: 'time', nullable: true })
   @Field({ nullable: true })
-  end: string;
+  end_time: string;
 
   @Column({
     type: 'enum',
@@ -82,7 +83,11 @@ export class TransportFixedReservations {
   @Field({ nullable: true })
   frequency: Status;
 
-  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+    nullable: true,
+  })
   @Field({ nullable: true })
   created_on: Date;
 

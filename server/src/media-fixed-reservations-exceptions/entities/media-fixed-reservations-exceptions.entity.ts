@@ -1,6 +1,7 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { MediaFixedReservations } from 'src/media-fixed-reservations/entities/media-fixed-reservations.entity';
 import {
+  Column,
   CreateDateColumn,
   Entity,
   JoinColumn,
@@ -29,11 +30,15 @@ export class MediaFixedReservationsExceptions {
   @Field(() => MediaFixedReservations)
   fixed_reservations: MediaFixedReservations;
 
-  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
+  @Column({ type: 'date', default: () => 'CURRENT_TIMESTAMP', nullable: true })
   @Field({ nullable: true })
-  date: Date;
+  date: string;
 
-  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+    nullable: true,
+  })
   @Field({ nullable: true })
   created_on: Date;
 }

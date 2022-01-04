@@ -7,11 +7,13 @@ import { JWTStrategy } from './jwt.strategy';
 import { AuthResolver } from './auth.resolver';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ProfilesModule } from 'src/profiles/profiles.module';
+import { ProfilesGroupsRightsModule } from 'src/profiles-groups-rights/profiles-groups-rights.module';
 
 @Module({
   imports: [
     forwardRef(() => ProfilesModule),
     PassportModule,
+    ProfilesGroupsRightsModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],

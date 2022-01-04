@@ -29,6 +29,7 @@ import { TransportModule } from './transport/transport.module';
 import { TransportReservationsModule } from './transport-reservations/transport-reservations.module';
 import { TransportFixedReservationsModule } from './transport-fixed-reservations/transport-fixed-reservations.module';
 import { TransportFixedReservationsExceptionsModule } from './transport-fixed-reservations-exceptions/transport-fixed-reservations-exceptions.module';
+import { LibraryReservationDateModule } from './library-reservation-date/library-reservation-date.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -65,6 +66,7 @@ import { TransportFixedReservationsExceptionsModule } from './transport-fixed-re
     TransportReservationsModule,
     TransportFixedReservationsModule,
     TransportFixedReservationsExceptionsModule,
+    LibraryReservationDateModule,
   ],
   controllers: [AppController],
   providers: [AppService],

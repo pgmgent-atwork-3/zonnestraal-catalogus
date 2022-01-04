@@ -19,7 +19,7 @@ export class ProfilesService {
   }
 
   findAll(): Promise<Profiles[]> {
-    return this.profileRepository.find({ relations: ['role', 'rent'] });
+    return this.profileRepository.find({ relations: ['role'] });
   }
 
   findOneByEmail(email: string) {

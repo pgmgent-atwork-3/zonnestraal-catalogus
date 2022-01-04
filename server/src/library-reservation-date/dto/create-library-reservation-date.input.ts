@@ -3,8 +3,8 @@ import { InputType, Field } from '@nestjs/graphql';
 @InputType()
 export class CreateLibraryReservationDateInput {
   @Field()
-  from: Date;
+  from_date: Date;
 
   @Field()
-  till: Date;
+  till_date: Date;
 }

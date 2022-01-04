@@ -3,7 +3,6 @@ import { Library } from 'src/library/entities/library.entity';
 import { Profiles } from 'src/profiles/entities/profiles.entity';
 import {
   Column,
-  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
@@ -36,11 +35,19 @@ export class LibraryRent {
   @Field(() => Library)
   library: Library;
 
-  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
+  @Column({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+    nullable: true,
+  })
   @Field({ nullable: true })
   rent_from: Date;
 
-  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
+  @Column({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+    nullable: true,
+  })
   @Field({ nullable: true })
   rent_till: Date;
 

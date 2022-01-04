@@ -29,11 +29,19 @@ export class TransportFixedReservationsExceptions {
   @Field(() => TransportFixedReservations)
   fixedReservations: TransportFixedReservations;
 
-  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
+  @CreateDateColumn({
+    type: 'date',
+    default: () => 'CURRENT_TIMESTAMP',
+    nullable: true,
+  })
   @Field({ nullable: true })
-  date: Date;
+  date: string;
 
-  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+    nullable: true,
+  })
   @Field({ nullable: true })
   created_on: Date;
 }

@@ -3,7 +3,7 @@ import { ProfilesGroups } from 'src/profiles-groups/entities/profiles-groups.ent
 import { Profiles } from 'src/profiles/entities/profiles.entity';
 
 import {
-  CreateDateColumn,
+  Column,
   Entity,
   JoinColumn,
   ManyToOne,
@@ -35,11 +35,11 @@ export class ProfilesGroupsRights {
   @Field(() => ProfilesGroups)
   group: ProfilesGroups;
 
-  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP' })
+  @Column({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   @Field({ nullable: true })
   starts_on: Date;
 
-  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP' })
+  @Column({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   @Field({ nullable: true })
   expires_on: Date;
 }

@@ -71,11 +71,16 @@ export class Location {
   @Field({ nullable: true })
   show_overview: Status;
 
-  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+    nullable: true,
+  })
   @Field({ nullable: true })
   created_on: Date;
 
   @UpdateDateColumn({
+    type: 'timestamptz',
     onUpdate: 'CURRENT_TIMESTAMP',
     nullable: true,
   })

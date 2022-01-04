@@ -45,7 +45,11 @@ export class LibraryReservation {
   @Field({ nullable: true })
   deleted: Status;
 
-  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP', nullable: true })
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+    nullable: true,
+  })
   @Field({ nullable: true })
   created_on: Date;
 

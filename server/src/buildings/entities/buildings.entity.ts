@@ -60,11 +60,12 @@ export class Buildings {
   @Field(() => Int, { nullable: true })
   meta_id: number;
 
-  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP' })
+  @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   @Field({ nullable: true })
   created_on: Date;
 
   @UpdateDateColumn({
+    type: 'timestamptz',
     onUpdate: 'CURRENT_TIMESTAMP',
   })
   @Field({ nullable: true })

@@ -10,7 +10,6 @@ import { TransportFixedReservations } from 'src/transport-fixed-reservations/ent
 import { TransportReservations } from 'src/transport-reservations/entities/transport-reservations.entity';
 import {
   Column,
-  CreateDateColumn,
   Entity,
   JoinColumn,
   OneToMany,
@@ -56,11 +55,11 @@ export class Profiles {
   @Field(() => String, { nullable: true })
   url: string;
 
-  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP' })
+  @Column({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   @Field({ nullable: true })
   registered_on: Date;
 
-  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP' })
+  @Column({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   @Field({ nullable: true })
   last_login: Date;
 

@@ -8,8 +8,8 @@ interface NavProps {
 
 const StyledNav = styled.nav<{open: Boolean}>`
   position: absolute;
-  top: 4rem;
-  height: 100vh;
+  top: 5rem;
+  height: calc(100vh - 5rem);
   width: 100vw;
   padding: 1rem;
   background: ${({ theme }) => theme.colors.lightGrey};
@@ -18,6 +18,7 @@ const StyledNav = styled.nav<{open: Boolean}>`
   justify-content: center;
   transition: transform 0.3s ease-in-out;
   transform: ${({ open }) => (open ? "translateX(0)" : "translateX(100%)")};
+  z-index:100;
 
   ul {
     display: flex;
@@ -34,7 +35,7 @@ const StyledNav = styled.nav<{open: Boolean}>`
       }
 
       a {
-        color: ${({ theme }) => theme.colors.black};
+        color: ${({ theme }) => theme.colors.darkBlue};
         font-size: ${({ theme }) => theme.fontSizes.headline5};
         margin: 1rem 2rem;
         transition: all 0.3s ease-in-out;

@@ -5,20 +5,25 @@ type PopProps = {
   text: string;
 }
 
-const popContainer = styled.div `
+const PopContainer = styled.div `
+  display: flex;
   background: ${({ theme }) => theme.colors.yellow};
-  padding:  ${({ theme }) => theme.margins.normal};
+  margin-bottom:  ${({ theme }) => theme.margins.small};
 
   p {
     text-align: center;
+  }
+
+  @media (min-width: ${({theme}) => theme.width.desktop}) {
+    margin-bottom: 0;
   }
 `
 
 const popUp = ({ text }:PopProps) => {
   return (
-    <div>
+    <PopContainer>
       <p>{ text }</p>
-    </div>
+    </PopContainer>
   )
 }
 

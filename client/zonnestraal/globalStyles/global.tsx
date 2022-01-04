@@ -41,13 +41,14 @@ h1 {
 }
 
 h2 {
-  font-size: ${({ theme }) => theme.fontSizes.headline5};
-  font-weight: 400;
+  color: ${({ theme }) => theme.colors.darkBlue};
+  font-size: ${({ theme }) => theme.fontSizes.headline4};
+  font-weight: 600;
   line-height: 1.2;
   margin-bottom: ${({ theme }) => theme.margins.small};
 
   @media (min-width: ${({ theme }) => theme.width.tablet}) {
-    font-size: ${({ theme }) => theme.fontSizes.headline6};
+    font-size: ${({ theme }) => theme.fontSizes.headline4};
   }
 }
 
@@ -70,12 +71,14 @@ span {
 }
 
 input {
+  height: 2.5rem;
   display: block;
-  border: 1px solid ${({ theme }) => theme.colors.primaryColor};
+  border: 1px solid ${({ theme }) => theme.colors.grey};
   margin-top: ${({ theme }) => theme.margins.extraSmall};
   margin-bottom: ${({ theme }) => theme.margins.extraSmall};
   border-radius: ${({ theme }) => theme.borderRadius.small};
   padding: 0.5rem 1rem;
+  outline: none;
 }
 
 label {

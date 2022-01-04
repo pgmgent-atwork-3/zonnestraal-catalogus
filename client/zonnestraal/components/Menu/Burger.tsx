@@ -8,7 +8,7 @@ interface BurgerProps {
 
 const StyledBurger = styled.div<{open: Boolean}>`
   position: ${( {open} ) => (open ? "fixed" : "absolute")};
-  top: 1rem;
+  top: 1.5rem;
   right: 2rem;
   display: flex;
   flex-direction: column;
@@ -27,7 +27,7 @@ const StyledBurger = styled.div<{open: Boolean}>`
   
   div {
     width: 2rem;
-    height: 0.25rem;
+    height: 0.20rem;
     background: ${({ theme }) => theme.colors.black};
     border-radius: 10px;
     transition: all 0.3s linear;
@@ -35,15 +35,18 @@ const StyledBurger = styled.div<{open: Boolean}>`
     transform-origin: 1px;
 
     :first-child {
+      height: 0.20rem;
       transform: ${( {open} ) => (open ? "rotate(45deg)" : "rotate(0)")};
     }
 
     :nth-child(2) {
+      height: 0.20rem;
       opacity: ${( {open} ) => (open ? "0" : "1")};
       transform: ${( {open} ) => (open ? "translateX(20px)" : "translateX(0)")};
     }
 
     :nth-child(3) {
+      height: 0.20rem;
       transform: ${( {open} ) => (open ? "rotate(-45deg)" : "rotate(0)")};
     }
   }

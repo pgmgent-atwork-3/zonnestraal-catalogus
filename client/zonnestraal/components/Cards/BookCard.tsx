@@ -3,6 +3,7 @@ import { DefaultLink, PrimaryButton, SecondaryButton } from '../Buttons';
 import styled from 'styled-components';
 import BookIcon from '../../public/icon-book-open.png';
 import Image from 'next/image'
+import Link from 'next/link';
 
 interface Props {
   data: data[];
@@ -41,20 +42,22 @@ const BookCard = ({data}: Props) => {
   return (
     <CardsContainer>
         {data.map(b => (
-          <StyledCard>
-            <GreyContainer>
-              <span>Beschikbaar</span>
-              <Image src={BookIcon} height={80} width={80}/>
-              <DefaultLink title="Meer info"/>
-              <SecondaryButton title="Uitlenen"/>
-              <PrimaryButton title="Reserveren"/>
-            </GreyContainer>
+          <Link href={'/bibliotheek/' + b.id}>
+            <StyledCard>
+              <GreyContainer>
+                <span>Beschikbaar</span>
+                <Image src={BookIcon} height={80} width={80}/>
+                <DefaultLink title="Meer info"/>
+                <SecondaryButton title="Uitlenen"/>
+                <PrimaryButton title="Reserveren"/>
+              </GreyContainer>
 
-            <div>
-              <h3>{b.title}</h3>
-              <p>{b.author}</p>
-            </div>
-          </StyledCard>
+              <div>
+                <h3>{b.title}</h3>
+                <p>{b.author}</p>
+              </div>
+            </StyledCard>
+          </Link>
         ))}
       </CardsContainer>
   )

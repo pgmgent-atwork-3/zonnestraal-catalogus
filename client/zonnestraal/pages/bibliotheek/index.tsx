@@ -35,12 +35,12 @@ function LibraryPage() {
               {books.map((b) => (
                 <li key={b.id}>
                   <Link
-                    href={{
-                      pathname: '/blog/[slug]',
-                      query: { slug: b.title },
-                    }}
+                    href={'/bibliotheek/' + b.id}
                   >
-                    <a>{b.title}</a>
+                    <a>
+                      <h3>{b.title}</h3>
+                      <span>{b.id}</span>
+                    </a>
                   </Link>
                 </li>
               ))}

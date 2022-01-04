@@ -43,6 +43,7 @@ import { LibraryReservationDateModule } from './library-reservation-date/library
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/graphql-schema.gql'),
       context: ({ req }) => ({ headers: req.headers }),
+      
     }),
     LibraryModule,
     LibraryReservationModule,

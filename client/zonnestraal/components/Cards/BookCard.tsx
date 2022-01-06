@@ -4,9 +4,10 @@ import styled from 'styled-components';
 import BookIcon from '../../public/icon-book-open.png';
 import Image from 'next/image'
 import Link from 'next/link';
+import { Book } from '../../interfaces/models/book';
 
 interface Props {
-  data: data[];
+  data: Book[];
 }
 
 const GreyContainer = styled.div`
@@ -33,15 +34,19 @@ const StyledCard = styled.div`
   margin-bottom:${({ theme }) => theme.margins.normal};
 
   @media (min-width: ${({theme}) => theme.width.tablet}) {
-    width: 20%;
+    width: 17rem;
     margin-right:${({ theme }) => theme.margins.normal};
   }
 `
 
-const BookCard = ({data}: Props) => {
+const BookCard = ({ data }) => {
+  const NewData = data.slice(0,4);
+
+  console.log(NewData)
+
   return (
     <CardsContainer>
-        {data.map(b => (
+        {NewData.map(b => (
           <Link href={'/bibliotheek/' + b.id}>
             <StyledCard>
               <GreyContainer>

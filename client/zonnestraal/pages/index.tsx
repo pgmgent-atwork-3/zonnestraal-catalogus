@@ -1,10 +1,15 @@
+import { useState } from 'react';
+//Components
 import PopUp from '../components/Pop-up/pop-up';
 import Hero from '../components/Hero/Hero';
-import { useState } from 'react';
 import styled from 'styled-components';
 import PopUpButton from '../components/Buttons/PopUpButton';
 import Headline1 from '../components/Typo/Headline1';
 import BookCard from '../components/Cards/BookCard';
+//Fetching
+import { GET_ALLL_BOOKS_QUERY } from '../graphql/allLibraries';
+import client from '../lib/apollo-client';
+import { GetAllBooks } from '../interfaces/api/getAllBooks';
 
 const PopUpContainer = styled.div`
   display: flex;
@@ -40,7 +45,7 @@ const ContentContainer = styled.div`
   padding: ${({ theme }) => theme.paddings.normal} ${({ theme }) => theme.paddings.normal};
 `
 
-const Home = () => {
+const Home = ({books} : {books: GetAllBooks}) => {
   const [show, setShow] = useState(true);
   
   return (
@@ -62,87 +67,24 @@ const Home = () => {
 
       <ContentContainer>
         <Headline1 title="Nieuwe aanwinsten"/>
-        <BookCard data={Books} />
+        <BookCard data={books} />
       </ContentContainer>
+
+      <button>call login mutation</button>
     </>
   )
 }
 
 export default Home;
 
-
-// Test with static props
-/* export const getStaticProps = async () => {
-  const res = await fetch(`https://superhero-search.p.rapidapi.com/api/heroes`)
-  const heroes = await res.json()
-
+export async function getServerSideProps() {
+  const { data } = await client.query({
+    query: GET_ALLL_BOOKS_QUERY,
+  });
+  
   return {
     props: {
-      heroes
-    }
-  }
-} */
-
-const Books = 
-[
-  {
-    id: 42,
-    serial: 42,
-    title: "Ontdek wie je bent - Een speurtocht naar jezelf (m...",
-    description:"Interactieve map",
-    author:"BOSCH SUYKERBUYK",
-    year: null,
-    location_id: 1,
-    created_on: "2013-09-04 10:13:34",
-    edited_on: "2013-09-04 10:13:34",
-    hidden: "N",
-    type_id: 8,
-    language: "nl",
-    meta_id: 128
-  },
-  {
-    id: 24,
-    serial: 24,
-    title: "ANDERS ZIJN",
-    description:"Over mensen die anders zijn",
-    author:"VDA",
-    year: null,
-    location_id: 1,
-    created_on: "2013-09-04 09:16:16",
-    edited_on: "2013-09-04 09:16:16",
-    hidden: "N",
-    type_id: 1,
-    language: "nl",
-    meta_id: 92
-  },
-  {
-    id: 42,
-    serial: 42,
-    title: "Ontdek wie je bent - Een speurtocht naar jezelf (m...",
-    description:"Interactieve map",
-    author:"BOSCH SUYKERBUYK",
-    year: null,
-    location_id: 1,
-    created_on: "2013-09-04 10:13:34",
-    edited_on: "2013-09-04 10:13:34",
-    hidden: "N",
-    type_id: 8,
-    language: "nl",
-    meta_id: 128
-  },
-  {
-    id: 24,
-    serial: 24,
-    title: "ANDERS ZIJN",
-    description:"Over mensen die anders zijn",
-    author:"VDA",
-    year: null,
-    location_id: 1,
-    created_on: "2013-09-04 09:16:16",
-    edited_on: "2013-09-04 09:16:16",
-    hidden: "N",
-    type_id: 1,
-    language: "nl",
-    meta_id: 92
-  }
-]
+      books: data.getAllLibraries
+    },
+ };
+}

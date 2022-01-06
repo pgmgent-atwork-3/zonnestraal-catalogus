@@ -45,22 +45,7 @@ function LibraryPage() {
                 </li>
               ))}
             </ul>
-
-{/*             <ul>
-                {books.map((book) => {
-                  <li key={book.id}>
-                    <Link
-                      href={{
-                        pathname: '/bibliotheek/[slug]',
-                        query: { slug: book.title }
-                      }}
-                    >
-                      <a>{book.title}</a>
-                    </Link>
-                  </li>
-                })}
-            </ul>
- */}        </>
+        </>
     );
 };
 

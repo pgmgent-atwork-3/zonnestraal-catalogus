@@ -17,7 +17,6 @@ const GreyContainer = styled.div`
   align-items: center;
   background: ${({ theme }) => theme.colors.lightGrey};
   padding: ${({ theme }) => theme.paddings.normal};
-  padding-top:${({ theme }) => theme.margins.extraLarge};
 `
 
 const CardsContainer = styled.div`
@@ -31,7 +30,6 @@ const CardsContainer = styled.div`
 
 const StyledCard = styled.div`
   display: flex;
-  position: relative;
   flex-direction: column;
   margin-bottom:${({ theme }) => theme.margins.normal};
 
@@ -49,25 +47,17 @@ const ItemTitle = styled.h3`
   margin-bottom:${({ theme }) => theme.margins.extraSmall};
 `
 
-const Availability = styled.span`
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  color: ${({ theme }) => theme.colors.darkBlue};
-`
+const MediaCard = ({ data }) => {
+  const NewData = data.slice(0,2);
 
-const BookCard = ({ data }) => {
-  const NewData = data.slice(0,4);
-
-  console.log(NewData)
+  console.log(NewData);
 
   return (
     <CardsContainer>
-        {NewData.map(b => (
-          <Link href={'/bibliotheek/' + b.id}>
+        {NewData.map(m => (
+          <Link href={'/bibliotheek/' + m.id}>
             <StyledCard>
               <GreyContainer>
-                <Availability>Beschikbaar</Availability>
                 <Image src={BookIcon} height={80} width={80}/>
                 <DefaultLink title="Meer info"/>
                 <SecondaryButton title="Uitlenen"/>
@@ -75,8 +65,7 @@ const BookCard = ({ data }) => {
               </GreyContainer>
 
               <TextContainer>
-                <ItemTitle>{b.title}</ItemTitle>
-                <p>{b.author}</p>
+                <ItemTitle>{m.title}</ItemTitle>
               </TextContainer>
             </StyledCard>
           </Link>
@@ -85,6 +74,6 @@ const BookCard = ({ data }) => {
   )
 }
 
-export default BookCard;
+export default MediaCard;
 
 

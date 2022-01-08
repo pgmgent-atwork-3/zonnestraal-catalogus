@@ -49,6 +49,7 @@ h2 {
 
   @media (min-width: ${({ theme }) => theme.width.tablet}) {
     font-size: ${({ theme }) => theme.fontSizes.headline4};
+    margin-bottom: ${({ theme }) => theme.margins.medium};
   }
 }
 

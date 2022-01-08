@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 //Components
 import PopUp from '../components/Pop-up/pop-up';
 import Hero from '../components/Hero/Hero';
@@ -6,10 +7,12 @@ import styled from 'styled-components';
 import PopUpButton from '../components/Buttons/PopUpButton';
 import Headline1 from '../components/Typo/Headline1';
 import BookCard from '../components/Cards/BookCard';
+
 //Fetching
-import { GET_ALLL_BOOKS_QUERY } from '../graphql/allLibraries';
+import { GET_MEDIA_AND_BOOKS_QUERY } from '../graphql/mediaAndBooks';
 import client from '../lib/apollo-client';
 import { GetAllBooks } from '../interfaces/api/getAllBooks';
+import { MediaCard } from '../components/Cards';
 
 const PopUpContainer = styled.div`
   display: flex;
@@ -42,10 +45,15 @@ const MoreInfoContainer = styled.div<{show: Boolean}>`
 `
 
 const ContentContainer = styled.div`
-  padding: ${({ theme }) => theme.paddings.normal} ${({ theme }) => theme.paddings.normal};
+  padding: ${({ theme }) => theme.paddings.medium} ${({ theme }) => theme.paddings.normal};
+
+  @media (min-width: ${({theme}) => theme.width.desktop}) {
+    padding: ${({ theme }) => theme.paddings.medium} ${({ theme }) => theme.paddings.extraLarge};
+
+  }
 `
 
-const Home = ({books} : {books: GetAllBooks}) => {
+const Home = ({books, media} : {books: GetAllBooks}) => {
   const [show, setShow] = useState(true);
   
   return (
@@ -68,23 +76,26 @@ const Home = ({books} : {books: GetAllBooks}) => {
       <ContentContainer>
         <Headline1 title="Nieuwe aanwinsten"/>
         <BookCard data={books} />
-      </ContentContainer>
 
-      <button>call login mutation</button>
+        <Headline1 title="Meest gereserveerde media"/>
+        <MediaCard data={media} />
+      </ContentContainer>
     </>
   )
 }
 
 export default Home;
 
+/* Fetch data */
 export async function getServerSideProps() {
   const { data } = await client.query({
-    query: GET_ALLL_BOOKS_QUERY,
+    query: GET_MEDIA_AND_BOOKS_QUERY,
   });
   
   return {
     props: {
-      books: data.getAllLibraries
+      books: data.getAllLibraries,
+      media: data.getAllMedia
     },
  };
 }

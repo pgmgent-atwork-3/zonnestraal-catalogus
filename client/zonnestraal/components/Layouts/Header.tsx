@@ -16,6 +16,7 @@ const StyledHeader = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   border-bottom: 1px solid ${({ theme }) => theme.colors.yellow};
 
   @media (min-width: ${({ theme }) => theme.width.desktop}) {
@@ -24,9 +25,8 @@ const StyledHeader = styled.div`
     flex-direction: row;
     justify-content: space-between;
     background: ${({ theme }) => theme.colors.lightGrey}; 
-    padding: ${({ theme }) => theme.paddings.medium} ${({ theme }) => theme.paddings.large};
+    padding: ${({ theme }) => theme.paddings.medium} ${({ theme }) => theme.paddings.extraLarge};
   } 
-
 `
 
 interface Props {

@@ -3,6 +3,9 @@ import { BuildingsFixedReservationsService } from './buildings-fixed-reservation
 import { BuildingsFixedReservations } from './entities/buildings-fixed-reservations.entity';
 import { CreateBuildingsFixedReservationInput } from './dto/create-buildings-fixed-reservation.input';
 import { UpdateBuildingsFixedReservationInput } from './dto/update-buildings-fixed-reservation.input';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { HttpException, HttpStatus, UseGuards } from '@nestjs/common';
+import { GetUser } from 'src/auth/getUserFromToken';
 
 @Resolver(() => BuildingsFixedReservations)
 export class BuildingsFixedReservationsResolver {
@@ -25,6 +28,20 @@ export class BuildingsFixedReservationsResolver {
   })
   findAll() {
     return this.buildingsFixedReservationsService.findAll();
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Query(() => [BuildingsFixedReservations], {
+    name: 'getAllRoomsFixedReservationForAdmin',
+  })
+  findAllForAdmin(@GetUser() user) {
+    if (user.isAdmin === true) {
+      return this.buildingsFixedReservationsService.findAllForAdmin();
+    }
+    throw new HttpException(
+      'This function is only available for administrator',
+      HttpStatus.FORBIDDEN,
+    );
   }
 
   @Query(() => BuildingsFixedReservations, {

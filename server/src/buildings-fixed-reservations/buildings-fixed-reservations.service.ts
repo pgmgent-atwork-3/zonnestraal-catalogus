@@ -1,9 +1,16 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateBuildingsFixedReservationInput } from './dto/create-buildings-fixed-reservation.input';
 import { UpdateBuildingsFixedReservationInput } from './dto/update-buildings-fixed-reservation.input';
+import { BuildingsFixedReservations } from './entities/buildings-fixed-reservations.entity';
 
 @Injectable()
 export class BuildingsFixedReservationsService {
+  constructor(
+    @InjectRepository(BuildingsFixedReservations)
+    private buildingsFixedReservationsRepository: Repository<BuildingsFixedReservations>,
+  ) {}
   create(
     createBuildingsFixedReservationInput: CreateBuildingsFixedReservationInput,
   ) {
@@ -12,6 +19,14 @@ export class BuildingsFixedReservationsService {
 
   findAll() {
     return `This action returns all buildingsFixedReservations`;
+  }
+
+  findAllForAdmin(): Promise<BuildingsFixedReservations[]> {
+    return this.buildingsFixedReservationsRepository.find({
+      order: {
+        created_on: 'DESC',
+      },
+    });
   }
 
   findOne(id: number) {

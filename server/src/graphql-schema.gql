@@ -332,6 +332,7 @@ type Query {
   GetAllRoomsReservationByUser: [BuildingsRoomsReservations!]!
   buildingsRoomsReservation(id: Int!): BuildingsRoomsReservations!
   buildingsFixedReservations: [BuildingsFixedReservations!]!
+  getAllRoomsFixedReservationForAdmin: [BuildingsFixedReservations!]!
   buildingsFixedReservation(id: Int!): BuildingsFixedReservations!
   buildingsFixedReservationsExceptions: [BuildingsFixedReservationsExceptions!]!
   buildingsFixedReservationsException(id: Int!): BuildingsFixedReservationsExceptions!

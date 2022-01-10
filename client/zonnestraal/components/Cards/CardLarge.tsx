@@ -53,6 +53,10 @@ const GreyContainer = styled.div`
 const IconContainer = styled.div`
   @media (min-width: ${({theme}) => theme.width.desktop}) {
     width: 10%;
+
+    span {
+      width: 4rem;
+    }
   }
 `
 
@@ -87,7 +91,7 @@ const ItemTitle = styled.h3`
   margin-bottom:${({ theme }) => theme.margins.extraSmall};
 `
 
-const ItemDescription = styled.p`
+const ItemDescription = styled.div`
   height: 100px;
   width: 100%
   white-space: nowrap;
@@ -95,11 +99,19 @@ const ItemDescription = styled.p`
   text-overflow: ellipsis;
 `
 
+const SubItemTitle = styled.span`
+  font-size: ${({ theme }) => theme.fontSizes.buttonText};
+  color: ${({ theme }) => theme.colors.darkBlue};
+  display: block;
+  margin-top:${({ theme }) => theme.margins.extraSmall};
+  text-transform: uppercase;
+  font-weight: 600;
+`
+
 const CardLarge = ({ books, media }) => {
 const pagedBooks = books.slice(0,10);
 
   console.log(pagedBooks)
-
 
   return (
     <CardsContainer>
@@ -114,9 +126,24 @@ const pagedBooks = books.slice(0,10);
 
                 <TextContainer>
                   <ItemTitle>{b.title}</ItemTitle>
-                  <p>{b.author}</p>
+
+                  <SubItemTitle>Author</SubItemTitle>
+                  <p>{b.author ? b.author : 'geen auteur'}</p>
+
+                  <SubItemTitle>Publisher</SubItemTitle>
+                  <p>{b.publisher ? b.publisher : 'geen publisher'}</p>
+
+                  <SubItemTitle>Type</SubItemTitle>
+                  <p>{b.type.title}</p>
+
+                  <SubItemTitle>Serienummer</SubItemTitle>
+                  <p>{b.serial}</p>
+
+                  <SubItemTitle>Status</SubItemTitle>
+                  <p>beschikbaar</p>
+
+                  <SubItemTitle>Beschrijving</SubItemTitle>
                   <ItemDescription dangerouslySetInnerHTML={{__html:b.description.replace(/\\r\\n/g,'')}}></ItemDescription>
-                  <p>{b.publisher}</p>
                 </TextContainer>
 
                 <ButtonContainer>

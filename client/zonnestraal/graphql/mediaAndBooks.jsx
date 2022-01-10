@@ -9,7 +9,9 @@ export const GET_MEDIA_AND_BOOKS_QUERY = gql`
   	description
   	publisher
   	author
-  	year
+    type{
+      title
+    }
   }
   getAllMedia {
     id

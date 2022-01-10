@@ -9,6 +9,9 @@ interface Props {
 }
 
 export const ContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
   padding: ${({ theme }) => theme.paddings.medium} ${({ theme }) => theme.paddings.normal};
 
   @media (min-width: ${({theme}) => theme.width.desktop}) {

@@ -319,6 +319,7 @@ type Query {
   getMediaById(id: Int!): Media!
   mediaTypes: [MediaTypes!]!
   GetAllMediaRentByUser: [MediaRent!]!
+  getAllMediaRentForAdmin: [MediaRent!]!
   getOneMediaRent(id: Int!): MediaRent!
   libraryRent(id: Int!): LibraryRent!
   getAllUsers: [Profiles!]!

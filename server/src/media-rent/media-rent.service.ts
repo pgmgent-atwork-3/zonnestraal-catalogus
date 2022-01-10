@@ -23,6 +23,10 @@ export class MediaRentService {
     });
   }
 
+  findAllForAdmin(): Promise<MediaRent[]> {
+    return this.mediaRentRepository.find();
+  }
+
   findOne(id: number) {
     return this.mediaRentRepository.findOne({ where: { id: id } });
   }

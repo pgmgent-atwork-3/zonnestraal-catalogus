@@ -44,7 +44,6 @@ export class LibraryReservationResolver {
     name: 'getAllLibraryReservationForAdmin',
   })
   findAllForAdmin(@GetUser() user) {
-    console.log(user.isAdmin);
     if (user.isAdmin === true) {
       return this.libraryReservationService.findAllForAdmin();
     }

@@ -24,7 +24,11 @@ export class MediaRentService {
   }
 
   findAllForAdmin(): Promise<MediaRent[]> {
-    return this.mediaRentRepository.find();
+    return this.mediaRentRepository.find({
+      order: {
+        rent_from: 'DESC',
+      },
+    });
   }
 
   findOne(id: number) {

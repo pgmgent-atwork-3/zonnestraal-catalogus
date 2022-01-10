@@ -172,7 +172,7 @@ type TransportReservations {
   name: String
   created_on: DateTime
   edited_on: DateTime
-  transport: Transport!
+  transport: Transport
   transport_id: Int
   profile_id: Int
 }
@@ -336,6 +336,7 @@ type Query {
   buildingsFixedReservationsException(id: Int!): BuildingsFixedReservationsExceptions!
   getAllCars: [Transport!]!
   transport(id: Int!): Transport!
+  getAllTransportReservationForAdmin: [TransportReservations!]!
   GetAlltransportReservationsByUser: [TransportReservations!]!
   transportReservation(id: Int!): TransportReservations!
   transportFixedReservations: [TransportFixedReservations!]!

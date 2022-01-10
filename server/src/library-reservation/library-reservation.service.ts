@@ -42,7 +42,11 @@ export class LibraryReservationService {
   }
 
   findAllForAdmin(): Promise<LibraryReservation[]> {
-    return this.libraryReservationRepository.find();
+    return this.libraryReservationRepository.find({
+      order: {
+        created_on: 'DESC',
+      },
+    });
   }
 
   findOne(id: number) {

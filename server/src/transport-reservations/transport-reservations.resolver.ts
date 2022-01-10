@@ -4,7 +4,7 @@ import { TransportReservations } from './entities/transport-reservations.entity'
 import { CreateTransportReservationInput } from './dto/create-transport-reservation.input';
 import { UpdateTransportReservationInput } from './dto/update-transport-reservation.input';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { UseGuards } from '@nestjs/common';
+import { HttpException, HttpStatus, UseGuards } from '@nestjs/common';
 import { GetUser } from 'src/auth/getUserFromToken';
 
 @Resolver(() => TransportReservations)
@@ -23,6 +23,20 @@ export class TransportReservationsResolver {
     return this.transportReservationsService.create(
       user.id,
       createTransportReservationInput,
+    );
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Query(() => [TransportReservations], {
+    name: 'getAllTransportReservationForAdmin',
+  })
+  findAllForAdmin(@GetUser() user) {
+    if (user.isAdmin === true) {
+      return this.transportReservationsService.findAllForAdmin();
+    }
+    throw new HttpException(
+      'This function is only available for administrator',
+      HttpStatus.FORBIDDEN,
     );
   }
 

@@ -29,7 +29,11 @@ export class BuildingsRoomsReservationsService {
   }
 
   findAllForAdmin(): Promise<BuildingsRoomsReservations[]> {
-    return this.buildingsRoomsReservationsRepository.find();
+    return this.buildingsRoomsReservationsRepository.find({
+      order: {
+        created_on: 'DESC',
+      },
+    });
   }
 
   findOne(id: number) {

@@ -322,6 +322,7 @@ type Query {
   getAllMediaRentForAdmin: [MediaRent!]!
   getOneMediaRent(id: Int!): MediaRent!
   libraryRent(id: Int!): LibraryRent!
+  getAllMediaFixedReservationForAdmin: [MediaFixedReservations!]!
   getAllUsers: [Profiles!]!
   profilesGroupsRight(id: Int!): ProfilesGroupsRights!
   getAllbuildings: [Buildings!]!

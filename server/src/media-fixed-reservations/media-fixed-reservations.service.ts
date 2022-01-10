@@ -15,8 +15,12 @@ export class MediaFixedReservationsService {
     return 'This action adds a new mediaFixedReservation';
   }
 
-  findAll() {
-    return `This action returns all mediaFixedReservations`;
+  findAllForAdmin(): Promise<MediaFixedReservations[]> {
+    return this.mediaFixedReservationsRepository.find({
+      order: {
+        created_on: 'DESC',
+      },
+    });
   }
 
   findOne(id: number) {

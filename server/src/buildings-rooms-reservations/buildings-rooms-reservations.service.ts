@@ -9,16 +9,21 @@ import { BuildingsRoomsReservations } from './entities/buildings-rooms-reservati
 export class BuildingsRoomsReservationsService {
   constructor(
     @InjectRepository(BuildingsRoomsReservations)
-    private BuildingsRoomsReservationsRepository: Repository<BuildingsRoomsReservations>,
+    private buildingsRoomsReservationsRepository: Repository<BuildingsRoomsReservations>,
   ) {}
-  create(
+  async create(
+    id: number,
     createBuildingsRoomsReservationInput: CreateBuildingsRoomsReservationInput,
   ) {
-    return 'This action adds a new buildingsRoomsReservation';
+    const reservation = this.buildingsRoomsReservationsRepository.create(
+      createBuildingsRoomsReservationInput,
+    );
+    reservation.profile_id = id;
+    return this.buildingsRoomsReservationsRepository.save(reservation);
   }
 
   findAll(id: number) {
-    return this.BuildingsRoomsReservationsRepository.find({
+    return this.buildingsRoomsReservationsRepository.find({
       where: { profile_id: id },
     });
   }

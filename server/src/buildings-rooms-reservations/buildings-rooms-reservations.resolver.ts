@@ -7,18 +7,22 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { UseGuards } from '@nestjs/common';
 import { GetUser } from 'src/auth/getUserFromToken';
 
+
 @Resolver(() => BuildingsRoomsReservations)
 export class BuildingsRoomsReservationsResolver {
   constructor(
     private readonly buildingsRoomsReservationsService: BuildingsRoomsReservationsService,
   ) {}
 
-  @Mutation(() => BuildingsRoomsReservations)
+  @UseGuards(JwtAuthGuard)
+  @Mutation(() => BuildingsRoomsReservations, { name: 'createRoomReservation' })
   createBuildingsRoomsReservation(
     @Args('createBuildingsRoomsReservationInput')
     createBuildingsRoomsReservationInput: CreateBuildingsRoomsReservationInput,
+    @GetUser() user,
   ) {
     return this.buildingsRoomsReservationsService.create(
+      user.id,
       createBuildingsRoomsReservationInput,
     );
   }

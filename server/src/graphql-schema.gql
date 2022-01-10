@@ -361,7 +361,7 @@ type Mutation {
   createBuildingsRoom(createBuildingsRoomInput: CreateBuildingsRoomInput!): BuildingsRooms!
   updateBuildingsRoom(updateBuildingsRoomInput: UpdateBuildingsRoomInput!): BuildingsRooms!
   removeBuildingsRoom(id: Int!): BuildingsRooms!
-  createBuildingsRoomsReservation(createBuildingsRoomsReservationInput: CreateBuildingsRoomsReservationInput!): BuildingsRoomsReservations!
+  createRoomReservation(createBuildingsRoomsReservationInput: CreateBuildingsRoomsReservationInput!): BuildingsRoomsReservations!
   updateBuildingsRoomsReservation(updateBuildingsRoomsReservationInput: UpdateBuildingsRoomsReservationInput!): BuildingsRoomsReservations!
   removeBuildingsRoomsReservation(id: Int!): BuildingsRoomsReservations!
   createBuildingsFixedReservation(createBuildingsFixedReservationInput: CreateBuildingsFixedReservationInput!): BuildingsFixedReservations!
@@ -458,13 +458,17 @@ input UpdateBuildingsRoomInput {
 }
 
 input CreateBuildingsRoomsReservationInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  building_room_id: Int!
+  name: String!
+  from_date: DateTime!
+  till_date: DateTime!
 }
 
 input UpdateBuildingsRoomsReservationInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  building_room_id: Int
+  name: String
+  from_date: DateTime
+  till_date: DateTime
   id: Int!
 }
 

@@ -34,7 +34,7 @@ const GreyContainer = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: center;
   background: ${({ theme }) => theme.colors.lightGrey};
   padding: ${({ theme }) => theme.paddings.normal};
   padding-top:${({ theme }) => theme.margins.large};
@@ -45,6 +45,7 @@ const GreyContainer = styled.div`
   }
 
   @media (min-width: ${({theme}) => theme.width.desktop}) {
+    align-items: start;
     flex-direction: row;
     justify-content: space-around;
   }
@@ -62,6 +63,8 @@ const IconContainer = styled.div`
 
 const TextContainer = styled.div`
   margin-top:${({ theme }) => theme.margins.small};
+  display: flex;
+  flex-wrap: wrap;
 
   @media (min-width: ${({theme}) => theme.width.desktop}) {
     width: 50%;
@@ -88,7 +91,13 @@ const ButtonContainer = styled.div`
 `
 
 const ItemTitle = styled.h3`
+  display: block;
+  width: 100%;
   margin-bottom:${({ theme }) => theme.margins.extraSmall};
+
+  @media (min-width: ${({theme}) => theme.width.desktop}) {
+    font-size:${({ theme }) => theme.fontSizes.headline6};
+  }
 `
 
 const ItemDescription = styled.div`
@@ -106,6 +115,15 @@ const SubItemTitle = styled.span`
   margin-top:${({ theme }) => theme.margins.extraSmall};
   text-transform: uppercase;
   font-weight: 600;
+`
+
+const Group = styled.div`
+  width: 50%;
+`
+
+const DescriptionGroup = styled.div`
+  display: block;
+  width: 100%;
 `
 
 const CardLarge = ({ books, media }) => {
@@ -127,23 +145,35 @@ const pagedBooks = books.slice(0,10);
                 <TextContainer>
                   <ItemTitle>{b.title}</ItemTitle>
 
-                  <SubItemTitle>Author</SubItemTitle>
-                  <p>{b.author ? b.author : 'geen auteur'}</p>
+                  <Group>
+                    <SubItemTitle>Author</SubItemTitle>
+                    <p>{b.author ? b.author : 'geen auteur'}</p>
+                  </Group>
 
-                  <SubItemTitle>Publisher</SubItemTitle>
-                  <p>{b.publisher ? b.publisher : 'geen publisher'}</p>
+                  <Group>
+                    <SubItemTitle>Publisher</SubItemTitle>
+                    <p>{b.publisher ? b.publisher : 'geen publisher'}</p>
+                  </Group>
 
-                  <SubItemTitle>Type</SubItemTitle>
-                  <p>{b.type.title}</p>
+                  <Group>
+                    <SubItemTitle>Type</SubItemTitle>
+                    <p>{b.type.title}</p>
+                  </Group>
 
-                  <SubItemTitle>Serienummer</SubItemTitle>
-                  <p>{b.serial}</p>
+                  <Group>
+                    <SubItemTitle>Serienummer</SubItemTitle>
+                    <p>{b.serial}</p>
+                  </Group>
 
-                  <SubItemTitle>Status</SubItemTitle>
-                  <p>beschikbaar</p>
+                  <Group>
+                    <SubItemTitle>Status</SubItemTitle>
+                    <p>beschikbaar</p>
+                  </Group>
 
-                  <SubItemTitle>Beschrijving</SubItemTitle>
-                  <ItemDescription dangerouslySetInnerHTML={{__html:b.description.replace(/\\r\\n/g,'')}}></ItemDescription>
+                  <DescriptionGroup>
+                    <SubItemTitle>Beschrijving</SubItemTitle>
+                    <ItemDescription dangerouslySetInnerHTML={{__html:b.description.replace(/\\r\\n/g,'')}}></ItemDescription>
+                  </DescriptionGroup>
                 </TextContainer>
 
                 <ButtonContainer>

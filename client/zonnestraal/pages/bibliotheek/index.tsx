@@ -13,6 +13,7 @@ const ContentContainer = styled.div`
   justify-content: space-between;
 
   @media (min-width: ${({theme}) => theme.width.desktop}) {
+    align-items: start;
     flex-direction: row;
     padding: ${({ theme }) => theme.paddings.medium} ${({ theme }) => theme.paddings.extraLarge};
   }
@@ -29,6 +30,7 @@ const FilterContainer = styled.div`
     width: 30%;
   }
 `
+
 const ResultsContainer = styled.div`
   width: 100%;
 

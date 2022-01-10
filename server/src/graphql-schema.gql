@@ -23,6 +23,8 @@ type BuildingsRoomsReservations {
   name: String
   created_on: DateTime
   edited_on: DateTime
+  building_room_id: Int
+  profile_id: Int
 }
 
 type Buildings {
@@ -323,7 +325,7 @@ type Query {
   getAllbuildings: [Buildings!]!
   getAllbuildingsRooms: [BuildingsRooms!]!
   buildingsRoom(id: Int!): BuildingsRooms!
-  buildingsRoomsReservations: [BuildingsRoomsReservations!]!
+  GetAllRoomsReservationByUser: [BuildingsRoomsReservations!]!
   buildingsRoomsReservation(id: Int!): BuildingsRoomsReservations!
   buildingsFixedReservations: [BuildingsFixedReservations!]!
   buildingsFixedReservation(id: Int!): BuildingsFixedReservations!

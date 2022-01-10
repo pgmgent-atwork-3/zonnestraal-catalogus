@@ -29,7 +29,6 @@ export class TransportFixedReservationsService {
     });
   }
 
-
   findOne(id: number) {
     return `This action returns a #${id} transportFixedReservation`;
   }

@@ -11,8 +11,16 @@ export class MediaFixedReservationsService {
     @InjectRepository(MediaFixedReservations)
     private mediaFixedReservationsRepository: Repository<MediaFixedReservations>,
   ) {}
-  create(createMediaFixedReservationsInput: CreateMediaFixedReservationsInput) {
-    return 'This action adds a new mediaFixedReservation';
+
+  async create(
+    id: number,
+    createMediaFixedReservationsInput: CreateMediaFixedReservationsInput,
+  ) {
+    const reservation = this.mediaFixedReservationsRepository.create(
+      createMediaFixedReservationsInput,
+    );
+    reservation.profile_id = id;
+    return this.mediaFixedReservationsRepository.save(reservation);
   }
 
   findAllForAdmin(): Promise<MediaFixedReservations[]> {

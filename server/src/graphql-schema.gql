@@ -141,6 +141,8 @@ type MediaFixedReservations {
   created_on: DateTime
   excepions: [MediaFixedReservationsExceptions!]
   profile: Profiles
+  media_id: Int
+  profile_id: Int
 }
 
 type ProfilesGroups {
@@ -363,6 +365,7 @@ type Mutation {
   createLibraryRent(createLibraryRentInput: CreateLibraryRentInput!): LibraryRent!
   updateLibraryRent(updateLibraryRentInput: UpdateLibraryRentInput!): LibraryRent!
   removeLibraryRent(id: Int!): LibraryRent!
+  createMediaFixedReservation(createMediaFixedReservationsInput: CreateMediaFixedReservationsInput!): MediaFixedReservations!
   createUser(createProfileInput: CreateProfileInput!): Profiles!
   login(password: String!, email: String!): SignInResponse!
   createBuildingsRoom(createBuildingsRoomInput: CreateBuildingsRoomInput!): BuildingsRooms!
@@ -446,6 +449,17 @@ input CreateLibraryRentInput {
 input UpdateLibraryRentInput {
   id: Int!
   returned: String
+}
+
+input CreateMediaFixedReservationsInput {
+  media_id: Int!
+  name: String!
+  frequency: String
+  created_on: DateTime
+  from_date: String
+  till_date: String
+  start_time: String
+  end_time: String
 }
 
 input CreateProfileInput {

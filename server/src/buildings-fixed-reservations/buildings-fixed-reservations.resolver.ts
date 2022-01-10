@@ -13,13 +13,24 @@ export class BuildingsFixedReservationsResolver {
     private readonly buildingsFixedReservationsService: BuildingsFixedReservationsService,
   ) {}
 
-  @Mutation(() => BuildingsFixedReservations)
+  @UseGuards(JwtAuthGuard)
+  @Mutation(() => BuildingsFixedReservations, {
+    name: 'createRoomFixedReservation',
+  })
   createBuildingsFixedReservation(
     @Args('createBuildingsFixedReservationInput')
     createBuildingsFixedReservationInput: CreateBuildingsFixedReservationInput,
+    @GetUser() user,
   ) {
-    return this.buildingsFixedReservationsService.create(
-      createBuildingsFixedReservationInput,
+    if (user.isAdmin === true) {
+      return this.buildingsFixedReservationsService.create(
+        user.id,
+        createBuildingsFixedReservationInput,
+      );
+    }
+    throw new HttpException(
+      'This function is only available for administrator',
+      HttpStatus.FORBIDDEN,
     );
   }
 

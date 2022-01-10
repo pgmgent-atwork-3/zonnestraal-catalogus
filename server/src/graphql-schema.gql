@@ -63,6 +63,8 @@ type BuildingsFixedReservations {
   frequency: String
   created_on: DateTime
   excepions: [BuildingsFixedReservationsExceptions!]
+  building_room_id: Int
+  profile_id: Int
 }
 
 type MediaFixedReservationsExceptions {
@@ -376,7 +378,7 @@ type Mutation {
   createRoomReservation(createBuildingsRoomsReservationInput: CreateBuildingsRoomsReservationInput!): BuildingsRoomsReservations!
   updateBuildingsRoomsReservation(updateBuildingsRoomsReservationInput: UpdateBuildingsRoomsReservationInput!): BuildingsRoomsReservations!
   removeBuildingsRoomsReservation(id: Int!): BuildingsRoomsReservations!
-  createBuildingsFixedReservation(createBuildingsFixedReservationInput: CreateBuildingsFixedReservationInput!): BuildingsFixedReservations!
+  createRoomFixedReservation(createBuildingsFixedReservationInput: CreateBuildingsFixedReservationInput!): BuildingsFixedReservations!
   updateBuildingsFixedReservation(updateBuildingsFixedReservationInput: UpdateBuildingsFixedReservationInput!): BuildingsFixedReservations!
   removeBuildingsFixedReservation(id: Int!): BuildingsFixedReservations!
   createBuildingsFixedReservationsException(createBuildingsFixedReservationsExceptionInput: CreateBuildingsFixedReservationsExceptionInput!): BuildingsFixedReservationsExceptions!
@@ -496,13 +498,25 @@ input UpdateBuildingsRoomsReservationInput {
 }
 
 input CreateBuildingsFixedReservationInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  building_room_id: Int!
+  name: String!
+  frequency: String
+  created_on: DateTime
+  from_date: String
+  till_date: String
+  start_time: String
+  end_time: String
 }
 
 input UpdateBuildingsFixedReservationInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  building_room_id: Int
+  name: String
+  frequency: String
+  created_on: DateTime
+  from_date: String
+  till_date: String
+  start_time: String
+  end_time: String
   id: Int!
 }
 

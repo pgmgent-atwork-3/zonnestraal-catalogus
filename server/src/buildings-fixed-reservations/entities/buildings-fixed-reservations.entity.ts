@@ -1,4 +1,4 @@
-import { ObjectType, Field } from '@nestjs/graphql';
+import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { BuildingsFixedReservationsExceptions } from 'src/buildings-fixed-reservations-exceptions/entities/buildings-fixed-reservations-exceptions.entity';
 import { BuildingsRooms } from 'src/buildings-rooms/entities/buildings-rooms.entity';
 import { Profiles } from 'src/profiles/entities/profiles.entity';
@@ -102,4 +102,12 @@ export class BuildingsFixedReservations {
   )
   @Field(() => [BuildingsFixedReservationsExceptions], { nullable: true })
   excepions: BuildingsFixedReservationsExceptions[];
+
+  @Column({ nullable: true })
+  @Field(() => Int, { nullable: true })
+  building_room_id: number;
+
+  @Column({ nullable: true })
+  @Field(() => Int, { nullable: true })
+  profile_id: number;
 }

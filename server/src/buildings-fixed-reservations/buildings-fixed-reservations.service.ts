@@ -11,10 +11,16 @@ export class BuildingsFixedReservationsService {
     @InjectRepository(BuildingsFixedReservations)
     private buildingsFixedReservationsRepository: Repository<BuildingsFixedReservations>,
   ) {}
-  create(
+
+  async create(
+    id: number,
     createBuildingsFixedReservationInput: CreateBuildingsFixedReservationInput,
   ) {
-    return 'This action adds a new buildingsFixedReservation';
+    const reservation = this.buildingsFixedReservationsRepository.create(
+      createBuildingsFixedReservationInput,
+    );
+    reservation.profile_id = id;
+    return this.buildingsFixedReservationsRepository.save(reservation);
   }
 
   findAll() {

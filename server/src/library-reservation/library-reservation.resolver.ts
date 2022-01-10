@@ -23,9 +23,6 @@ export class LibraryReservationResolver {
     createLibraryReservationDateInput: CreateLibraryReservationDateInput,
     @GetUser() user,
   ) {
-    // const profile = user.id;
-    // createLibraryReservationInput.profile_id = profile;
-    // console.log(profile);
     return this.libraryReservationService.create(
       user.id,
       createLibraryReservationInput,

@@ -18,6 +18,27 @@ export class MediaFixedReservationsResolver {
   //   return this.mediaFixedReservationsService.create(createMediaFixedReservationsInput);
   // }
 
+  @UseGuards(JwtAuthGuard)
+  @Mutation(() => MediaFixedReservations, {
+    name: 'createMediaFixedReservation',
+  })
+  createMediaFixedReservation(
+    @Args('createMediaFixedReservationsInput')
+    createMediaFixedReservationsInput: CreateMediaFixedReservationsInput,
+    @GetUser() user,
+  ) {
+    if (user.isAdmin === true) {
+      return this.mediaFixedReservationsService.create(
+        user.id,
+        createMediaFixedReservationsInput,
+      );
+    }
+    throw new HttpException(
+      'This function is only available for administrator',
+      HttpStatus.FORBIDDEN,
+    );
+  }
+
   // @Query(() => [MediaFixedReservations], { name: 'mediaFixedReservations' })
   // findAll() {
   //   return this.mediaFixedReservationsService.findAll();

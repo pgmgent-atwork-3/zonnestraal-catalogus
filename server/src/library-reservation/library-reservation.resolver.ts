@@ -39,7 +39,7 @@ export class LibraryReservationResolver {
     return this.libraryReservationService.findAll(user.id);
   }
 
-  @Query(() => LibraryReservation, { name: 'libraryReservation' })
+  @Query(() => LibraryReservation, { name: 'GetOnelibraryReservationById' })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.libraryReservationService.findOne(id);
   }

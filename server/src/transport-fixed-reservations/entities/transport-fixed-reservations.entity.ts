@@ -1,4 +1,4 @@
-import { ObjectType, Field } from '@nestjs/graphql';
+import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Profiles } from 'src/profiles/entities/profiles.entity';
 import { TransportFixedReservationsExceptions } from 'src/transport-fixed-reservations-exceptions/entities/transport-fixed-reservations-exceptions.entity';
 import { Transport } from 'src/transport/entities/transport.entity';
@@ -99,4 +99,12 @@ export class TransportFixedReservations {
   )
   @Field(() => [TransportFixedReservationsExceptions], { nullable: true })
   excepions: TransportFixedReservationsExceptions[];
+
+  @Column({ nullable: true })
+  @Field(() => Int, { nullable: true })
+  transport_id: number;
+
+  @Column({ nullable: true })
+  @Field(() => Int, { nullable: true })
+  profile_id: number;
 }

@@ -209,6 +209,8 @@ type TransportFixedReservations {
   frequency: String
   created_on: DateTime
   excepions: [TransportFixedReservationsExceptions!]
+  transport_id: Int
+  profile_id: Int
 }
 
 type Profiles {
@@ -542,13 +544,25 @@ input UpdateTransportReservationInput {
 }
 
 input CreateTransportFixedReservationInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  transport_id: Int!
+  name: String!
+  frequency: String
+  created_on: DateTime
+  from_date: String
+  till_date: String
+  start_time: String
+  end_time: String
 }
 
 input UpdateTransportFixedReservationInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  transport_id: Int
+  name: String
+  frequency: String
+  created_on: DateTime
+  from_date: String
+  till_date: String
+  start_time: String
+  end_time: String
   id: Int!
 }
 

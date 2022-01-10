@@ -11,10 +11,16 @@ export class TransportFixedReservationsService {
     @InjectRepository(TransportFixedReservations)
     private transportFixedReservationsRepository: Repository<TransportFixedReservations>,
   ) {}
-  create(
+
+  async create(
+    id: number,
     createTransportFixedReservationInput: CreateTransportFixedReservationInput,
   ) {
-    return 'This action adds a new transportFixedReservation';
+    const reservation = this.transportFixedReservationsRepository.create(
+      createTransportFixedReservationInput,
+    );
+    reservation.profile_id = id;
+    return this.transportFixedReservationsRepository.save(reservation);
   }
 
   findAll() {

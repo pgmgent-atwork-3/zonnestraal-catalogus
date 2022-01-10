@@ -13,13 +13,34 @@ export class TransportFixedReservationsResolver {
     private readonly transportFixedReservationsService: TransportFixedReservationsService,
   ) {}
 
-  @Mutation(() => TransportFixedReservations)
-  createTransportFixedReservation(
+  // @Mutation(() => TransportFixedReservations)
+  // createTransportFixedReservation(
+  //   @Args('createTransportFixedReservationInput')
+  //   createTransportFixedReservationInput: CreateTransportFixedReservationInput,
+  // ) {
+  //   return this.transportFixedReservationsService.create(
+  //     createTransportFixedReservationInput,
+  //   );
+  // }
+
+  @UseGuards(JwtAuthGuard)
+  @Mutation(() => TransportFixedReservations, {
+    name: 'createTransportFixedReservation',
+  })
+  createMediaFixedReservation(
     @Args('createTransportFixedReservationInput')
     createTransportFixedReservationInput: CreateTransportFixedReservationInput,
+    @GetUser() user,
   ) {
-    return this.transportFixedReservationsService.create(
-      createTransportFixedReservationInput,
+    if (user.isAdmin === true) {
+      return this.transportFixedReservationsService.create(
+        user.id,
+        createTransportFixedReservationInput,
+      );
+    }
+    throw new HttpException(
+      'This function is only available for administrator',
+      HttpStatus.FORBIDDEN,
     );
   }
 

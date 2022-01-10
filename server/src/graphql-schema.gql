@@ -197,7 +197,7 @@ type Transport {
 
 type TransportFixedReservations {
   id: Float!
-  transport: Transport!
+  transport: Transport
   name: String
   profile: Profiles
   from_date: String
@@ -342,6 +342,7 @@ type Query {
   GetAlltransportReservationsByUser: [TransportReservations!]!
   transportReservation(id: Int!): TransportReservations!
   transportFixedReservations: [TransportFixedReservations!]!
+  getAllCarsFixedReservationForAdmin: [TransportFixedReservations!]!
   transportFixedReservation(id: Int!): TransportFixedReservations!
   transportFixedReservationsExceptions: [TransportFixedReservationsExceptions!]!
   transportFixedReservationsException(id: Int!): TransportFixedReservationsExceptions!

@@ -41,6 +41,10 @@ export class LibraryReservationService {
     });
   }
 
+  findAllForAdmin(): Promise<LibraryReservation[]> {
+    return this.libraryReservationRepository.find();
+  }
+
   findOne(id: number) {
     return this.libraryReservationRepository.findOneOrFail(id);
   }

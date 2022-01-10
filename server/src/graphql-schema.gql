@@ -310,6 +310,7 @@ type Query {
   getNewLibraries: [Library!]!
   getLibraryById(id: Int!): Library!
   GetAllLibraryReservationByUser: [LibraryReservation!]!
+  getAllLibraryReservationForAdmin: [LibraryReservation!]!
   GetOnelibraryReservationById(id: Int!): LibraryReservation!
   libraryReservationDate(id: Int!): LibraryReservationDate!
   location(id: Int!): Location!

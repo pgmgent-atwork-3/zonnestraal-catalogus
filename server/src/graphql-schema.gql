@@ -16,7 +16,7 @@ scalar DateTime
 
 type BuildingsRoomsReservations {
   id: Float!
-  room: BuildingsRooms!
+  room: BuildingsRooms
   from_date: DateTime
   profile: Profiles!
   till_date: DateTime
@@ -327,6 +327,7 @@ type Query {
   getAllbuildings: [Buildings!]!
   getAllbuildingsRooms: [BuildingsRooms!]!
   buildingsRoom(id: Int!): BuildingsRooms!
+  getAllRoomsReservationForAdmin: [BuildingsRoomsReservations!]!
   GetAllRoomsReservationByUser: [BuildingsRoomsReservations!]!
   buildingsRoomsReservation(id: Int!): BuildingsRoomsReservations!
   buildingsFixedReservations: [BuildingsFixedReservations!]!

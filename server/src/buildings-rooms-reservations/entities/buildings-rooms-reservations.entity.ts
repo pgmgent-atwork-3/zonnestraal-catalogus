@@ -23,13 +23,14 @@ export class BuildingsRoomsReservations {
     (buildingsRooms) => buildingsRooms.roomReservation,
     {
       eager: true,
+      nullable: true,
     },
   )
   @JoinColumn({
     name: 'building_room_id',
     referencedColumnName: 'id',
   })
-  @Field(() => BuildingsRooms)
+  @Field(() => BuildingsRooms, { nullable: true })
   room: BuildingsRooms;
 
   @Column({

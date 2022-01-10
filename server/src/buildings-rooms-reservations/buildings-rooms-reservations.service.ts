@@ -29,7 +29,7 @@ export class BuildingsRoomsReservationsService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} buildingsRoomsReservation`;
+    return this.buildingsRoomsReservationsRepository.findOneOrFail(id);
   }
 
   update(
@@ -39,7 +39,8 @@ export class BuildingsRoomsReservationsService {
     return `This action updates a #${id} buildingsRoomsReservation`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} buildingsRoomsReservation`;
+  async remove(id: number) {
+    const reservation = await this.findOne(id);
+    return this.buildingsRoomsReservationsRepository.remove(reservation);
   }
 }

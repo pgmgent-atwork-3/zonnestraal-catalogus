@@ -7,8 +7,8 @@ type BtnProps = {
 
 const StyledDefaultLink = styled.a`
   justify-content: center;
-  margin-top:${({ theme }) => theme.margins.small};
-  margin-bottom:${({ theme }) => theme.margins.small};
+  margin-top:${({ theme }) => theme.margins.normal};
+  margin-bottom:${({ theme }) => theme.margins.normal};
   transition: all 0.3s ease;
 
   span {

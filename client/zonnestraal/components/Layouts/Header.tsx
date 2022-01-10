@@ -8,7 +8,7 @@ const StyledHeader = styled.div`
   padding: ${({ theme }) => theme.paddings.small};
   height: 5rem;
   background: ${({ theme }) => theme.colors.lightGrey};
-  position: relative;
+  position: sticky;
   top: 0;
   left: 0;
   bottom: 0;
@@ -16,17 +16,19 @@ const StyledHeader = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   border-bottom: 1px solid ${({ theme }) => theme.colors.yellow};
+  z-index: 101;
+  box-shadow: ${({ theme }) => theme.colors.grey} 0px 8px 24px;
 
   @media (min-width: ${({ theme }) => theme.width.desktop}) {
-    position: relative;
+    position: sticky;
     height: 5rem;
     flex-direction: row;
     justify-content: space-between;
     background: ${({ theme }) => theme.colors.lightGrey}; 
-    padding: ${({ theme }) => theme.paddings.medium} ${({ theme }) => theme.paddings.large};
+    padding: ${({ theme }) => theme.paddings.medium} ${({ theme }) => theme.paddings.extraLarge};
   } 
-
 `
 
 interface Props {

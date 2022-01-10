@@ -22,21 +22,6 @@ export class TransportReservationsService {
     return this.transportReservationsRepository.save(reservation);
   }
 
-  // async create(
-  //   id: number,
-  //   createBuildingsRoomsReservationInput: CreateBuildingsRoomsReservationInput,
-  // ) {
-  //   const reservation = this.buildingsRoomsReservationsRepository.create(
-  //     createBuildingsRoomsReservationInput,
-  //   );
-  //   reservation.profile_id = id;
-  //   return this.buildingsRoomsReservationsRepository.save(reservation);
-  // }
-
-  // findAll() {
-  //   return `This action returns all transportReservations`;
-  // }
-
   findAll(id: number) {
     return this.transportReservationsRepository.find({
       where: { profile_id: id },
@@ -44,7 +29,7 @@ export class TransportReservationsService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} transportReservation`;
+    return this.transportReservationsRepository.findOneOrFail(id);
   }
 
   update(
@@ -54,7 +39,8 @@ export class TransportReservationsService {
     return `This action updates a #${id} transportReservation`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} transportReservation`;
+  async remove(id: number) {
+    const reservation = await this.findOne(id);
+    return this.transportReservationsRepository.remove(reservation);
   }
 }

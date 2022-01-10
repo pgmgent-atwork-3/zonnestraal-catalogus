@@ -171,6 +171,8 @@ type TransportReservations {
   created_on: DateTime
   edited_on: DateTime
   transport: Transport!
+  transport_id: Int
+  profile_id: Int
 }
 
 type Transport {
@@ -329,7 +331,7 @@ type Query {
   buildingsFixedReservationsException(id: Int!): BuildingsFixedReservationsExceptions!
   getAllCars: [Transport!]!
   transport(id: Int!): Transport!
-  transportReservations: [TransportReservations!]!
+  GetAlltransportReservationsByUser: [TransportReservations!]!
   transportReservation(id: Int!): TransportReservations!
   transportFixedReservations: [TransportFixedReservations!]!
   transportFixedReservation(id: Int!): TransportFixedReservations!

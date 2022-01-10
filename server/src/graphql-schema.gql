@@ -23,6 +23,8 @@ type BuildingsRoomsReservations {
   name: String
   created_on: DateTime
   edited_on: DateTime
+  building_room_id: Int
+  profile_id: Int
 }
 
 type Buildings {
@@ -171,6 +173,8 @@ type TransportReservations {
   created_on: DateTime
   edited_on: DateTime
   transport: Transport!
+  transport_id: Int
+  profile_id: Int
 }
 
 type Transport {
@@ -306,7 +310,8 @@ type Query {
   getNewLibraries: [Library!]!
   getLibraryById(id: Int!): Library!
   GetAllLibraryReservationByUser: [LibraryReservation!]!
-  libraryReservation(id: Int!): LibraryReservation!
+  getAllLibraryReservationForAdmin: [LibraryReservation!]!
+  GetOnelibraryReservationById(id: Int!): LibraryReservation!
   libraryReservationDate(id: Int!): LibraryReservationDate!
   location(id: Int!): Location!
   getAllMedia: [Media!]!
@@ -321,7 +326,7 @@ type Query {
   getAllbuildings: [Buildings!]!
   getAllbuildingsRooms: [BuildingsRooms!]!
   buildingsRoom(id: Int!): BuildingsRooms!
-  buildingsRoomsReservations: [BuildingsRoomsReservations!]!
+  GetAllRoomsReservationByUser: [BuildingsRoomsReservations!]!
   buildingsRoomsReservation(id: Int!): BuildingsRoomsReservations!
   buildingsFixedReservations: [BuildingsFixedReservations!]!
   buildingsFixedReservation(id: Int!): BuildingsFixedReservations!
@@ -329,7 +334,7 @@ type Query {
   buildingsFixedReservationsException(id: Int!): BuildingsFixedReservationsExceptions!
   getAllCars: [Transport!]!
   transport(id: Int!): Transport!
-  transportReservations: [TransportReservations!]!
+  GetAlltransportReservationsByUser: [TransportReservations!]!
   transportReservation(id: Int!): TransportReservations!
   transportFixedReservations: [TransportFixedReservations!]!
   transportFixedReservation(id: Int!): TransportFixedReservations!
@@ -357,7 +362,7 @@ type Mutation {
   createBuildingsRoom(createBuildingsRoomInput: CreateBuildingsRoomInput!): BuildingsRooms!
   updateBuildingsRoom(updateBuildingsRoomInput: UpdateBuildingsRoomInput!): BuildingsRooms!
   removeBuildingsRoom(id: Int!): BuildingsRooms!
-  createBuildingsRoomsReservation(createBuildingsRoomsReservationInput: CreateBuildingsRoomsReservationInput!): BuildingsRoomsReservations!
+  createRoomReservation(createBuildingsRoomsReservationInput: CreateBuildingsRoomsReservationInput!): BuildingsRoomsReservations!
   updateBuildingsRoomsReservation(updateBuildingsRoomsReservationInput: UpdateBuildingsRoomsReservationInput!): BuildingsRoomsReservations!
   removeBuildingsRoomsReservation(id: Int!): BuildingsRoomsReservations!
   createBuildingsFixedReservation(createBuildingsFixedReservationInput: CreateBuildingsFixedReservationInput!): BuildingsFixedReservations!
@@ -369,7 +374,7 @@ type Mutation {
   createTransport(createTransportInput: CreateTransportInput!): Transport!
   updateTransport(updateTransportInput: UpdateTransportInput!): Transport!
   removeTransport(id: Int!): Transport!
-  createTransportReservation(createTransportReservationInput: CreateTransportReservationInput!): TransportReservations!
+  createCarReservation(createTransportReservationInput: CreateTransportReservationInput!): TransportReservations!
   updateTransportReservation(updateTransportReservationInput: UpdateTransportReservationInput!): TransportReservations!
   removeTransportReservation(id: Int!): TransportReservations!
   createTransportFixedReservation(createTransportFixedReservationInput: CreateTransportFixedReservationInput!): TransportFixedReservations!
@@ -454,13 +459,17 @@ input UpdateBuildingsRoomInput {
 }
 
 input CreateBuildingsRoomsReservationInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  building_room_id: Int!
+  name: String!
+  from_date: DateTime!
+  till_date: DateTime!
 }
 
 input UpdateBuildingsRoomsReservationInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  building_room_id: Int
+  name: String
+  from_date: DateTime
+  till_date: DateTime
   id: Int!
 }
 
@@ -498,13 +507,17 @@ input UpdateTransportInput {
 }
 
 input CreateTransportReservationInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  transport_id: Int!
+  name: String!
+  from_date: DateTime!
+  till_date: DateTime!
 }
 
 input UpdateTransportReservationInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  transport_id: Int
+  name: String
+  from_date: DateTime
+  till_date: DateTime
   id: Int!
 }
 

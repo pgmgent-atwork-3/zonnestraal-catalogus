@@ -1,21 +1,35 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateBuildingsRoomsReservationInput } from './dto/create-buildings-rooms-reservation.input';
 import { UpdateBuildingsRoomsReservationInput } from './dto/update-buildings-rooms-reservation.input';
+import { BuildingsRoomsReservations } from './entities/buildings-rooms-reservations.entity';
 
 @Injectable()
 export class BuildingsRoomsReservationsService {
-  create(
+  constructor(
+    @InjectRepository(BuildingsRoomsReservations)
+    private buildingsRoomsReservationsRepository: Repository<BuildingsRoomsReservations>,
+  ) {}
+  async create(
+    id: number,
     createBuildingsRoomsReservationInput: CreateBuildingsRoomsReservationInput,
   ) {
-    return 'This action adds a new buildingsRoomsReservation';
+    const reservation = this.buildingsRoomsReservationsRepository.create(
+      createBuildingsRoomsReservationInput,
+    );
+    reservation.profile_id = id;
+    return this.buildingsRoomsReservationsRepository.save(reservation);
   }
 
-  findAll() {
-    return `This action returns all buildingsRoomsReservations`;
+  findAll(id: number) {
+    return this.buildingsRoomsReservationsRepository.find({
+      where: { profile_id: id },
+    });
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} buildingsRoomsReservation`;
+    return this.buildingsRoomsReservationsRepository.findOneOrFail(id);
   }
 
   update(
@@ -25,7 +39,8 @@ export class BuildingsRoomsReservationsService {
     return `This action updates a #${id} buildingsRoomsReservation`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} buildingsRoomsReservation`;
+  async remove(id: number) {
+    const reservation = await this.findOne(id);
+    return this.buildingsRoomsReservationsRepository.remove(reservation);
   }
 }

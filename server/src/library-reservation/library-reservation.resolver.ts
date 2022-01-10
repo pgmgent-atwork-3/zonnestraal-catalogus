@@ -4,7 +4,7 @@ import { LibraryReservation } from './entities/library-reservation.entity';
 import { CreateLibraryReservationInput } from './dto/create-library-reservation.input';
 import { UpdateLibraryReservationInput } from './dto/update-library-reservation.input';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { UseGuards } from '@nestjs/common';
+import { HttpException, HttpStatus, UseGuards } from '@nestjs/common';
 import { GetUser } from 'src/auth/getUserFromToken';
 import { CreateLibraryReservationDateInput } from 'src/library-reservation-date/dto/create-library-reservation-date.input';
 
@@ -39,7 +39,22 @@ export class LibraryReservationResolver {
     return this.libraryReservationService.findAll(user.id);
   }
 
-  @Query(() => LibraryReservation, { name: 'libraryReservation' })
+  @UseGuards(JwtAuthGuard)
+  @Query(() => [LibraryReservation], {
+    name: 'getAllLibraryReservationForAdmin',
+  })
+  findAllForAdmin(@GetUser() user) {
+    console.log(user.isAdmin);
+    if (user.isAdmin === true) {
+      return this.libraryReservationService.findAllForAdmin();
+    }
+    throw new HttpException(
+      'This function is only available for administrator',
+      HttpStatus.FORBIDDEN,
+    );
+  }
+
+  @Query(() => LibraryReservation, { name: 'GetOnelibraryReservationById' })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.libraryReservationService.findOne(id);
   }

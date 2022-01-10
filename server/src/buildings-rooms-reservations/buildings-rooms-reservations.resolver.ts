@@ -3,6 +3,9 @@ import { BuildingsRoomsReservationsService } from './buildings-rooms-reservation
 import { BuildingsRoomsReservations } from './entities/buildings-rooms-reservations.entity';
 import { CreateBuildingsRoomsReservationInput } from './dto/create-buildings-rooms-reservation.input';
 import { UpdateBuildingsRoomsReservationInput } from './dto/update-buildings-rooms-reservation.input';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { UseGuards } from '@nestjs/common';
+import { GetUser } from 'src/auth/getUserFromToken';
 
 @Resolver(() => BuildingsRoomsReservations)
 export class BuildingsRoomsReservationsResolver {
@@ -10,21 +13,32 @@ export class BuildingsRoomsReservationsResolver {
     private readonly buildingsRoomsReservationsService: BuildingsRoomsReservationsService,
   ) {}
 
-  @Mutation(() => BuildingsRoomsReservations)
+  @UseGuards(JwtAuthGuard)
+  @Mutation(() => BuildingsRoomsReservations, { name: 'createRoomReservation' })
   createBuildingsRoomsReservation(
     @Args('createBuildingsRoomsReservationInput')
     createBuildingsRoomsReservationInput: CreateBuildingsRoomsReservationInput,
+    @GetUser() user,
   ) {
     return this.buildingsRoomsReservationsService.create(
+      user.id,
       createBuildingsRoomsReservationInput,
     );
   }
 
+  // @Query(() => [BuildingsRoomsReservations], {
+  //   name: 'buildingsRoomsReservations',
+  // })
+  // findAll() {
+  //   return this.buildingsRoomsReservationsService.findAll();
+  // }
+
+  @UseGuards(JwtAuthGuard)
   @Query(() => [BuildingsRoomsReservations], {
-    name: 'buildingsRoomsReservations',
+    name: 'GetAllRoomsReservationByUser',
   })
-  findAll() {
-    return this.buildingsRoomsReservationsService.findAll();
+  findAll(@GetUser() user) {
+    return this.buildingsRoomsReservationsService.findAll(user.id);
   }
 
   @Query(() => BuildingsRoomsReservations, {

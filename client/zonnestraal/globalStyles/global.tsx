@@ -42,7 +42,7 @@ h1 {
 
 h2 {
   color: ${({ theme }) => theme.colors.darkBlue};
-  font-size: ${({ theme }) => theme.fontSizes.headline4};
+  font-size: ${({ theme }) => theme.fontSizes.headline5};
   font-weight: 600;
   line-height: 1.2;
   margin-bottom: ${({ theme }) => theme.margins.small};

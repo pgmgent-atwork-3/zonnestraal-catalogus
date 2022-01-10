@@ -44,7 +44,7 @@ const MoreInfoContainer = styled.div<{show: Boolean}>`
   }
 `
 
-const ContentContainer = styled.div`
+export const ContentContainer = styled.div`
   padding: ${({ theme }) => theme.paddings.medium} ${({ theme }) => theme.paddings.normal};
 
   @media (min-width: ${({theme}) => theme.width.desktop}) {

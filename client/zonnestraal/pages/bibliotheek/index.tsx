@@ -1,12 +1,43 @@
 import Head from "next/head";
-import TestData from "../../components/TestData";
+import styled from 'styled-components';
 
 //Fetching
 import { GET_MEDIA_AND_BOOKS_QUERY } from '../../graphql/mediaAndBooks';
 import client from '../../lib/apollo-client';
+import {CardLarge} from "../../components/Cards";
+
+const ContentContainer = styled.div`
+  padding: ${({ theme }) => theme.paddings.medium} ${({ theme }) => theme.paddings.normal};
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @media (min-width: ${({theme}) => theme.width.desktop}) {
+    flex-direction: row;
+    padding: ${({ theme }) => theme.paddings.medium} ${({ theme }) => theme.paddings.extraLarge};
+  }
+`
+
+const FilterContainer = styled.div`
+  width: 100%;
+  height: 20rem;
+  background: ${({ theme }) => theme.colors.primaryColor};
+  margin-bottom: ${({ theme }) => theme.margins.normal};
 
 
-function LibraryPage() {
+  @media (min-width: ${({theme}) => theme.width.desktop}) {
+    width: 30%;
+  }
+`
+const ResultsContainer = styled.div`
+  width: 100%;
+
+  @media (min-width: ${({theme}) => theme.width.desktop}) {
+    width: 67%;
+  }
+`
+
+const LibraryPage = ({ books, media }) => {
     /* books en media bevatten data */
     return (
       <>
@@ -14,8 +45,17 @@ function LibraryPage() {
             <title>Catalogus - Zonnestraal</title>
         </Head>
 
-        <h1>This is the library</h1>
-        {/* <TestData data={media}/> */}
+        <ContentContainer>
+
+          <FilterContainer>
+            <p>Hier komt filter</p>
+          </FilterContainer>
+
+          <ResultsContainer>
+            <CardLarge books={books} media={media}/>
+          </ResultsContainer>
+
+        </ContentContainer>
       </>
     );
 };

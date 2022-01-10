@@ -13,12 +13,15 @@ export class TransportReservationsResolver {
     private readonly transportReservationsService: TransportReservationsService,
   ) {}
 
-  @Mutation(() => TransportReservations)
+  @UseGuards(JwtAuthGuard)
+  @Mutation(() => TransportReservations, { name: 'createCarReservation' })
   createTransportReservation(
     @Args('createTransportReservationInput')
     createTransportReservationInput: CreateTransportReservationInput,
+    @GetUser() user,
   ) {
     return this.transportReservationsService.create(
+      user.id,
       createTransportReservationInput,
     );
   }

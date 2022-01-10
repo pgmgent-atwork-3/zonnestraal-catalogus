@@ -373,7 +373,7 @@ type Mutation {
   createTransport(createTransportInput: CreateTransportInput!): Transport!
   updateTransport(updateTransportInput: UpdateTransportInput!): Transport!
   removeTransport(id: Int!): Transport!
-  createTransportReservation(createTransportReservationInput: CreateTransportReservationInput!): TransportReservations!
+  createCarReservation(createTransportReservationInput: CreateTransportReservationInput!): TransportReservations!
   updateTransportReservation(updateTransportReservationInput: UpdateTransportReservationInput!): TransportReservations!
   removeTransportReservation(id: Int!): TransportReservations!
   createTransportFixedReservation(createTransportFixedReservationInput: CreateTransportFixedReservationInput!): TransportFixedReservations!
@@ -506,13 +506,17 @@ input UpdateTransportInput {
 }
 
 input CreateTransportReservationInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  transport_id: Int!
+  name: String!
+  from_date: DateTime!
+  till_date: DateTime!
 }
 
 input UpdateTransportReservationInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  transport_id: Int
+  name: String
+  from_date: DateTime
+  till_date: DateTime
   id: Int!
 }
 

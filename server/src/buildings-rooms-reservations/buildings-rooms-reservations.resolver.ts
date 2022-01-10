@@ -7,7 +7,6 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { UseGuards } from '@nestjs/common';
 import { GetUser } from 'src/auth/getUserFromToken';
 
-
 @Resolver(() => BuildingsRoomsReservations)
 export class BuildingsRoomsReservationsResolver {
   constructor(

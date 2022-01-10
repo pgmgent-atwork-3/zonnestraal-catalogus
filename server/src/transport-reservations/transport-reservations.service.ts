@@ -11,9 +11,27 @@ export class TransportReservationsService {
     @InjectRepository(TransportReservations)
     private transportReservationsRepository: Repository<TransportReservations>,
   ) {}
-  create(createTransportReservationInput: CreateTransportReservationInput) {
-    return 'This action adds a new transportReservation';
+  async create(
+    id: number,
+    createTransportReservationInput: CreateTransportReservationInput,
+  ) {
+    const reservation = this.transportReservationsRepository.create(
+      createTransportReservationInput,
+    );
+    reservation.profile_id = id;
+    return this.transportReservationsRepository.save(reservation);
   }
+
+  // async create(
+  //   id: number,
+  //   createBuildingsRoomsReservationInput: CreateBuildingsRoomsReservationInput,
+  // ) {
+  //   const reservation = this.buildingsRoomsReservationsRepository.create(
+  //     createBuildingsRoomsReservationInput,
+  //   );
+  //   reservation.profile_id = id;
+  //   return this.buildingsRoomsReservationsRepository.save(reservation);
+  // }
 
   // findAll() {
   //   return `This action returns all transportReservations`;

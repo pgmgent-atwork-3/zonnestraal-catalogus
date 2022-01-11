@@ -5,6 +5,9 @@ import BookIcon from '../../public/icon-book-open.png';
 import Image from 'next/image'
 import Link from 'next/link';
 import { Book } from '../../interfaces/models/book';
+import { FiBook } from "react-icons/fi";
+import { FiBookOpen } from "react-icons/fi";
+import { FiFolder } from "react-icons/fi";
 
 interface Props {
   data: Book[];
@@ -55,8 +58,9 @@ const IconContainer = styled.div`
   @media (min-width: ${({theme}) => theme.width.desktop}) {
     width: 10%;
 
-    span {
-      width: 4rem;
+    svg {
+      font-size: 3rem;
+      color: ${({ theme }) => theme.colors.darkBlue};
     }
   }
 `
@@ -139,7 +143,16 @@ const pagedBooks = books.slice(0,10);
               <GreyContainer>
 
                 <IconContainer>
-                  <Image src={BookIcon} height={80} width={80}/>
+                  {(() => {
+                    switch (b.type.title) {
+                      case 'Boek':
+                        return <FiBook/>;
+                      case 'Map':
+                        return <FiFolder/>;
+                      default:
+                        return <FiBookOpen/>;
+                      }
+                  })()}
                 </IconContainer>
 
                 <TextContainer>

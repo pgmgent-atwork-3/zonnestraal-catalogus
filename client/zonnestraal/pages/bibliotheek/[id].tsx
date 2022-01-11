@@ -13,10 +13,13 @@ export const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  padding: ${({ theme }) => theme.paddings.medium} ${({ theme }) => theme.paddings.normal};
+  width: 85rem;
+  max-width: 100%;
+  padding: 0 ${({ theme }) => theme.paddings.normal};
+  margin: 0 auto;
 
   @media (min-width: ${({theme}) => theme.width.desktop}) {
-    padding: ${({ theme }) => theme.paddings.medium} ${({ theme }) => theme.paddings.extraLarge};
+    padding: ${({ theme }) => theme.paddings.medium} ${({ theme }) => theme.paddings.normal};
   }
 `
 
@@ -215,8 +218,8 @@ const Detail = ({ detail }) => {
           <ButtonContainer>
             <SecondaryButton title="Uitlenen"/>
             <PrimaryButton title="Reserveren"/>
-            <Link href={'/bibliotheek/'}>
-              <GoBack title="Ga terug naar overzicht" />
+            <Link href="/bibliotheek/">
+              <GoBack title="Ga terug naar overzicht"/>
             </Link>
           </ButtonContainer>
         </GreyContainer>

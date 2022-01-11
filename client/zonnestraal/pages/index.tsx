@@ -45,15 +45,17 @@ const MoreInfoContainer = styled.div<{show: Boolean}>`
 `
 
 export const ContentContainer = styled.div`
-  padding: ${({ theme }) => theme.paddings.medium} ${({ theme }) => theme.paddings.normal};
+  width: 85rem;
+  max-width: 100%;
+  padding: 0 ${({ theme }) => theme.paddings.normal};
+  margin: 0 auto;
 
   @media (min-width: ${({theme}) => theme.width.desktop}) {
-    padding: ${({ theme }) => theme.paddings.medium} ${({ theme }) => theme.paddings.extraLarge};
-
+    padding: ${({ theme }) => theme.paddings.medium} ${({ theme }) => theme.paddings.normal};
   }
 `
 
-const Home = ({books, media} : {books: GetAllBooks}) => {
+const Home = ({books, media}) => {
   const [show, setShow] = useState(true);
   
   return (

@@ -7,7 +7,11 @@ import client from '../../lib/apollo-client';
 import {CardLarge} from "../../components/Cards";
 
 const ContentContainer = styled.div`
-  padding: ${({ theme }) => theme.paddings.medium} ${({ theme }) => theme.paddings.normal};
+  width: 85rem;
+  max-width: 100%;
+  padding: 0 ${({ theme }) => theme.paddings.normal};
+  margin: 0 auto;
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;

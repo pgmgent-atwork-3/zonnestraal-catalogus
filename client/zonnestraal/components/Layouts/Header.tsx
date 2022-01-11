@@ -17,7 +17,7 @@ const StyledHeader = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.yellow};
+  border-bottom: 5px solid ${({ theme }) => theme.colors.yellow};
   z-index: 101;
   box-shadow: ${({ theme }) => theme.colors.grey} 0px 8px 24px;
 

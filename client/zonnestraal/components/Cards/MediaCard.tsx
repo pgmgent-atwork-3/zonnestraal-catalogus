@@ -5,6 +5,10 @@ import BookIcon from '../../public/icon-book-open.png';
 import Image from 'next/image'
 import Link from 'next/link';
 import { Book } from '../../interfaces/models/book';
+import { FiMapPin } from "react-icons/fi";
+import { FiCamera } from "react-icons/fi";
+import { FiFilm } from "react-icons/fi";
+import { FiMonitor } from "react-icons/fi";
 
 interface Props {
   data: Book[];
@@ -29,6 +33,7 @@ const CardsContainer = styled.div`
 `
 
 const StyledCard = styled.div`
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   margin-bottom:${({ theme }) => theme.margins.normal};
@@ -47,8 +52,20 @@ const ItemTitle = styled.h3`
   margin-bottom:${({ theme }) => theme.margins.extraSmall};
 `
 
+const IconContainer = styled.div`
+  margin-top:${({ theme }) => theme.margins.small};
+
+  @media (min-width: ${({theme}) => theme.width.desktop}) {
+    svg {
+      font-size: 4rem;
+      color: ${({ theme }) => theme.colors.darkBlue};
+      stroke-width: 1;
+    }
+  }
+`
+
 const MediaCard = ({ data }) => {
-  const NewData = data.slice(0,2);
+  const NewData = data.slice(0,3);
 
   console.log(NewData);
 
@@ -58,7 +75,20 @@ const MediaCard = ({ data }) => {
           <Link href={'/bibliotheek/' + m.id}>
             <StyledCard>
               <GreyContainer>
-                <Image src={BookIcon} height={80} width={80}/>
+                <IconContainer>
+                  {(() => {
+                    switch (m.type.title) {
+                      case 'GPS':
+                        return <FiMapPin/>;
+                      case 'Camera':
+                        return <FiCamera/>;
+                      case 'IT':
+                        return <FiMonitor/>;
+                      default:
+                        return <FiFilm/>;
+                    }
+                  })()}
+                </IconContainer>
                 <DefaultLink title="Meer info"/>
                 <SecondaryButton title="Uitlenen"/>
                 <PrimaryButton title="Reserveren"/>

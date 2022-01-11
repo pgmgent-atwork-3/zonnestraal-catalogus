@@ -5,6 +5,9 @@ import BookIcon from '../../public/icon-book-open.png';
 import Image from 'next/image'
 import Link from 'next/link';
 import { Book } from '../../interfaces/models/book';
+import { FiBook } from "react-icons/fi";
+import { FiBookOpen } from "react-icons/fi";
+import { FiFolder } from "react-icons/fi";
 
 interface Props {
   data: Book[];
@@ -30,6 +33,7 @@ const CardsContainer = styled.div`
 `
 
 const StyledCard = styled.div`
+  cursor: pointer;
   display: flex;
   position: relative;
   flex-direction: column;
@@ -56,6 +60,16 @@ const Availability = styled.span`
   color: ${({ theme }) => theme.colors.darkBlue};
 `
 
+const IconContainer = styled.div`
+  @media (min-width: ${({theme}) => theme.width.desktop}) {
+    svg {
+      font-size: 4rem;
+      color: ${({ theme }) => theme.colors.darkBlue};
+      stroke-width: 1;
+    }
+  }
+`
+
 const BookCard = ({ data }) => {
   const NewData = data.slice(0,4);
 
@@ -68,7 +82,18 @@ const BookCard = ({ data }) => {
             <StyledCard>
               <GreyContainer>
                 <Availability>Beschikbaar</Availability>
-                <Image src={BookIcon} height={80} width={80}/>
+                <IconContainer>
+                  {(() => {
+                      switch (b.type.title) {
+                        case 'Boek':
+                          return <FiBook/>;
+                        case 'Map':
+                          return <FiFolder/>;
+                        default:
+                          return <FiBookOpen/>;
+                        }
+                  })()}
+                </IconContainer>
                 <DefaultLink title="Meer info"/>
                 <SecondaryButton title="Uitlenen"/>
                 <PrimaryButton title="Reserveren"/>

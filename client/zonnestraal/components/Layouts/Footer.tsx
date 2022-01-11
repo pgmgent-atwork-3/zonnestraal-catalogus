@@ -11,6 +11,7 @@ const StyledFooter = styled.div`
   flex-direction: column;
   padding: ${({ theme }) => theme.paddings.normal};
   background: ${({ theme }) => theme.colors.lightGrey};
+  text-align: center;
 
   @media (min-width: ${({theme}) => theme.width.tablet}) {
     flex-direction: row;

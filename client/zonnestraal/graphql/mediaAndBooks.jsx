@@ -17,6 +17,11 @@ export const GET_MEDIA_AND_BOOKS_QUERY = gql`
     id
     title
     description
+    type{
+      id
+      title
+      created_on
+    }
   }  
  }
 `;

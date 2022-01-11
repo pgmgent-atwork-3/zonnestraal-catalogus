@@ -1,13 +1,13 @@
 import client from "../../lib/apollo-client";
 import React from "react";
-import {CARS_QUERY} from "../../graphql/cars";
+import {GET_ALL_CARS_QUERY} from "../../graphql/getAllCars";
 //import { GetAllCars } from "../../interfaces/api/getAllCars";
 import TestData from "../../components/TestData";
 import { GetAllCars } from "../../interfaces/api/getAllCars";
 
 export async function getStaticProps() {
   const { data } = await client.query({
-    query: CARS_QUERY,
+    query: GET_ALL_CARS_QUERY,
   });
 
   return {

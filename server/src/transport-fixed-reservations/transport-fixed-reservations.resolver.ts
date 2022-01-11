@@ -45,7 +45,7 @@ export class TransportFixedReservationsResolver {
   }
 
   @Query(() => [TransportFixedReservations], {
-    name: 'transportFixedReservations',
+    name: 'getAlltransportFixedReservations',
   })
   findAll() {
     return this.transportFixedReservationsService.findAll();

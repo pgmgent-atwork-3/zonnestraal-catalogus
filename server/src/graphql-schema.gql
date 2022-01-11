@@ -340,14 +340,12 @@ type Query {
   buildingsFixedReservations: [BuildingsFixedReservations!]!
   getAllRoomsFixedReservationForAdmin: [BuildingsFixedReservations!]!
   buildingsFixedReservation(id: Int!): BuildingsFixedReservations!
-  buildingsFixedReservationsExceptions: [BuildingsFixedReservationsExceptions!]!
-  buildingsFixedReservationsException(id: Int!): BuildingsFixedReservationsExceptions!
   getAllCars: [Transport!]!
   transport(id: Int!): Transport!
   getAllTransportReservationForAdmin: [TransportReservations!]!
   GetAlltransportReservationsByUser: [TransportReservations!]!
   transportReservation(id: Int!): TransportReservations!
-  transportFixedReservations: [TransportFixedReservations!]!
+  getAlltransportFixedReservations: [TransportFixedReservations!]!
   getAllCarsFixedReservationForAdmin: [TransportFixedReservations!]!
   transportFixedReservation(id: Int!): TransportFixedReservations!
   transportFixedReservationsExceptions: [TransportFixedReservationsExceptions!]!
@@ -381,9 +379,6 @@ type Mutation {
   createRoomFixedReservation(createBuildingsFixedReservationInput: CreateBuildingsFixedReservationInput!): BuildingsFixedReservations!
   updateBuildingsFixedReservation(updateBuildingsFixedReservationInput: UpdateBuildingsFixedReservationInput!): BuildingsFixedReservations!
   removeBuildingsFixedReservation(id: Int!): BuildingsFixedReservations!
-  createBuildingsFixedReservationsException(createBuildingsFixedReservationsExceptionInput: CreateBuildingsFixedReservationsExceptionInput!): BuildingsFixedReservationsExceptions!
-  updateBuildingsFixedReservationsException(updateBuildingsFixedReservationsExceptionInput: UpdateBuildingsFixedReservationsExceptionInput!): BuildingsFixedReservationsExceptions!
-  removeBuildingsFixedReservationsException(id: Int!): BuildingsFixedReservationsExceptions!
   createTransport(createTransportInput: CreateTransportInput!): Transport!
   updateTransport(updateTransportInput: UpdateTransportInput!): Transport!
   removeTransport(id: Int!): Transport!
@@ -517,17 +512,6 @@ input UpdateBuildingsFixedReservationInput {
   till_date: String
   start_time: String
   end_time: String
-  id: Int!
-}
-
-input CreateBuildingsFixedReservationsExceptionInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
-input UpdateBuildingsFixedReservationsExceptionInput {
-  """Example field (placeholder)"""
-  exampleField: Int
   id: Int!
 }
 

@@ -27,7 +27,7 @@ export class MediaFixedReservationsResolver {
     createMediaFixedReservationsInput: CreateMediaFixedReservationsInput,
     @GetUser() user,
   ) {
-    if (user.isAdmin === true) {
+    if (user.isAdmin) {
       return this.mediaFixedReservationsService.create(
         user.id,
         createMediaFixedReservationsInput,

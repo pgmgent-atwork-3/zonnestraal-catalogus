@@ -23,8 +23,10 @@ export class TransportFixedReservationsService {
     return this.transportFixedReservationsRepository.save(reservation);
   }
 
-  findAll() {
-    return `This action returns all transportFixedReservations`;
+  findAll(): Promise<TransportFixedReservations[]> {
+    return this.transportFixedReservationsRepository.find({
+      relations: ['excepions'],
+    });
   }
 
   findAllForAdmin(): Promise<TransportFixedReservations[]> {

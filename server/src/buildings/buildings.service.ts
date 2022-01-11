@@ -5,6 +5,7 @@ import { CreateBuildingInput } from './dto/create-building.input';
 import { UpdateBuildingInput } from './dto/update-building.input';
 import { Buildings } from './entities/buildings.entity';
 
+
 @Injectable()
 export class BuildingsService {
   constructor(

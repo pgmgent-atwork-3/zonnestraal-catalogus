@@ -27,7 +27,9 @@ export class LibraryReservationDateService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} libraryReservationDate`;
+    return this.libraryReservationDateRepository.find({
+      where: { library_reservation_id: id },
+    });
   }
 
   update(

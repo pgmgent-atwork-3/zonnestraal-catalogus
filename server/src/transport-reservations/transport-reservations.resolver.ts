@@ -3,6 +3,9 @@ import { TransportReservationsService } from './transport-reservations.service';
 import { TransportReservations } from './entities/transport-reservations.entity';
 import { CreateTransportReservationInput } from './dto/create-transport-reservation.input';
 import { UpdateTransportReservationInput } from './dto/update-transport-reservation.input';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { HttpException, HttpStatus, UseGuards } from '@nestjs/common';
+import { GetUser } from 'src/auth/getUserFromToken';
 
 @Resolver(() => TransportReservations)
 export class TransportReservationsResolver {
@@ -10,19 +13,39 @@ export class TransportReservationsResolver {
     private readonly transportReservationsService: TransportReservationsService,
   ) {}
 
-  @Mutation(() => TransportReservations)
+  @UseGuards(JwtAuthGuard)
+  @Mutation(() => TransportReservations, { name: 'createCarReservation' })
   createTransportReservation(
     @Args('createTransportReservationInput')
     createTransportReservationInput: CreateTransportReservationInput,
+    @GetUser() user,
   ) {
     return this.transportReservationsService.create(
+      user.id,
       createTransportReservationInput,
     );
   }
 
-  @Query(() => [TransportReservations], { name: 'transportReservations' })
-  findAll() {
-    return this.transportReservationsService.findAll();
+  @UseGuards(JwtAuthGuard)
+  @Query(() => [TransportReservations], {
+    name: 'getAllTransportReservationForAdmin',
+  })
+  findAllForAdmin(@GetUser() user) {
+    if (user.isAdmin === true) {
+      return this.transportReservationsService.findAllForAdmin();
+    }
+    throw new HttpException(
+      'This function is only available for administrator',
+      HttpStatus.FORBIDDEN,
+    );
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Query(() => [TransportReservations], {
+    name: 'GetAlltransportReservationsByUser',
+  })
+  findAll(@GetUser() user) {
+    return this.transportReservationsService.findAll(user.id);
   }
 
   @Query(() => TransportReservations, { name: 'transportReservation' })

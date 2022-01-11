@@ -1,4 +1,4 @@
-import { ObjectType, Field } from '@nestjs/graphql';
+import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Profiles } from 'src/profiles/entities/profiles.entity';
 import { Transport } from 'src/transport/entities/transport.entity';
 import {
@@ -66,11 +66,20 @@ export class TransportReservations {
 
   @ManyToOne(() => Transport, (transport) => transport.reservation, {
     eager: true,
+    nullable: true,
   })
   @JoinColumn({
     name: 'transport_id',
     referencedColumnName: 'id',
   })
-  @Field(() => Transport)
+  @Field(() => Transport, { nullable: true })
   transport: Transport;
+
+  @Column({ nullable: true })
+  @Field(() => Int, { nullable: true })
+  transport_id: number;
+
+  @Column({ nullable: true })
+  @Field(() => Int, { nullable: true })
+  profile_id: number;
 }

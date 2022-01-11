@@ -4,7 +4,7 @@ import { MediaRent } from './entities/media-rent.entity';
 import { CreateMediaRentInput } from './dto/create-media-rent.input';
 import { UpdateMediaRentInput } from './dto/update-media-rent.input';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { UseGuards } from '@nestjs/common';
+import { HttpException, HttpStatus, UseGuards } from '@nestjs/common';
 import { GetUser } from 'src/auth/getUserFromToken';
 
 @Resolver(() => MediaRent)
@@ -24,6 +24,20 @@ export class MediaRentResolver {
   @Query(() => [MediaRent], { name: 'GetAllMediaRentByUser' })
   findAll(@GetUser() user) {
     return this.mediaRentService.findAll(user.id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Query(() => [MediaRent], {
+    name: 'getAllMediaRentForAdmin',
+  })
+  findAllForAdmin(@GetUser() user) {
+    if (user.isAdmin === true) {
+      return this.mediaRentService.findAllForAdmin();
+    }
+    throw new HttpException(
+      'This function is only available for administrator',
+      HttpStatus.FORBIDDEN,
+    );
   }
 
   @Query(() => MediaRent, { name: 'getOneMediaRent' })

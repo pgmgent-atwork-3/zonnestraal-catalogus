@@ -11,12 +11,24 @@ export class MediaFixedReservationsService {
     @InjectRepository(MediaFixedReservations)
     private mediaFixedReservationsRepository: Repository<MediaFixedReservations>,
   ) {}
-  create(createMediaFixedReservationsInput: CreateMediaFixedReservationsInput) {
-    return 'This action adds a new mediaFixedReservation';
+
+  async create(
+    id: number,
+    createMediaFixedReservationsInput: CreateMediaFixedReservationsInput,
+  ) {
+    const reservation = this.mediaFixedReservationsRepository.create(
+      createMediaFixedReservationsInput,
+    );
+    reservation.profile_id = id;
+    return this.mediaFixedReservationsRepository.save(reservation);
   }
 
-  findAll() {
-    return `This action returns all mediaFixedReservations`;
+  findAllForAdmin(): Promise<MediaFixedReservations[]> {
+    return this.mediaFixedReservationsRepository.find({
+      order: {
+        created_on: 'DESC',
+      },
+    });
   }
 
   findOne(id: number) {

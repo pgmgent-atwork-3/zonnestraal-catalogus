@@ -1,4 +1,4 @@
-import { ObjectType, Field } from '@nestjs/graphql';
+import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { BuildingsRooms } from 'src/buildings-rooms/entities/buildings-rooms.entity';
 import { Profiles } from 'src/profiles/entities/profiles.entity';
 import {
@@ -23,13 +23,14 @@ export class BuildingsRoomsReservations {
     (buildingsRooms) => buildingsRooms.roomReservation,
     {
       eager: true,
+      nullable: true,
     },
   )
   @JoinColumn({
     name: 'building_room_id',
     referencedColumnName: 'id',
   })
-  @Field(() => BuildingsRooms)
+  @Field(() => BuildingsRooms, { nullable: true })
   room: BuildingsRooms;
 
   @Column({
@@ -77,4 +78,12 @@ export class BuildingsRoomsReservations {
   })
   @Field({ nullable: true })
   edited_on: Date;
+
+  @Column({ nullable: true })
+  @Field(() => Int, { nullable: true })
+  building_room_id: number;
+
+  @Column({ nullable: true })
+  @Field(() => Int, { nullable: true })
+  profile_id: number;
 }

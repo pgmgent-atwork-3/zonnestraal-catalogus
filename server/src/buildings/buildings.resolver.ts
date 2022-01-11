@@ -1,6 +1,9 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { BuildingsService } from './buildings.service';
 import { Buildings } from './entities/buildings.entity';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { HttpException, HttpStatus, UseGuards } from '@nestjs/common';
+import { GetUser } from 'src/auth/getUserFromToken';
 // import { CreateBuildingInput } from './dto/create-building.input';
 // import { UpdateBuildingInput } from './dto/update-building.input';
 
@@ -15,6 +18,7 @@ export class BuildingsResolver {
   //   return this.buildingsService.create(createBuildingInput);
   // }
 
+  @UseGuards(JwtAuthGuard)
   @Query(() => [Buildings], { name: 'getAllbuildings' })
   findAll() {
     return this.buildingsService.findAll();

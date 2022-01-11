@@ -41,8 +41,16 @@ export class LibraryReservationService {
     });
   }
 
+  findAllForAdmin(): Promise<LibraryReservation[]> {
+    return this.libraryReservationRepository.find({
+      order: {
+        created_on: 'DESC',
+      },
+    });
+  }
+
   findOne(id: number) {
-    return `This action returns a #${id} libraryReservation`;
+    return this.libraryReservationRepository.findOneOrFail(id);
   }
   update(
     id: number,
@@ -54,7 +62,9 @@ export class LibraryReservationService {
     reservation.id = id;
     return this.libraryReservationRepository.save(reservation);
   }
-  remove(id: number) {
-    return `This action removes a #${id} libraryReservation`;
+
+  async remove(id: number) {
+    const reservation = await this.findOne(id);
+    return this.libraryReservationRepository.remove(reservation);
   }
 }

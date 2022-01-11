@@ -4,9 +4,10 @@ import styled from 'styled-components';
 import BookIcon from '../../public/icon-book-open.png';
 import Image from 'next/image'
 import Link from 'next/link';
+import { Book } from '../../interfaces/models/book';
 
 interface Props {
-  data: data[];
+  data: Book[];
 }
 
 const GreyContainer = styled.div`
@@ -16,6 +17,7 @@ const GreyContainer = styled.div`
   align-items: center;
   background: ${({ theme }) => theme.colors.lightGrey};
   padding: ${({ theme }) => theme.paddings.normal};
+  padding-top:${({ theme }) => theme.margins.extraLarge};
 `
 
 const CardsContainer = styled.div`
@@ -29,33 +31,53 @@ const CardsContainer = styled.div`
 
 const StyledCard = styled.div`
   display: flex;
+  position: relative;
   flex-direction: column;
   margin-bottom:${({ theme }) => theme.margins.normal};
 
   @media (min-width: ${({theme}) => theme.width.tablet}) {
-    width: 20%;
+    width: 17rem;
     margin-right:${({ theme }) => theme.margins.normal};
   }
 `
 
-const BookCard = ({data}: Props) => {
+const TextContainer = styled.div`
+  margin-top:${({ theme }) => theme.margins.small};
+`
+
+const ItemTitle = styled.h3`
+  margin-bottom:${({ theme }) => theme.margins.extraSmall};
+`
+
+const Availability = styled.span`
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: ${({ theme }) => theme.colors.darkBlue};
+`
+
+const BookCard = ({ data }) => {
+  const NewData = data.slice(0,4);
+
+  console.log(NewData)
+
   return (
     <CardsContainer>
-        {data.map(b => (
+        {NewData.map(b => (
           <Link href={'/bibliotheek/' + b.id}>
             <StyledCard>
               <GreyContainer>
-                <span>Beschikbaar</span>
+                <Availability>Beschikbaar</Availability>
                 <Image src={BookIcon} height={80} width={80}/>
                 <DefaultLink title="Meer info"/>
                 <SecondaryButton title="Uitlenen"/>
                 <PrimaryButton title="Reserveren"/>
               </GreyContainer>
 
-              <div>
-                <h3>{b.title}</h3>
+              <TextContainer>
+                <ItemTitle>{b.title}</ItemTitle>
                 <p>{b.author}</p>
-              </div>
+              </TextContainer>
             </StyledCard>
           </Link>
         ))}

@@ -1,4 +1,4 @@
-import { Header, Nav } from '.';
+import { Footer, Header, Nav } from '.';
 
 interface BaseProps {
   children: any
@@ -11,6 +11,7 @@ const BaseLayout = ({ children }: BaseProps) => {
       <div>
           <Header />
           { children }
+          <Footer/>
       </div>
     </>
   );

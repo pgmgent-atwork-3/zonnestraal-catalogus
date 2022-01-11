@@ -9,7 +9,6 @@ export class BuildingsFixedReservationsExceptionsResolver {
   // constructor(
   //   private readonly buildingsFixedReservationsExceptionsService: BuildingsFixedReservationsExceptionsService,
   // ) {}
-
   // @Mutation(() => BuildingsFixedReservationsExceptions)
   // createBuildingsFixedReservationsException(
   //   @Args('createBuildingsFixedReservationsExceptionInput')
@@ -19,21 +18,18 @@ export class BuildingsFixedReservationsExceptionsResolver {
   //     createBuildingsFixedReservationsExceptionInput,
   //   );
   // }
-
   // @Query(() => [BuildingsFixedReservationsExceptions], {
   //   name: 'buildingsFixedReservationsExceptions',
   // })
   // findAll() {
   //   return this.buildingsFixedReservationsExceptionsService.findAll();
   // }
-
   // @Query(() => BuildingsFixedReservationsExceptions, {
   //   name: 'buildingsFixedReservationsException',
   // })
   // findOne(@Args('id', { type: () => Int }) id: number) {
   //   return this.buildingsFixedReservationsExceptionsService.findOne(id);
   // }
-
   // @Mutation(() => BuildingsFixedReservationsExceptions)
   // updateBuildingsFixedReservationsException(
   //   @Args('updateBuildingsFixedReservationsExceptionInput')
@@ -44,7 +40,6 @@ export class BuildingsFixedReservationsExceptionsResolver {
   //     updateBuildingsFixedReservationsExceptionInput,
   //   );
   // }
-
   // @Mutation(() => BuildingsFixedReservationsExceptions)
   // removeBuildingsFixedReservationsException(
   //   @Args('id', { type: () => Int }) id: number,

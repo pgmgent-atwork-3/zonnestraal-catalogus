@@ -16,7 +16,7 @@ scalar DateTime
 
 type BuildingsRoomsReservations {
   id: Float!
-  room: BuildingsRooms!
+  room: BuildingsRooms
   from_date: DateTime
   profile: Profiles!
   till_date: DateTime
@@ -63,6 +63,8 @@ type BuildingsFixedReservations {
   frequency: String
   created_on: DateTime
   excepions: [BuildingsFixedReservationsExceptions!]
+  building_room_id: Int
+  profile_id: Int
 }
 
 type MediaFixedReservationsExceptions {
@@ -141,6 +143,8 @@ type MediaFixedReservations {
   created_on: DateTime
   excepions: [MediaFixedReservationsExceptions!]
   profile: Profiles
+  media_id: Int
+  profile_id: Int
 }
 
 type ProfilesGroups {
@@ -172,7 +176,7 @@ type TransportReservations {
   name: String
   created_on: DateTime
   edited_on: DateTime
-  transport: Transport!
+  transport: Transport
   transport_id: Int
   profile_id: Int
 }
@@ -197,7 +201,7 @@ type Transport {
 
 type TransportFixedReservations {
   id: Float!
-  transport: Transport!
+  transport: Transport
   name: String
   profile: Profiles
   from_date: String
@@ -207,6 +211,8 @@ type TransportFixedReservations {
   frequency: String
   created_on: DateTime
   excepions: [TransportFixedReservationsExceptions!]
+  transport_id: Int
+  profile_id: Int
 }
 
 type Profiles {
@@ -319,24 +325,28 @@ type Query {
   getMediaById(id: Int!): Media!
   mediaTypes: [MediaTypes!]!
   GetAllMediaRentByUser: [MediaRent!]!
+  getAllMediaRentForAdmin: [MediaRent!]!
   getOneMediaRent(id: Int!): MediaRent!
   libraryRent(id: Int!): LibraryRent!
+  getAllMediaFixedReservationForAdmin: [MediaFixedReservations!]!
   getAllUsers: [Profiles!]!
   profilesGroupsRight(id: Int!): ProfilesGroupsRights!
   getAllbuildings: [Buildings!]!
   getAllbuildingsRooms: [BuildingsRooms!]!
   buildingsRoom(id: Int!): BuildingsRooms!
+  getAllRoomsReservationForAdmin: [BuildingsRoomsReservations!]!
   GetAllRoomsReservationByUser: [BuildingsRoomsReservations!]!
   buildingsRoomsReservation(id: Int!): BuildingsRoomsReservations!
   buildingsFixedReservations: [BuildingsFixedReservations!]!
+  getAllRoomsFixedReservationForAdmin: [BuildingsFixedReservations!]!
   buildingsFixedReservation(id: Int!): BuildingsFixedReservations!
-  buildingsFixedReservationsExceptions: [BuildingsFixedReservationsExceptions!]!
-  buildingsFixedReservationsException(id: Int!): BuildingsFixedReservationsExceptions!
   getAllCars: [Transport!]!
   transport(id: Int!): Transport!
+  getAllTransportReservationForAdmin: [TransportReservations!]!
   GetAlltransportReservationsByUser: [TransportReservations!]!
   transportReservation(id: Int!): TransportReservations!
-  transportFixedReservations: [TransportFixedReservations!]!
+  getAlltransportFixedReservations: [TransportFixedReservations!]!
+  getAllCarsFixedReservationForAdmin: [TransportFixedReservations!]!
   transportFixedReservation(id: Int!): TransportFixedReservations!
   transportFixedReservationsExceptions: [TransportFixedReservationsExceptions!]!
   transportFixedReservationsException(id: Int!): TransportFixedReservationsExceptions!
@@ -357,6 +367,7 @@ type Mutation {
   createLibraryRent(createLibraryRentInput: CreateLibraryRentInput!): LibraryRent!
   updateLibraryRent(updateLibraryRentInput: UpdateLibraryRentInput!): LibraryRent!
   removeLibraryRent(id: Int!): LibraryRent!
+  createMediaFixedReservation(createMediaFixedReservationsInput: CreateMediaFixedReservationsInput!): MediaFixedReservations!
   createUser(createProfileInput: CreateProfileInput!): Profiles!
   login(password: String!, email: String!): SignInResponse!
   createBuildingsRoom(createBuildingsRoomInput: CreateBuildingsRoomInput!): BuildingsRooms!
@@ -365,12 +376,9 @@ type Mutation {
   createRoomReservation(createBuildingsRoomsReservationInput: CreateBuildingsRoomsReservationInput!): BuildingsRoomsReservations!
   updateBuildingsRoomsReservation(updateBuildingsRoomsReservationInput: UpdateBuildingsRoomsReservationInput!): BuildingsRoomsReservations!
   removeBuildingsRoomsReservation(id: Int!): BuildingsRoomsReservations!
-  createBuildingsFixedReservation(createBuildingsFixedReservationInput: CreateBuildingsFixedReservationInput!): BuildingsFixedReservations!
+  createRoomFixedReservation(createBuildingsFixedReservationInput: CreateBuildingsFixedReservationInput!): BuildingsFixedReservations!
   updateBuildingsFixedReservation(updateBuildingsFixedReservationInput: UpdateBuildingsFixedReservationInput!): BuildingsFixedReservations!
   removeBuildingsFixedReservation(id: Int!): BuildingsFixedReservations!
-  createBuildingsFixedReservationsException(createBuildingsFixedReservationsExceptionInput: CreateBuildingsFixedReservationsExceptionInput!): BuildingsFixedReservationsExceptions!
-  updateBuildingsFixedReservationsException(updateBuildingsFixedReservationsExceptionInput: UpdateBuildingsFixedReservationsExceptionInput!): BuildingsFixedReservationsExceptions!
-  removeBuildingsFixedReservationsException(id: Int!): BuildingsFixedReservationsExceptions!
   createTransport(createTransportInput: CreateTransportInput!): Transport!
   updateTransport(updateTransportInput: UpdateTransportInput!): Transport!
   removeTransport(id: Int!): Transport!
@@ -442,6 +450,17 @@ input UpdateLibraryRentInput {
   returned: String
 }
 
+input CreateMediaFixedReservationsInput {
+  media_id: Int!
+  name: String!
+  frequency: String
+  created_on: DateTime
+  from_date: String
+  till_date: String
+  start_time: String
+  end_time: String
+}
+
 input CreateProfileInput {
   email: String!
   password: String!
@@ -474,24 +493,25 @@ input UpdateBuildingsRoomsReservationInput {
 }
 
 input CreateBuildingsFixedReservationInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  building_room_id: Int!
+  name: String!
+  frequency: String
+  created_on: DateTime
+  from_date: String
+  till_date: String
+  start_time: String
+  end_time: String
 }
 
 input UpdateBuildingsFixedReservationInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
-}
-
-input CreateBuildingsFixedReservationsExceptionInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
-input UpdateBuildingsFixedReservationsExceptionInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  building_room_id: Int
+  name: String
+  frequency: String
+  created_on: DateTime
+  from_date: String
+  till_date: String
+  start_time: String
+  end_time: String
   id: Int!
 }
 
@@ -522,13 +542,25 @@ input UpdateTransportReservationInput {
 }
 
 input CreateTransportFixedReservationInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  transport_id: Int!
+  name: String!
+  frequency: String
+  created_on: DateTime
+  from_date: String
+  till_date: String
+  start_time: String
+  end_time: String
 }
 
 input UpdateTransportFixedReservationInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  transport_id: Int
+  name: String
+  frequency: String
+  created_on: DateTime
+  from_date: String
+  till_date: String
+  start_time: String
+  end_time: String
   id: Int!
 }
 

@@ -28,6 +28,14 @@ export class BuildingsRoomsReservationsService {
     });
   }
 
+  findAllForAdmin(): Promise<BuildingsRoomsReservations[]> {
+    return this.buildingsRoomsReservationsRepository.find({
+      order: {
+        created_on: 'DESC',
+      },
+    });
+  }
+
   findOne(id: number) {
     return this.buildingsRoomsReservationsRepository.findOneOrFail(id);
   }

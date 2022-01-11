@@ -66,12 +66,13 @@ export class TransportReservations {
 
   @ManyToOne(() => Transport, (transport) => transport.reservation, {
     eager: true,
+    nullable: true,
   })
   @JoinColumn({
     name: 'transport_id',
     referencedColumnName: 'id',
   })
-  @Field(() => Transport)
+  @Field(() => Transport, { nullable: true })
   transport: Transport;
 
   @Column({ nullable: true })

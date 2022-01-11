@@ -22,6 +22,14 @@ export class TransportReservationsService {
     return this.transportReservationsRepository.save(reservation);
   }
 
+  findAllForAdmin(): Promise<TransportReservations[]> {
+    return this.transportReservationsRepository.find({
+      order: {
+        created_on: 'DESC',
+      },
+    });
+  }
+
   findAll(id: number) {
     return this.transportReservationsRepository.find({
       where: { profile_id: id },

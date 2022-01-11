@@ -1,4 +1,4 @@
-import { ObjectType, Field } from '@nestjs/graphql';
+import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { MediaFixedReservationsExceptions } from 'src/media-fixed-reservations-exceptions/entities/media-fixed-reservations-exceptions.entity';
 import { Media } from 'src/media/entities/media.entity';
 import { Profiles } from 'src/profiles/entities/profiles.entity';
@@ -95,4 +95,12 @@ export class MediaFixedReservations {
   })
   @Field(() => Profiles, { nullable: true })
   profile: Profiles;
+
+  @Column({ nullable: true })
+  @Field(() => Int, { nullable: true })
+  media_id: number;
+
+  @Column({ nullable: true })
+  @Field(() => Int, { nullable: true })
+  profile_id: number;
 }

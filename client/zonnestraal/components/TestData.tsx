@@ -3,7 +3,7 @@ import { Car } from '../interfaces/models/car';
 
 
 const TestData = ({ data }) => {
-  console.log(data)
+  //console.log(data)
 
   return (
     <div>

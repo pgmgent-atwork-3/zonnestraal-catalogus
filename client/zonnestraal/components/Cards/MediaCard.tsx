@@ -4,15 +4,15 @@ import styled from 'styled-components';
 import BookIcon from '../../public/icon-book-open.png';
 import Image from 'next/image'
 import Link from 'next/link';
-import { Book } from '../../interfaces/models/book';
+import { Library } from '../../interfaces/models/library';
 import { FiMapPin } from "react-icons/fi";
 import { FiCamera } from "react-icons/fi";
 import { FiFilm } from "react-icons/fi";
 import { FiMonitor } from "react-icons/fi";
 
-interface Props {
+/* interface Props {
   data: Book[];
-}
+} */
 
 const GreyContainer = styled.div`
   position: relative;
@@ -64,10 +64,10 @@ const IconContainer = styled.div`
   }
 `
 
-const MediaCard = ({ data }) => {
+const MediaCard = ({ data } : {data : Library}) => {
   const NewData = data.slice(0,3);
 
-  console.log(NewData);
+  //console.log(NewData);
 
   return (
     <CardsContainer>

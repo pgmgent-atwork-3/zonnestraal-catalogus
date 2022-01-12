@@ -1,5 +1,5 @@
-import { Book } from "../models/book";
+import { Library } from "../models/library";
 
 export interface GetAllBooks {
-  allBooks: Book[];
+  allBooks: Library[];
 }

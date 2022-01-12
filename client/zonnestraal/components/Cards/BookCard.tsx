@@ -1,17 +1,15 @@
 import React from 'react'
 import { DefaultLink, PrimaryButton, SecondaryButton } from '../Buttons';
 import styled from 'styled-components';
-import BookIcon from '../../public/icon-book-open.png';
-import Image from 'next/image'
 import Link from 'next/link';
-import { Book } from '../../interfaces/models/book';
+import { Library } from '../../interfaces/models/library';
 import { FiBook } from "react-icons/fi";
 import { FiBookOpen } from "react-icons/fi";
 import { FiFolder } from "react-icons/fi";
 
-interface Props {
-  data: Book[];
-}
+/* interface Props {
+  data: Library[];
+} */
 
 const GreyContainer = styled.div`
   position: relative;
@@ -61,19 +59,24 @@ const Availability = styled.span`
 `
 
 const IconContainer = styled.div`
+  svg {
+    font-size: 4rem;
+    color: ${({ theme }) => theme.colors.darkBlue};
+    stroke-width: 1;
+  }
+
   @media (min-width: ${({theme}) => theme.width.desktop}) {
     svg {
-      font-size: 4rem;
-      color: ${({ theme }) => theme.colors.darkBlue};
+      font-size: 5rem;
       stroke-width: 1;
     }
   }
 `
 
-const BookCard = ({ data }) => {
+const BookCard = ({ data } : {data: Library}) => {
   const NewData = data.slice(0,4);
 
-  console.log(NewData)
+  //console.log(NewData)
 
   return (
     <CardsContainer>

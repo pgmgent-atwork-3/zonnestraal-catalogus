@@ -54,6 +54,9 @@ const FilterTitle = styled.span`
 
 const LibraryPage = ({ books, media } : {books: GetAllBooks, media: GetAllMedia}) => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [checked, setChecked] = useState('');
+
+  console.log(checked);
 
     /* books en media bevatten data */
     return (
@@ -70,11 +73,17 @@ const LibraryPage = ({ books, media } : {books: GetAllBooks, media: GetAllMedia}
               <SearchBar type="text" placeholder="Zoek op titel of auteur" onChange={event => {setSearchTerm(event.target.value)}}/>
 
               <FilterTitle>Filter</FilterTitle>
+              {/* <div>
+                <input type="checkbox" id="book" name="Boek" onChange={event => setChecked(event.target.checked)}/>
+                <p>Book</p>  
+                <input type="checkbox" id="map" name="Map" onChange={event => setChecked(event.target.checked)}/>
+                <p>Map</p>  
+              </div>  */}
             </>
           </FilterContainer>
 
           <ResultsContainer>
-            <CardLarge searchTerm={searchTerm} books={books} media={media}/>
+            <CardLarge checked={checked} searchTerm={searchTerm} books={books} media={media}/>
           </ResultsContainer>
 
         </ContentContainer>

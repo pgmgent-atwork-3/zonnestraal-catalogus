@@ -171,7 +171,7 @@ const PaginationContainer = styled.div`
   }
 `
 
-const CardLarge = ({ books, media, searchTerm } : {books: Library, media: Media, searchTerm: string }) => {
+const CardLarge = ({ books, media, searchTerm, checked } : {books: Library, media: Media, searchTerm: string, }) => {
   const [data, setData] = useState(books.slice(0, 80));
   /* console.log(data) */
   const [pageNumber, setPagenNumber] = useState(0);

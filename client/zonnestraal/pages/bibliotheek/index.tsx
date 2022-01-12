@@ -52,9 +52,18 @@ const FilterTitle = styled.span`
   font-weight: 500;
 `
 
+const CheckboxContainer = styled.div`
+  display: flex;
+  align-items: center;
+
+  input {
+    margin-right: ${({ theme }) => theme.margins.extraSmall};
+  }
+`
+
 const LibraryPage = ({ books, media } : {books: GetAllBooks, media: GetAllMedia}) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [checked, setChecked] = useState('');
+  const [checked, setChecked] = useState(false);
 
   console.log(checked);
 
@@ -73,12 +82,14 @@ const LibraryPage = ({ books, media } : {books: GetAllBooks, media: GetAllMedia}
               <SearchBar type="text" placeholder="Zoek op titel of auteur" onChange={event => {setSearchTerm(event.target.value)}}/>
 
               <FilterTitle>Filter</FilterTitle>
-              {/* <div>
+              <CheckboxContainer>
                 <input type="checkbox" id="book" name="Boek" onChange={event => setChecked(event.target.checked)}/>
                 <p>Book</p>  
+              </CheckboxContainer> 
+              <CheckboxContainer>
                 <input type="checkbox" id="map" name="Map" onChange={event => setChecked(event.target.checked)}/>
                 <p>Map</p>  
-              </div>  */}
+              </CheckboxContainer>
             </>
           </FilterContainer>
 
@@ -99,10 +110,14 @@ export async function getServerSideProps() {
     query: GET_MEDIA_AND_BOOKS_QUERY,
   });
   
-  return {
-    props: {
-      books: data.getAllLibraries,
-      media: data.getAllMedia
-    },
- };
+  if (data){
+    return {
+      props: {
+        books: data.getAllLibraries,
+        media: data.getAllMedia
+      },
+   };
+  } else {
+    return 'No data';
+  }
 }

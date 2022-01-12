@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import { DefaultLink, PrimaryButton, SecondaryButton } from '../Buttons';
 import styled from 'styled-components';
-import BookIcon from '../../public/icon-book-open.png';
-import Image from 'next/image'
 import Link from 'next/link';
 import { Library } from '../../interfaces/models/library';
 import { FiBook } from "react-icons/fi";
@@ -171,8 +169,12 @@ const PaginationContainer = styled.div`
   }
 `
 
-const CardLarge = ({ books, media, searchTerm, checked } : {books: Library, media: Media, searchTerm: string, }) => {
-  const [data, setData] = useState(books.slice(0, 80));
+const CardLarge = ({ books, media, searchTerm } : {books: Library, media: Media, searchTerm: string }) => {
+  if (!books) {
+    return 'no data';
+  }
+
+  const [data, setData] = useState(books);
   /* console.log(data) */
   const [pageNumber, setPagenNumber] = useState(0);
 

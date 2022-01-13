@@ -40,6 +40,10 @@ function useProvideAuth(){
     })
   }
 
+  const signOut = () => {
+    setAuthToken(null)
+  }
+
   const signIn = async ({ email, password }: {email:string, password:string}) => {
     const client = createApolloClient()
     const LoginMutation = gql`
@@ -57,14 +61,15 @@ function useProvideAuth(){
 
     console.log(result)
 
-    if (result?.data?.login?.token) {
-      setAuthToken(result.data.login.token)
-    }
+    if (result?.data?.login?.access_token) {
+      setAuthToken(result.data.login.acces_token)
+    } else 'Om deze pagina te bekijken heb je een account nodig!'
   }
 
   return {
     setAuthToken,
     createApolloClient,
-    signIn
+    signIn,
+    signOut
   }
 }

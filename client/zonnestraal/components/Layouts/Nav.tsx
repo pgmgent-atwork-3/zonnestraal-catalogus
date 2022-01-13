@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
+import {AUTH_TOKEN} from '../../lib/constants';
+
 
 interface NavProps {
   open: Boolean;
@@ -80,21 +82,39 @@ const StyledNav = styled.nav<{open: Boolean}>`
 `;
 
 const Nav = ({ open }: NavProps) => {
+  /* const [authToken, setAuthToken] = useState();
+
+  useEffect(() => {
+    const newToken = localStorage.getItem(AUTH_TOKEN)
+    setAuthToken(newToken)
+  }, []) */
+
   return (
     <StyledNav open={open}>
         <ul>
-            <li>
-                <Link href='/bibliotheek'>Bibliotheek / Mediatheek</Link>
+          <li>
+              <Link href='/bibliotheek'>Bibliotheek / Mediatheek</Link>
+          </li>
+          <li>
+              <Link href='/voertuigen'>Voertuigen</Link>
+          </li>
+          <li>
+              <Link href='/zalen'>Zalen</Link>
+          </li>
+          <li>
+              <Link href='/login'>Aanmelden</Link>
             </li>
+          {/* {authToken ? (
+            <div onClick={() => {
+              localStorage.removeItem(AUTH_TOKEN);
+            }}>
+              <Link href='/'>Afmelden</Link>
+            </div>
+          ) : (
             <li>
-                <Link href='/voertuigen'>Voertuigen</Link>
+              <Link href='/login'>Aanmelden</Link>
             </li>
-            <li>
-                <Link href='/zalen'>Zalen</Link>
-            </li>
-            <li>
-                <Link href='/login'>Aanmelden</Link>
-            </li>
+          )} */}
         </ul>
     </StyledNav>
   )

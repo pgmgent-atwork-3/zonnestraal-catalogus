@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 type BtnProps = { 
   title: string;
+  onClick(): void;
 } 
 
 const StyledSecondaryButton = styled.a`
@@ -15,6 +16,7 @@ const StyledSecondaryButton = styled.a`
   border-radius: ${({ theme }) => theme.borderRadius.small};
   margin-bottom:${({ theme }) => theme.margins.small};
   transition: all 0.3s ease;
+  cursor: pointer;
 
   span {
     color: ${({ theme }) => theme.colors.darkBlue};
@@ -29,9 +31,9 @@ const StyledSecondaryButton = styled.a`
   }
 `
 
-const SecondaryButton: React.FC<BtnProps> = ({ title }) => {
+const SecondaryButton: React.FC<BtnProps> = ({ title, onClick }) => {
   return (
-    <StyledSecondaryButton>
+    <StyledSecondaryButton onClick={onClick}>
       <span>{title}</span>
     </StyledSecondaryButton>
   )

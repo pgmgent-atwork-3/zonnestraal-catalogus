@@ -21,6 +21,14 @@ export const useAuth = () => {
 function useProvideAuth(){
   const [authToken, setAuthToken] = useState(null)
 
+  const isSignedIn = () => {
+    if (authToken) {
+      return true
+    } else {
+      return false
+    }
+  }
+
   const getAuthHeaders = () => {
     if(!authToken) return null
     return {
@@ -62,14 +70,15 @@ function useProvideAuth(){
     console.log(result)
 
     if (result?.data?.login?.access_token) {
-      setAuthToken(result.data.login.acces_token)
+      setAuthToken(result.data.login.access_token)
     } else 'Om deze pagina te bekijken heb je een account nodig!'
   }
 
   return {
     setAuthToken,
     createApolloClient,
+    isSignedIn,
     signIn,
-    signOut
+    signOut,
   }
 }

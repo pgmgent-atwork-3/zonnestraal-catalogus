@@ -26,7 +26,7 @@ const StyledPopUpButton = styled.button`
 
 type BtnProps = { 
   title: string;
-  onClick: any;
+  onClick(): void;
 } 
 
 const PopUpButton = ({ title, onClick }:BtnProps) => {

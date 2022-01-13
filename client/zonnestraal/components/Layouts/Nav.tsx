@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
 import {AUTH_TOKEN} from '../../lib/constants';
+import {useAuth} from '../../lib/auth';
+import LoggedInContainer from '../Menu/LoggedInContainer';
 
 
 interface NavProps {
@@ -88,6 +90,7 @@ const Nav = ({ open }: NavProps) => {
     const newToken = localStorage.getItem(AUTH_TOKEN)
     setAuthToken(newToken)
   }, []) */
+  const { isSignedIn } = useAuth();
 
   return (
     <StyledNav open={open}>
@@ -102,19 +105,9 @@ const Nav = ({ open }: NavProps) => {
               <Link href='/zalen'>Zalen</Link>
           </li>
           <li>
-              <Link href='/login'>Aanmelden</Link>
-            </li>
-          {/* {authToken ? (
-            <div onClick={() => {
-              localStorage.removeItem(AUTH_TOKEN);
-            }}>
-              <Link href='/'>Afmelden</Link>
-            </div>
-          ) : (
-            <li>
-              <Link href='/login'>Aanmelden</Link>
-            </li>
-          )} */}
+            {!isSignedIn() && <Link href='/login'>Aanmelden</Link>}
+            {isSignedIn() && <LoggedInContainer/>}
+          </li>
         </ul>
     </StyledNav>
   )

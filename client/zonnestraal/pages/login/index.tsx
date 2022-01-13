@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
-import { LoginForm } from '../../components/Forms';
+import { useAuth } from '../../lib/auth';
+
+/* import { LoginForm } from '../../components/Forms';
 import { gql, useMutation } from "@apollo/client";
 import { AUTH_TOKEN } from '../../lib/constants';
-import { PrimaryButton } from '../../components/Buttons';
-import { useAuth } from '../../lib/auth';
+import { PrimaryButton } from '../../components/Buttons'; */
 
 interface Props {
   
@@ -12,11 +13,14 @@ interface Props {
 const LoginPage = (props: Props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { signIn } = useAuth()
+  const { signIn } = useAuth();
+  const { isSignedIn } = useAuth();
+
+  console.log(isSignedIn())
 
   function onSubmit(e) {
     e.preventDefault()
-    signIn({email, password})
+    signIn({ email, password })
   }
 
 
@@ -33,7 +37,9 @@ const LoginPage = (props: Props) => {
           placeholder="password" 
           onChange={(e) => setPassword(e.target.value)} 
         />
-        <button type="submit">Sign In</button>
+        {!isSignedIn() && <button type="submit">Inloggen</button>}
+        {isSignedIn() && <button type="submit">Uitloggen</button>}
+        {/* <button type="submit">Sign In</button> */}
       </form>
     </div>
   )

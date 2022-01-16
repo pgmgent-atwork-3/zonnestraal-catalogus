@@ -341,7 +341,7 @@ type Query {
   getAllRoomsFixedReservationForAdmin: [BuildingsFixedReservations!]!
   buildingsFixedReservation(id: Int!): BuildingsFixedReservations!
   getAllCars: [Transport!]!
-  transport(id: Int!): Transport!
+  getOneTransportById(id: Int!): Transport!
   getAllTransportReservationForAdmin: [TransportReservations!]!
   GetAlltransportReservationsByUser: [TransportReservations!]!
   transportReservation(id: Int!): TransportReservations!

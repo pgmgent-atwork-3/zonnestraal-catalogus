@@ -23,7 +23,8 @@ export class TransportResolver {
     return this.transportService.findAll();
   }
 
-  @Query(() => Transport, { name: 'transport' })
+  @UseGuards(JwtAuthGuard)
+  @Query(() => Transport, { name: 'getOneTransportById' })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.transportService.findOne(id);
   }

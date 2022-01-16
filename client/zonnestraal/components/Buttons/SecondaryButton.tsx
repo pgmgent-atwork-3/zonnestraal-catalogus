@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -34,7 +35,9 @@ const StyledSecondaryButton = styled.a`
 const SecondaryButton: React.FC<BtnProps> = ({ title, onClick }) => {
   return (
     <StyledSecondaryButton onClick={onClick}>
-      <span>{title}</span>
+      <Link href={'/reservatie/'}>
+        <span>{title}</span>
+      </Link>
     </StyledSecondaryButton>
   )
 }

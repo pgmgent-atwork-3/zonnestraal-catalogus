@@ -106,7 +106,7 @@ const DescriptionGroup = styled.div`
   width: 100%;
 `
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: any) {
   const {params} = context
   const {id} = params
 
@@ -163,7 +163,7 @@ export async function getServerSideProps(context) {
  };
 }
 
-const Detail = ({ detail }) => {
+const Detail = ({ detail }: any) => {
   if (!detail) {
     return <p>Sorry, er is geen data te vinden voor dit boek.</p>
   } 

@@ -3,7 +3,7 @@ import { createContext, useContext, useState } from 'react';
 
 const authContext = createContext()
 
-export function AuthProvider({children}) {
+export function AuthProvider({children}:any) {
   const auth = useProvideAuth()
 
   return (
@@ -38,7 +38,7 @@ function useProvideAuth(){
 
   const createApolloClient = () => {
     const link = new HttpLink({
-      uri: 'https://zonnenstraal-server.onrender.com/graphql',
+      uri: 'http://localhost:5000/graphql',
       headers: getAuthHeaders(),
     })
   

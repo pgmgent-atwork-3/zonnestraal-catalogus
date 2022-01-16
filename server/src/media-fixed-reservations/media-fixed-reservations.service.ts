@@ -32,7 +32,7 @@ export class MediaFixedReservationsService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} mediaFixedReservation`;
+    return this.mediaFixedReservationsRepository.findOneOrFail(id);
   }
 
   update(
@@ -42,7 +42,8 @@ export class MediaFixedReservationsService {
     return `This action updates a #${id} mediaFixedReservation`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} mediaFixedReservation`;
+  async remove(id: number) {
+    const reservation = await this.findOne(id);
+    return this.mediaFixedReservationsRepository.remove(reservation);
   }
 }

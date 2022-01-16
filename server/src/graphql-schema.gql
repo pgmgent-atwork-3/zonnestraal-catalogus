@@ -328,6 +328,7 @@ type Query {
   getAllMediaRentForAdmin: [MediaRent!]!
   getOneMediaRent(id: Int!): MediaRent!
   libraryRent(id: Int!): LibraryRent!
+  getOnemediaFixedReservation(id: Int!): MediaFixedReservations!
   getAllMediaFixedReservationForAdmin: [MediaFixedReservations!]!
   getAllUsers: [Profiles!]!
   profilesGroupsRight(id: Int!): ProfilesGroupsRights!
@@ -368,6 +369,7 @@ type Mutation {
   updateLibraryRent(updateLibraryRentInput: UpdateLibraryRentInput!): LibraryRent!
   removeLibraryRent(id: Int!): LibraryRent!
   createMediaFixedReservation(createMediaFixedReservationsInput: CreateMediaFixedReservationsInput!): MediaFixedReservations!
+  removeMediaFixedReservation(id: Int!): MediaFixedReservations!
   createUser(createProfileInput: CreateProfileInput!): Profiles!
   login(password: String!, email: String!): SignInResponse!
   createBuildingsRoom(createBuildingsRoomInput: CreateBuildingsRoomInput!): BuildingsRooms!

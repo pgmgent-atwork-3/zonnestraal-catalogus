@@ -2,6 +2,7 @@ import { Location } from "graphql";
 import { LibraryTypes } from './libraryTypes'
 
 export interface Library {
+  length: number;
   id: number;
   serial: number;
   title: string;

@@ -181,7 +181,7 @@ const CardLarge = ({ books, media, searchTerm } : {books: Library, media: Media,
   const dataPerPage = 10;
   const pagesVisited = pageNumber * dataPerPage;
 
-  const filteredData = data.filter((b) => {
+  const filteredData = data.filter((b:any) => {
     if (searchTerm == "") {
       return b
     } else if (b.title.toLowerCase().includes(searchTerm.toLowerCase())) {
@@ -191,7 +191,7 @@ const CardLarge = ({ books, media, searchTerm } : {books: Library, media: Media,
     }
   })
 
-  const displayData = filteredData.slice(pagesVisited, pagesVisited + dataPerPage).map(b => {
+  const displayData = filteredData.slice(pagesVisited, pagesVisited + dataPerPage).map((b:any) => {
     return (
       <CardsContainer>
           <Link href={'/bibliotheek/' + b.id}>
@@ -260,7 +260,7 @@ const CardLarge = ({ books, media, searchTerm } : {books: Library, media: Media,
 
   const pageCount = Math.ceil(data.length / dataPerPage);
 
-  const changePage = ({ selected }) => {
+  const changePage = ({ selected }:any) => {
     setPagenNumber(selected);
   }
 

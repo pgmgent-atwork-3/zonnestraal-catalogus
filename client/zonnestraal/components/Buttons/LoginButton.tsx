@@ -3,16 +3,17 @@ import styled from 'styled-components';
 
 type BtnProps = { 
   title: string;
-  onClick?: React.MouseEventHandler<HTMLAnchorElement> | undefined
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  type?: "button" | "submit" | "reset" | undefined
 } 
 
-const StyledSecondaryButton = styled.a`
-  width: 70%;
+const StyledLoginButton = styled.button`
+  width: 100%;
   display: flex;
   justify-content: center;
-  background: transparent;
-  border: 1px solid ${({ theme }) => theme.colors.darkBlue};
+  background: ${({ theme }) => theme.colors.primaryColor};
   padding: ${({ theme }) => theme.paddings.extraSmall} ${({ theme }) => theme.paddings.small};
+  border: none;
   border-radius: ${({ theme }) => theme.borderRadius.small};
   margin-bottom:${({ theme }) => theme.margins.small};
   transition: all 0.3s ease;
@@ -23,20 +24,16 @@ const StyledSecondaryButton = styled.a`
   }
 
   &:hover {
-    background: ${({ theme }) => theme.colors.darkBlue};
-
-    span {
-      color: ${({ theme }) => theme.colors.white};
-    }  
+    background: ${({ theme }) => theme.colors.yellow};
   }
 `
 
-const SecondaryButton: React.FC<BtnProps> = ({ title, onClick }) => {
+const LoginButton: React.FC<BtnProps> = ({ title, onClick, type }) => {
   return (
-    <StyledSecondaryButton onClick={onClick}>
+    <StyledLoginButton type={type} onClick={onClick}>
       <span>{title}</span>
-    </StyledSecondaryButton>
+    </StyledLoginButton>
   )
 }
 
-export default SecondaryButton;
+export default LoginButton;

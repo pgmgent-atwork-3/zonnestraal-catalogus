@@ -22,7 +22,10 @@ export class BuildingsRoomsService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} buildingsRoom`;
+    return this.buildingsRoomsRepository.findOne({
+      relations: ['roomReservation', 'fixedReservation'],
+      where: { id: id },
+    });
   }
 
   update(id: number, updateBuildingsRoomInput: UpdateBuildingsRoomInput) {

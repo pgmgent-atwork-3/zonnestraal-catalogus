@@ -96,6 +96,9 @@ export class TransportFixedReservations {
     () => TransportFixedReservationsExceptions,
     (transportFixedReservationsExceptions) =>
       transportFixedReservationsExceptions.fixedReservations,
+    {
+      eager: true,
+    },
   )
   @Field(() => [TransportFixedReservationsExceptions], { nullable: true })
   excepions: TransportFixedReservationsExceptions[];

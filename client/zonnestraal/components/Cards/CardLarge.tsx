@@ -1,14 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { DefaultLink, PrimaryButton, SecondaryButton } from '../Buttons';
 import styled from 'styled-components';
-import BookIcon from '../../public/icon-book-open.png';
-import Image from 'next/image'
 import Link from 'next/link';
-import { Book } from '../../interfaces/models/book';
+import { Library } from '../../interfaces/models/library';
+import { FiBook } from "react-icons/fi";
+import { FiBookOpen } from "react-icons/fi";
+import { FiFolder } from "react-icons/fi";
+import { Media } from '../../interfaces/models/media';
+import ReactPaginate from "react-paginate";
 
-interface Props {
+/* interface Props {
   data: Book[];
-}
+} */
 
 const CardsContainer = styled.div`
   display: flex;
@@ -34,7 +37,7 @@ const GreyContainer = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: center;
   background: ${({ theme }) => theme.colors.lightGrey};
   padding: ${({ theme }) => theme.paddings.normal};
   padding-top:${({ theme }) => theme.margins.large};
@@ -45,6 +48,7 @@ const GreyContainer = styled.div`
   }
 
   @media (min-width: ${({theme}) => theme.width.desktop}) {
+    align-items: start;
     flex-direction: row;
     justify-content: space-around;
   }
@@ -54,14 +58,17 @@ const IconContainer = styled.div`
   @media (min-width: ${({theme}) => theme.width.desktop}) {
     width: 10%;
 
-    span {
-      width: 4rem;
+    svg {
+      font-size: 3rem;
+      color: ${({ theme }) => theme.colors.darkBlue};
     }
   }
 `
 
 const TextContainer = styled.div`
   margin-top:${({ theme }) => theme.margins.small};
+  display: flex;
+  flex-wrap: wrap;
 
   @media (min-width: ${({theme}) => theme.width.desktop}) {
     width: 50%;
@@ -88,7 +95,13 @@ const ButtonContainer = styled.div`
 `
 
 const ItemTitle = styled.h3`
+  display: block;
+  width: 100%;
   margin-bottom:${({ theme }) => theme.margins.extraSmall};
+
+  @media (min-width: ${({theme}) => theme.width.desktop}) {
+    font-size:${({ theme }) => theme.fontSizes.headline6};
+  }
 `
 
 const ItemDescription = styled.div`
@@ -108,42 +121,244 @@ const SubItemTitle = styled.span`
   font-weight: 600;
 `
 
-const CardLarge = ({ books, media }) => {
-const pagedBooks = books.slice(0,10);
+const Group = styled.div`
+  width: 50%;
+`
 
-  console.log(pagedBooks)
+const DescriptionGroup = styled.div`
+  display: block;
+  width: 100%;
+`
 
-  return (
-    <CardsContainer>
-        {pagedBooks.map(b => (
+const PaginationContainer = styled.div`
+  margin-top:${({ theme }) => theme.margins.normal};
+  margin-bottom:${({ theme }) => theme.margins.normal};
+
+  .paginationButtons {
+    display: flex;
+    align-items: center;
+
+    li {
+      margin-right:${({ theme }) => theme.margins.normal};
+    }
+
+    a {
+      color: ${({ theme }) => theme.colors.darkBlue};
+      cursor: pointer;
+    }
+  }
+
+  .nextBtn {
+    color: ${({ theme }) => theme.colors.darkBlue};
+  }
+
+  .previousBtn {
+    color: ${({ theme }) => theme.colors.darkBlue};
+  }
+
+  .activeBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:40px;
+    height: 40px;
+    border-radius: 50%;
+    color: ${({ theme }) => theme.colors.white};
+    background: ${({ theme }) => theme.colors.primaryColor};
+    padding: ${({ theme }) => theme.paddings.extraSmall};
+  }
+`
+
+const CardLarge = ({ books, media, searchTerm } : {books: Library, media: Media, searchTerm: string }) => {
+  if (!books) {
+    return 'no data';
+  }
+
+  const [data, setData] = useState(books);
+  /* console.log(data) */
+  const [pageNumber, setPagenNumber] = useState(0);
+
+  const dataPerPage = 10;
+  const pagesVisited = pageNumber * dataPerPage;
+
+  const filteredData = data.filter((b:any) => {
+    if (searchTerm == "") {
+      return b
+    } else if (b.title.toLowerCase().includes(searchTerm.toLowerCase())) {
+      return b
+    } else if (b.author.toLowerCase().includes(searchTerm.toLowerCase())) {
+      return b 
+    }
+  })
+
+  const displayData = filteredData.slice(pagesVisited, pagesVisited + dataPerPage).map((b:any) => {
+    return (
+      <CardsContainer>
           <Link href={'/bibliotheek/' + b.id}>
             <StyledCard key={b.id}>
               <GreyContainer>
 
                 <IconContainer>
-                  <Image src={BookIcon} height={80} width={80}/>
+                  {(() => {
+                    switch (b.type.title) {
+                      case 'Boek':
+                        return <FiBook/>;
+                      case 'Map':
+                        return <FiFolder/>;
+                      default:
+                        return <FiBookOpen/>;
+                      }
+                  })()}
                 </IconContainer>
 
                 <TextContainer>
                   <ItemTitle>{b.title}</ItemTitle>
 
-                  <SubItemTitle>Author</SubItemTitle>
-                  <p>{b.author ? b.author : 'geen auteur'}</p>
+                  <Group>
+                    <SubItemTitle>Author</SubItemTitle>
+                    <p>{b.author ? b.author : 'geen auteur'}</p>
+                  </Group>
 
-                  <SubItemTitle>Publisher</SubItemTitle>
-                  <p>{b.publisher ? b.publisher : 'geen publisher'}</p>
+                  <Group>
+                    <SubItemTitle>Publisher</SubItemTitle>
+                    <p>{b.publisher ? b.publisher : 'geen publisher'}</p>
+                  </Group>
 
-                  <SubItemTitle>Type</SubItemTitle>
-                  <p>{b.type.title}</p>
+                  <Group>
+                    <SubItemTitle>Type</SubItemTitle>
+                    <p>{b.type.title}</p>
+                  </Group>
 
-                  <SubItemTitle>Serienummer</SubItemTitle>
-                  <p>{b.serial}</p>
+                  <Group>
+                    <SubItemTitle>Serienummer</SubItemTitle>
+                    <p>{b.serial}</p>
+                  </Group>
 
-                  <SubItemTitle>Status</SubItemTitle>
-                  <p>beschikbaar</p>
+                  <Group>
+                    <SubItemTitle>Status</SubItemTitle>
+                    <p>beschikbaar</p>
+                  </Group>
 
-                  <SubItemTitle>Beschrijving</SubItemTitle>
-                  <ItemDescription dangerouslySetInnerHTML={{__html:b.description.replace(/\\r\\n/g,'')}}></ItemDescription>
+                  <DescriptionGroup>
+                    <SubItemTitle>Beschrijving</SubItemTitle>
+                    <ItemDescription dangerouslySetInnerHTML={{__html:b.description.replace(/\\r\\n/g,'')}}></ItemDescription>
+                  </DescriptionGroup>
+                </TextContainer>
+
+                <ButtonContainer>
+                  <SecondaryButton title="Uitlenen"/>
+                  <PrimaryButton title="Reserveren"/>
+                </ButtonContainer>
+
+              </GreyContainer>
+
+            </StyledCard>
+          </Link>
+      </CardsContainer>
+    )
+  })
+
+  const pageCount = Math.ceil(data.length / dataPerPage);
+
+  const changePage = ({ selected }:any) => {
+    setPagenNumber(selected);
+  }
+
+  return (
+    <div>
+      {displayData}
+      <PaginationContainer>
+        <ReactPaginate
+          previousLabel={"Previous"}
+          nextLabel={"Next"}
+          pageCount={pageCount}
+          onPageChange={changePage}
+          containerClassName={"paginationButtons"}
+          previousLinkClassName={"previousBtn"}
+          nextLinkClassName={"nextBtn"}
+          activeClassName={"activeBtn"}
+        />
+      </PaginationContainer>
+    </div>
+  );
+}
+
+export default CardLarge;
+
+
+{/* 
+<div>
+  {displayData}
+  <ReactPaginate
+    previousLabel={"Previous"}
+    nextLabel={"Next"}
+    pageCount={pageCount}
+    onPageChange={changePage}
+  />
+</div> 
+*/}
+
+/* const displayData = data.slice(pagesVisited, pagesVisited + dataPerPage).map(b => {
+  return (
+    <CardsContainer>
+        {data.filter((b) => {
+          if (searchTerm == "") {
+            return b
+          } else if (b.title.toLowerCase().includes(searchTerm.toLowerCase())) {
+            return b
+          } else if (b.author.toLowerCase().includes(searchTerm.toLowerCase())) {
+            return b 
+          }
+        }).map(b => (
+          <Link href={'/bibliotheek/' + b.id}>
+            <StyledCard key={b.id}>
+              <GreyContainer>
+
+                <IconContainer>
+                  {(() => {
+                    switch (b.type.title) {
+                      case 'Boek':
+                        return <FiBook/>;
+                      case 'Map':
+                        return <FiFolder/>;
+                      default:
+                        return <FiBookOpen/>;
+                      }
+                  })()}
+                </IconContainer>
+
+                <TextContainer>
+                  <ItemTitle>{b.title}</ItemTitle>
+
+                  <Group>
+                    <SubItemTitle>Author</SubItemTitle>
+                    <p>{b.author ? b.author : 'geen auteur'}</p>
+                  </Group>
+
+                  <Group>
+                    <SubItemTitle>Publisher</SubItemTitle>
+                    <p>{b.publisher ? b.publisher : 'geen publisher'}</p>
+                  </Group>
+
+                  <Group>
+                    <SubItemTitle>Type</SubItemTitle>
+                    <p>{b.type.title}</p>
+                  </Group>
+
+                  <Group>
+                    <SubItemTitle>Serienummer</SubItemTitle>
+                    <p>{b.serial}</p>
+                  </Group>
+
+                  <Group>
+                    <SubItemTitle>Status</SubItemTitle>
+                    <p>beschikbaar</p>
+                  </Group>
+
+                  <DescriptionGroup>
+                    <SubItemTitle>Beschrijving</SubItemTitle>
+                    <ItemDescription dangerouslySetInnerHTML={{__html:b.description.replace(/\\r\\n/g,'')}}></ItemDescription>
+                  </DescriptionGroup>
                 </TextContainer>
 
                 <ButtonContainer>
@@ -158,8 +373,5 @@ const pagedBooks = books.slice(0,10);
         ))}
       </CardsContainer>
   )
-}
-
-export default CardLarge;
-
+}) */
 

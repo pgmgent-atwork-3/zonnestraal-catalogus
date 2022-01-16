@@ -15,6 +15,7 @@ const StyledPrimaryButton = styled.a`
   border-radius: ${({ theme }) => theme.borderRadius.small};
   margin-bottom:${({ theme }) => theme.margins.small};
   transition: all 0.3s ease;
+  cursor: pointer;
 
   span {
     color: ${({ theme }) => theme.colors.darkBlue};
@@ -27,7 +28,7 @@ const StyledPrimaryButton = styled.a`
 
 const PrimaryButton: React.FC<BtnProps> = ({ title }) => {
   return (
-    <StyledPrimaryButton>
+    <StyledPrimaryButton type="submit">
       <span>{title}</span>
     </StyledPrimaryButton>
   )

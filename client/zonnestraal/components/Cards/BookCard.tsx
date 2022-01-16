@@ -1,14 +1,15 @@
 import React from 'react'
 import { DefaultLink, PrimaryButton, SecondaryButton } from '../Buttons';
 import styled from 'styled-components';
-import BookIcon from '../../public/icon-book-open.png';
-import Image from 'next/image'
 import Link from 'next/link';
-import { Book } from '../../interfaces/models/book';
+import { Library } from '../../interfaces/models/library';
+import { FiBook } from "react-icons/fi";
+import { FiBookOpen } from "react-icons/fi";
+import { FiFolder } from "react-icons/fi";
 
-interface Props {
-  data: Book[];
-}
+/* interface Props {
+  data: Library[];
+} */
 
 const GreyContainer = styled.div`
   position: relative;
@@ -30,6 +31,7 @@ const CardsContainer = styled.div`
 `
 
 const StyledCard = styled.div`
+  cursor: pointer;
   display: flex;
   position: relative;
   flex-direction: column;
@@ -56,10 +58,25 @@ const Availability = styled.span`
   color: ${({ theme }) => theme.colors.darkBlue};
 `
 
-const BookCard = ({ data }) => {
+const IconContainer = styled.div`
+  svg {
+    font-size: 4rem;
+    color: ${({ theme }) => theme.colors.darkBlue};
+    stroke-width: 1;
+  }
+
+  @media (min-width: ${({theme}) => theme.width.desktop}) {
+    svg {
+      font-size: 5rem;
+      stroke-width: 1;
+    }
+  }
+`
+
+const BookCard = ({ data } : {data: Library}) => {
   const NewData = data.slice(0,4);
 
-  console.log(NewData)
+  //console.log(NewData)
 
   return (
     <CardsContainer>
@@ -68,7 +85,18 @@ const BookCard = ({ data }) => {
             <StyledCard>
               <GreyContainer>
                 <Availability>Beschikbaar</Availability>
-                <Image src={BookIcon} height={80} width={80}/>
+                <IconContainer>
+                  {(() => {
+                      switch (b.type.title) {
+                        case 'Boek':
+                          return <FiBook/>;
+                        case 'Map':
+                          return <FiFolder/>;
+                        default:
+                          return <FiBookOpen/>;
+                        }
+                  })()}
+                </IconContainer>
                 <DefaultLink title="Meer info"/>
                 <SecondaryButton title="Uitlenen"/>
                 <PrimaryButton title="Reserveren"/>

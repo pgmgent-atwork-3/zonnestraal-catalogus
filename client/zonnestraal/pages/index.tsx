@@ -11,8 +11,10 @@ import BookCard from '../components/Cards/BookCard';
 //Fetching
 import { GET_MEDIA_AND_BOOKS_QUERY } from '../graphql/mediaAndBooks';
 import client from '../lib/apollo-client';
-import { GetAllBooks } from '../interfaces/api/getAllBooks';
+//import { client } from './_app';
 import { MediaCard } from '../components/Cards';
+import { GetAllBooks } from '../interfaces/api/getAllBooks';
+import { GetAllMedia } from '../interfaces/api/getAllMedia';
 
 const PopUpContainer = styled.div`
   display: flex;
@@ -45,15 +47,17 @@ const MoreInfoContainer = styled.div<{show: Boolean}>`
 `
 
 export const ContentContainer = styled.div`
+  width: 85rem;
+  max-width: 100%;
   padding: ${({ theme }) => theme.paddings.medium} ${({ theme }) => theme.paddings.normal};
+  margin: 0 auto;
 
   @media (min-width: ${({theme}) => theme.width.desktop}) {
-    padding: ${({ theme }) => theme.paddings.medium} ${({ theme }) => theme.paddings.extraLarge};
-
+    padding: ${({ theme }) => theme.paddings.medium} ${({ theme }) => theme.paddings.normal};
   }
 `
 
-const Home = ({books, media} : {books: GetAllBooks}) => {
+const Home = ({books, media} : {books: GetAllBooks, media:GetAllMedia}) => {
   const [show, setShow] = useState(true);
   
   return (

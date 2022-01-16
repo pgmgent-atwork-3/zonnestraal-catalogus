@@ -9,6 +9,7 @@ import {CardLarge} from "../../components/Cards";
 import { GetAllBooks } from "../../interfaces/api/getAllBooks";
 import { GetAllMedia } from "../../interfaces/api/getAllMedia";
 import SearchBar from "../../components/Search/SearchBar";
+import { GetServerSideProps } from 'next';
 
 const ContentContainer = styled.div`
   width: 85rem;

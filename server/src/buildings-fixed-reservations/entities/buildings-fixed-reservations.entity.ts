@@ -99,6 +99,9 @@ export class BuildingsFixedReservations {
     () => BuildingsFixedReservationsExceptions,
     (buildingsFixedReservationsExceptions) =>
       buildingsFixedReservationsExceptions.fixed_reservations,
+    {
+      eager: true,
+    },
   )
   @Field(() => [BuildingsFixedReservationsExceptions], { nullable: true })
   excepions: BuildingsFixedReservationsExceptions[];

@@ -333,7 +333,7 @@ type Query {
   profilesGroupsRight(id: Int!): ProfilesGroupsRights!
   getAllbuildings: [Buildings!]!
   getAllbuildingsRooms: [BuildingsRooms!]!
-  buildingsRoom(id: Int!): BuildingsRooms!
+  getOneBuildingsRoomById(id: Int!): BuildingsRooms!
   getAllRoomsReservationForAdmin: [BuildingsRoomsReservations!]!
   GetAllRoomsReservationByUser: [BuildingsRoomsReservations!]!
   buildingsRoomsReservation(id: Int!): BuildingsRoomsReservations!

@@ -66,7 +66,7 @@ export class TransportFixedReservationsResolver {
   }
 
   @Query(() => TransportFixedReservations, {
-    name: 'transportFixedReservation',
+    name: 'getTransportFixedReservationById',
   })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.transportFixedReservationsService.findOne(id);
@@ -83,8 +83,18 @@ export class TransportFixedReservationsResolver {
     );
   }
 
+  @UseGuards(JwtAuthGuard)
   @Mutation(() => TransportFixedReservations)
-  removeTransportFixedReservation(@Args('id', { type: () => Int }) id: number) {
-    return this.transportFixedReservationsService.remove(id);
+  removeTransportFixedReservation(
+    @Args('id', { type: () => Int }) id: number,
+    @GetUser() user,
+  ) {
+    if (user.isAdmin === true) {
+      return this.transportFixedReservationsService.remove(id);
+    }
+    throw new HttpException(
+      'This function is only available for administrator',
+      HttpStatus.FORBIDDEN,
+    );
   }
 }

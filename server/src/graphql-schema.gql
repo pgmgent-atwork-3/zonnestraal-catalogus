@@ -347,7 +347,7 @@ type Query {
   transportReservation(id: Int!): TransportReservations!
   getAlltransportFixedReservations: [TransportFixedReservations!]!
   getAllCarsFixedReservationForAdmin: [TransportFixedReservations!]!
-  transportFixedReservation(id: Int!): TransportFixedReservations!
+  getTransportFixedReservationById(id: Int!): TransportFixedReservations!
   transportFixedReservationsExceptions: [TransportFixedReservationsExceptions!]!
   transportFixedReservationsException(id: Int!): TransportFixedReservationsExceptions!
 }

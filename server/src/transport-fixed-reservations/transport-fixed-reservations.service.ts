@@ -38,7 +38,7 @@ export class TransportFixedReservationsService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} transportFixedReservation`;
+    return this.transportFixedReservationsRepository.findOneOrFail(id);
   }
 
   update(
@@ -48,7 +48,8 @@ export class TransportFixedReservationsService {
     return `This action updates a #${id} transportFixedReservation`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} transportFixedReservation`;
+  async remove(id: number) {
+    const reservation = await this.findOne(id);
+    return this.transportFixedReservationsRepository.remove(reservation);
   }
 }

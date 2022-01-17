@@ -1,17 +1,27 @@
-import { FieldProps } from "formik";
-import React, { DetailedHTMLProps, InputHTMLAttributes } from "react";
+import React, { FC, InputHTMLAttributes } from "react";
 
-type InputProps = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>,HTMLInputElement>;
+interface InputProps extends InputHTMLAttributes<HTMLInputElement>{
+  name: string,
+  label: string,
+  ref: string,
+  placeholder: string
+}
 
-const InputField = ({ field, form: { errors, touched }, ...props }: FieldProps & InputProps) => {
-  const errorMessage = touched[field.name] && errors[field.name];
+const Input: FC<InputProps> = ({ name, placeholder, label, ...otherProps}, ref) => {
 
   return (
-    <div>
-      <input {...field} {...props} />
-      {errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
-    </div>
+    <label>
+      {label}
+      <input
+        {...otherProps}
+        name={name}
+        ref={ref}
+        placeholder={placeholder}
+      />
+    </label>
   );
 };
+
+const InputField = React.forwardRef(Input);
 
 export default InputField;

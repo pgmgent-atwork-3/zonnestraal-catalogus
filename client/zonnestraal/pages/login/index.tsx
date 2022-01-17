@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { useAuth } from '../../lib/auth';
 import Image from 'next/image'
 import styled from 'styled-components';
-import LoginImg from '../../public/login.jpeg';
+import LoginImg from '../../public/login2.jpeg';
 import { LoginButton } from '../../components/Buttons';
 
 

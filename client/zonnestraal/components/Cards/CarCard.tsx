@@ -12,8 +12,15 @@ const StyledCard = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   margin-bottom:${({ theme }) => theme.margins.normal};
-  width: 49%;
+  width: 100%;
+
+  @media (min-width: ${({theme}) => theme.width.tablet}) {
+    align-items: center;
+    justify-content: space-between;
+    width: 49%;
+  }
 `
 
 const ItemTitle = styled.h3`
@@ -37,10 +44,16 @@ const SubItemTitle = styled.span`
 `
 
 const ButtonContainer = styled.div`
-  width: 20%;
+  width: 100%;
+  display: block;
 
   a {
     width: 100%;
+    margin-top:${({ theme }) => theme.margins.normal};
+  }
+
+  @media (min-width: ${({theme}) => theme.width.desktop}) {
+    width: 20%;
   }
 `
 

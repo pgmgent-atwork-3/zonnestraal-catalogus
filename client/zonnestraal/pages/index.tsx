@@ -10,6 +10,7 @@ import BookCard from '../components/Cards/BookCard';
 
 //Fetching
 import { GET_MEDIA_AND_BOOKS_QUERY } from '../graphql/mediaAndBooks';
+import { GET_NEW_LIBRARIES_AND_MOST_COMMON_MEDIA } from '../graphql/getNewLibrariesAndCommonMedia';
 import client from '../lib/apollo-client';
 //import { client } from './_app';
 import { MediaCard } from '../components/Cards';
@@ -95,6 +96,8 @@ export async function getServerSideProps() {
   const { data } = await client.query({
     query: GET_MEDIA_AND_BOOKS_QUERY,
   });
+
+  console.log(data)
   
   return {
     props: {

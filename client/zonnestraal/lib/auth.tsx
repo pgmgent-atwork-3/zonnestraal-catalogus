@@ -19,7 +19,10 @@ export const useAuth = () => {
 }
 
 function useProvideAuth(){
-  const [authToken, setAuthToken] = useState(null)
+  const [authToken, setAuthToken] = useState(null);
+  const [CurrentUserId, setCurrentUserId] = useState(null);
+
+  console.log(CurrentUserId, authToken);
 
   const isSignedIn = () => {
     if (authToken) {
@@ -68,10 +71,15 @@ function useProvideAuth(){
     })
 
     console.log(result)
+    console.log(result.data.login.id)
 
     if (result?.data?.login?.access_token) {
       setAuthToken(result.data.login.access_token)
-    } else 'Om deze pagina te bekijken heb je een account nodig!'
+    } else 'No acces token!'
+
+    if (result?.data?.login?.id) {
+      setCurrentUserId(result.data.login.id)
+    } else 'No user found!'
   }
 
   return {

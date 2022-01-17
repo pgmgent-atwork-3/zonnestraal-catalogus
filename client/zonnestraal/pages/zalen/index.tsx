@@ -4,10 +4,14 @@ interface Props {
   
 }
 
+
 const BuildingsPage = (props: Props) => {
+
   return (
     <>
-      <h1>Reserveer een zaal</h1>
+      <div>
+        <h1>Zalen</h1>
+      </div>
     </>
   )
 }

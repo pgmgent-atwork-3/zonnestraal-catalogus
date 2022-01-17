@@ -80,7 +80,7 @@ const BookCard = ({ data } : {data: Library}) => {
 
   return (
     <CardsContainer>
-        {NewData.map(b => (
+        {NewData.map((b:any) => (
           <Link href={'/bibliotheek/' + b.id}>
             <StyledCard>
               <GreyContainer>
@@ -98,8 +98,10 @@ const BookCard = ({ data } : {data: Library}) => {
                   })()}
                 </IconContainer>
                 <DefaultLink title="Meer info"/>
-                <SecondaryButton title="Uitlenen"/>
-                <PrimaryButton title="Reserveren"/>
+
+                <PrimaryButton title="Reserveren" name={b.title}/>
+                <SecondaryButton title='Uitlenen' />
+                
               </GreyContainer>
 
               <TextContainer>

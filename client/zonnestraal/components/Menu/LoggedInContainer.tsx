@@ -32,28 +32,30 @@ const LoggedInHeader = styled.div<{show: Boolean}>`
 `
 
 const DetailsUser = styled.div<{show: Boolean}>`
+  display: block;
   width: 100%;
-  display: ${({ show }) => (show ? "none" : "flex")};
   flex-direction: column;
   position: absolute;
-  top: 2rem;
+  transform: ${({ show }) => (show ? "translateY(-14rem)" : "translateY(1.7rem)")};
   background: ${({ theme }) => theme.colors.yellow};
   padding:  ${({ theme }) => theme.paddings.normal};
   transition: transform 0.5s ease-in-out;
+  z-index: 100;
 
   h4 {
     display: block;
   }
 `
 
-const AccountItem = styled.span`
-  color: ${({ theme }) => theme.colors.darkBlue};
-  margin-bottom:  ${({ theme }) => theme.margins.normal};
+const AccountItem = styled.p`
+  color: ${({ theme }) => theme.colors.darkNlue};
+  margin-bottom:  ${({ theme }) => theme.margins.small};
+  cursor: pointer;
 `
 
 const LoggedInContainer = (props: Props) => {
   const [show, setShow] = useState(true);
-  const { signOut } = useAuth()
+  const { signOut }:any = useAuth()
 
   return (
     <AccountContainer>
@@ -63,12 +65,9 @@ const LoggedInContainer = (props: Props) => {
       </LoggedInHeader>
 
       <DetailsUser show={show}>
-        <AccountItem>
-          <Link href={"/mijnreservaties"}>
-            <a>Mijn reservaties</a>
-          </Link>
-        </AccountItem>
-        <AccountItem>Mijn favorieten</AccountItem>
+        <Link href={"/mijnreservaties"}>
+          <AccountItem>Mijn reservaties</AccountItem>
+        </Link>
         <SecondaryButton title="afmelden" onClick={() => signOut()}/>
       </DetailsUser>
     </AccountContainer>

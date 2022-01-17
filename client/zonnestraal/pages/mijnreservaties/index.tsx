@@ -20,6 +20,11 @@ const ContentContainer = styled.div`
   }
 `
 
+const Title = styled.h3`
+  margin-top: ${({ theme }) => theme.margins.normal};
+  margin-bottom: ${({ theme }) => theme.margins.small};
+`
+
 const GET_ALL_OWN_RESERVATION = gql`
 query {
   GetAllMediaRentByUser {
@@ -79,17 +84,17 @@ const index = (props: Props) => {
       <h2>Overzicht van mijn reservaties</h2>
 
       <div>
-        <h3>Media</h3>
+        <Title>Media</Title>
         <DataTableMedia data={data.GetAllMediaRentByUser} />  
       </div>
 
       <div>
-        <h3>Boeken</h3>
+        <Title>Boeken</Title>
         <DataTableBooks data={data.GetAllLibraryReservationByUser} />  
       </div>
 
       <div>
-        <h3>Voertuigen</h3>
+        <Title>Voertuigen</Title>
         <DataTableMedia data={data.GetAlltransportReservationsByUser} />  
       </div>
 

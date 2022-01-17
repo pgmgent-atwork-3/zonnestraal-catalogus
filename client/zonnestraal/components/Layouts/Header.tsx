@@ -18,7 +18,7 @@ const StyledHeader = styled.div`
   justify-content: center;
   align-items: center;
   border-bottom: 5px solid ${({ theme }) => theme.colors.yellow};
-  z-index: 101;
+  z-index: 201;
   box-shadow: ${({ theme }) => theme.colors.grey} 0px 8px 24px;
 
   @media (min-width: ${({ theme }) => theme.width.desktop}) {

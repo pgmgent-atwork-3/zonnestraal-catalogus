@@ -18,9 +18,9 @@ export class BuildingsFixedReservationsExceptions {
   @ManyToOne(
     () => BuildingsFixedReservations,
     (buildingsFixedReservations) => buildingsFixedReservations.excepions,
-    {
-      eager: true,
-    },
+    // {
+    //   eager: true,
+    // },
   )
   @JoinColumn({
     name: 'buildings_fixed_reservations_id',

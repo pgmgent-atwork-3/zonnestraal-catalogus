@@ -18,9 +18,9 @@ export class TransportFixedReservationsExceptions {
   @ManyToOne(
     () => TransportFixedReservations,
     (transportFixedReservations) => transportFixedReservations.excepions,
-    {
-      eager: true,
-    },
+    // {
+    //   eager: true,
+    // },
   )
   @JoinColumn({
     name: 'transport_fixed_reservations_id',

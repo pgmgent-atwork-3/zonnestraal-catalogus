@@ -24,7 +24,8 @@ export class BuildingsRoomsResolver {
     return this.buildingsRoomsService.findAll();
   }
 
-  @Query(() => BuildingsRooms, { name: 'buildingsRoom' })
+  @UseGuards(JwtAuthGuard)
+  @Query(() => BuildingsRooms, { name: 'getOneBuildingsRoomById' })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.buildingsRoomsService.findOne(id);
   }

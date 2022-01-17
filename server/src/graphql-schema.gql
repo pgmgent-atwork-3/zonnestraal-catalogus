@@ -328,12 +328,13 @@ type Query {
   getAllMediaRentForAdmin: [MediaRent!]!
   getOneMediaRent(id: Int!): MediaRent!
   libraryRent(id: Int!): LibraryRent!
+  getOnemediaFixedReservation(id: Int!): MediaFixedReservations!
   getAllMediaFixedReservationForAdmin: [MediaFixedReservations!]!
   getAllUsers: [Profiles!]!
   profilesGroupsRight(id: Int!): ProfilesGroupsRights!
   getAllbuildings: [Buildings!]!
   getAllbuildingsRooms: [BuildingsRooms!]!
-  buildingsRoom(id: Int!): BuildingsRooms!
+  getOneBuildingsRoomById(id: Int!): BuildingsRooms!
   getAllRoomsReservationForAdmin: [BuildingsRoomsReservations!]!
   GetAllRoomsReservationByUser: [BuildingsRoomsReservations!]!
   buildingsRoomsReservation(id: Int!): BuildingsRoomsReservations!
@@ -341,13 +342,13 @@ type Query {
   getAllRoomsFixedReservationForAdmin: [BuildingsFixedReservations!]!
   buildingsFixedReservation(id: Int!): BuildingsFixedReservations!
   getAllCars: [Transport!]!
-  transport(id: Int!): Transport!
+  getOneTransportById(id: Int!): Transport!
   getAllTransportReservationForAdmin: [TransportReservations!]!
   GetAlltransportReservationsByUser: [TransportReservations!]!
   transportReservation(id: Int!): TransportReservations!
   getAlltransportFixedReservations: [TransportFixedReservations!]!
   getAllCarsFixedReservationForAdmin: [TransportFixedReservations!]!
-  transportFixedReservation(id: Int!): TransportFixedReservations!
+  getTransportFixedReservationById(id: Int!): TransportFixedReservations!
   transportFixedReservationsExceptions: [TransportFixedReservationsExceptions!]!
   transportFixedReservationsException(id: Int!): TransportFixedReservationsExceptions!
 }
@@ -368,6 +369,7 @@ type Mutation {
   updateLibraryRent(updateLibraryRentInput: UpdateLibraryRentInput!): LibraryRent!
   removeLibraryRent(id: Int!): LibraryRent!
   createMediaFixedReservation(createMediaFixedReservationsInput: CreateMediaFixedReservationsInput!): MediaFixedReservations!
+  removeMediaFixedReservation(id: Int!): MediaFixedReservations!
   createUser(createProfileInput: CreateProfileInput!): Profiles!
   login(password: String!, email: String!): SignInResponse!
   createBuildingsRoom(createBuildingsRoomInput: CreateBuildingsRoomInput!): BuildingsRooms!

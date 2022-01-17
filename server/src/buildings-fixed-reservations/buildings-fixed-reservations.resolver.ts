@@ -73,8 +73,18 @@ export class BuildingsFixedReservationsResolver {
     );
   }
 
+  @UseGuards(JwtAuthGuard)
   @Mutation(() => BuildingsFixedReservations)
-  removeBuildingsFixedReservation(@Args('id', { type: () => Int }) id: number) {
-    return this.buildingsFixedReservationsService.remove(id);
+  removeBuildingsFixedReservation(
+    @Args('id', { type: () => Int }) id: number,
+    @GetUser() user,
+  ) {
+    if (user.isAdmin === true) {
+      return this.buildingsFixedReservationsService.remove(id);
+    }
+    throw new HttpException(
+      'This function is only available for administrator',
+      HttpStatus.FORBIDDEN,
+    );
   }
 }

@@ -22,7 +22,10 @@ export class TransportService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} transport`;
+    return this.transportRepository.findOne({
+      relations: ['reservation', 'fixedReservation'],
+      where: { id: id },
+    });
   }
 
   update(id: number, updateTransportInput: UpdateTransportInput) {

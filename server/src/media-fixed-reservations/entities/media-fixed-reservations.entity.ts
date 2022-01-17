@@ -81,6 +81,9 @@ export class MediaFixedReservations {
   @OneToMany(
     () => MediaFixedReservationsExceptions,
     (mediaFixedReservations) => mediaFixedReservations.fixed_reservations,
+    {
+      eager: true,
+    },
   )
   @Field(() => [MediaFixedReservationsExceptions], { nullable: true })
   excepions: MediaFixedReservationsExceptions[];

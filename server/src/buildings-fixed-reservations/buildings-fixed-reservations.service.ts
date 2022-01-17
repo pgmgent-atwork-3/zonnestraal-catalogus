@@ -36,7 +36,7 @@ export class BuildingsFixedReservationsService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} buildingsFixedReservation`;
+    return this.buildingsFixedReservationsRepository.findOneOrFail(id);
   }
 
   update(
@@ -46,7 +46,8 @@ export class BuildingsFixedReservationsService {
     return `This action updates a #${id} buildingsFixedReservation`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} buildingsFixedReservation`;
+  async remove(id: number) {
+    const reservation = await this.findOne(id);
+    return this.buildingsFixedReservationsRepository.remove(reservation);
   }
 }

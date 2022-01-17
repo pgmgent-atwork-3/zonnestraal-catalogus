@@ -44,10 +44,10 @@ export class MediaFixedReservationsResolver {
   //   return this.mediaFixedReservationsService.findAll();
   // }
 
-  // @Query(() => MediaFixedReservations, { name: 'mediaFixedReservation' })
-  // findOne(@Args('id', { type: () => Int }) id: number) {
-  //   return this.mediaFixedReservationsService.findOne(id);
-  // }
+  @Query(() => MediaFixedReservations, { name: 'getOnemediaFixedReservation' })
+  findOne(@Args('id', { type: () => Int }) id: number) {
+    return this.mediaFixedReservationsService.findOne(id);
+  }
 
   @UseGuards(JwtAuthGuard)
   @Query(() => [MediaFixedReservations], {
@@ -72,4 +72,19 @@ export class MediaFixedReservationsResolver {
   // removeMediaFixedReservation(@Args('id', { type: () => Int }) id: number) {
   //   return this.mediaFixedReservationsService.remove(id);
   // }
+
+  @UseGuards(JwtAuthGuard)
+  @Mutation(() => MediaFixedReservations)
+  removeMediaFixedReservation(
+    @Args('id', { type: () => Int }) id: number,
+    @GetUser() user,
+  ) {
+    if (user.isAdmin === true) {
+      return this.mediaFixedReservationsService.remove(id);
+    }
+    throw new HttpException(
+      'This function is only available for administrator',
+      HttpStatus.FORBIDDEN,
+    );
+  }
 }

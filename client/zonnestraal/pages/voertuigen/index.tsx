@@ -8,6 +8,8 @@ import { CarCard } from "../../components/Cards";
 import styled from "styled-components";
 import Schedule from "../../components/Agenda/schedule";
 import {useAuth} from '../../lib/auth';
+import { useQuery, gql } from '@apollo/client'
+
 
 /* import { gql, useQuery } from '@apollo/client';
  */
@@ -30,7 +32,7 @@ const ScheduleContainer = styled.div`
   margin-top:${({ theme }) => theme.margins.large};
 `
 
-export async function getServerSideProps() {
+/* export async function getServerSideProps() {
   const { data } = await client.query({
     query: GET_ALL_CARS_QUERY,
   });
@@ -40,10 +42,16 @@ export async function getServerSideProps() {
       cars: data.getAllCars
     },
  };
-}
+} */
 
-function CarPage({ cars } : {cars: GetAllCars}) {
-  console.log(cars)
+function CarPage() {
+  const { loading, error, data } = useQuery(GET_ALL_CARS_QUERY)
+
+  if (loading) return 'Loading...'
+  if (error) return `Error! ${error.message}`
+
+  console.log(data)
+  const cars = data.getAllCars
 
   return (
     <ContentContainer>

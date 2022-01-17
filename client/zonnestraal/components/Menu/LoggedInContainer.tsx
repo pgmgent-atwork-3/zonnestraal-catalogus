@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { FiChevronDown } from "react-icons/fi";
 import { SecondaryButton } from '../Buttons';
 import { useAuth } from '../../lib/auth';
+import Link from 'next/link';
 
 
 interface Props {
@@ -62,7 +63,11 @@ const LoggedInContainer = (props: Props) => {
       </LoggedInHeader>
 
       <DetailsUser show={show}>
-        <AccountItem>Mijn reservaties</AccountItem>
+        <AccountItem>
+          <Link href={"/mijnreservaties"}>
+            <a>Mijn reservaties</a>
+          </Link>
+        </AccountItem>
         <AccountItem>Mijn favorieten</AccountItem>
         <SecondaryButton title="afmelden" onClick={() => signOut()}/>
       </DetailsUser>

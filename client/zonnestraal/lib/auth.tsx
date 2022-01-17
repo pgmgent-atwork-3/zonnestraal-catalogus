@@ -83,6 +83,7 @@ function useProvideAuth(){
   }
 
   return {
+    authToken,
     setAuthToken,
     createApolloClient,
     isSignedIn,

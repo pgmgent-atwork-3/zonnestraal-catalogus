@@ -168,6 +168,7 @@ type TransportFixedReservationsExceptions {
   fixedReservations: TransportFixedReservations!
   date: String
   created_on: DateTime
+  transport_fixed_reservations_id: Float!
 }
 
 type TransportReservations {
@@ -321,15 +322,12 @@ type Query {
   getAllLibraryReservationForAdmin: [LibraryReservation!]!
   GetOnelibraryReservationById(id: Int!): LibraryReservation!
   libraryReservationDate(id: Int!): LibraryReservationDate!
-  location(id: Int!): Location!
   getAllMedia: [Media!]!
   getMostCommonlyMedia: [MostPopularMedia!]!
   getMediaById(id: Int!): Media!
-  mediaTypes: [MediaTypes!]!
   GetAllMediaRentByUser: [MediaRent!]!
   getAllMediaRentForAdmin: [MediaRent!]!
   getOneMediaRent(id: Int!): MediaRent!
-  libraryRent(id: Int!): LibraryRent!
   getOnemediaFixedReservation(id: Int!): MediaFixedReservations!
   getAllMediaFixedReservationForAdmin: [MediaFixedReservations!]!
   getAllUsers: [Profiles!]!
@@ -359,44 +357,28 @@ type Mutation {
   createLibraryReservation(createLibraryReservationDateInput: CreateLibraryReservationDateInput!, createLibraryReservationInput: CreateLibraryReservationInput!): LibraryReservation!
   updateLibraryReservation(updateLibraryReservationInput: UpdateLibraryReservationInput!): LibraryReservation!
   removeLibraryReservation(id: Int!): LibraryReservation!
-  updateLibraryReservationDate(updateLibraryReservationDateInput: UpdateLibraryReservationDateInput!): LibraryReservationDate!
-  removeLibraryReservationDate(id: Int!): LibraryReservationDate!
-  createLocation(createLocationInput: CreateLocationInput!): Location!
-  updateLocation(updateLocationInput: UpdateLocationInput!): Location!
-  removeLocation(id: Int!): Location!
   createMediaRent(createMediaRentInput: CreateMediaRentInput!): MediaRent!
   updateMediaRent(updateMediaRentInput: UpdateMediaRentInput!): MediaRent!
-  removeMediaRent(id: Int!): MediaRent!
   createLibraryRent(createLibraryRentInput: CreateLibraryRentInput!): LibraryRent!
   updateLibraryRent(updateLibraryRentInput: UpdateLibraryRentInput!): LibraryRent!
-  removeLibraryRent(id: Int!): LibraryRent!
   createMediaFixedReservation(createMediaFixedReservationsInput: CreateMediaFixedReservationsInput!): MediaFixedReservations!
   removeMediaFixedReservation(id: Int!): MediaFixedReservations!
   createMediaFixedReservationsException(createMediaFixedReservationExceptionsInput: CreateMediaFixedReservationsExceptionsInput!): [MediaFixedReservationsExceptions!]!
   deleteMediaFixedReservationsException(deleteMediaFixedReservationExceptionsInput: DeleteMediaFixedReservationExceptionsInput!): [MediaFixedReservationsExceptions!]!
   createUser(createProfileInput: CreateProfileInput!): Profiles!
   login(password: String!, email: String!): SignInResponse!
-  createBuildingsRoom(createBuildingsRoomInput: CreateBuildingsRoomInput!): BuildingsRooms!
-  updateBuildingsRoom(updateBuildingsRoomInput: UpdateBuildingsRoomInput!): BuildingsRooms!
-  removeBuildingsRoom(id: Int!): BuildingsRooms!
   createRoomReservation(createBuildingsRoomsReservationInput: CreateBuildingsRoomsReservationInput!): BuildingsRoomsReservations!
-  updateBuildingsRoomsReservation(updateBuildingsRoomsReservationInput: UpdateBuildingsRoomsReservationInput!): BuildingsRoomsReservations!
   removeBuildingsRoomsReservation(id: Int!): BuildingsRoomsReservations!
   createRoomFixedReservation(createBuildingsFixedReservationInput: CreateBuildingsFixedReservationInput!): BuildingsFixedReservations!
   updateBuildingsFixedReservation(updateBuildingsFixedReservationInput: UpdateBuildingsFixedReservationInput!): BuildingsFixedReservations!
   removeBuildingsFixedReservation(id: Int!): BuildingsFixedReservations!
   createBuildingsFixedReservationsException(createBuildingsFixedReservationExceptionsInput: CreateBuildingsFixedReservationExceptionsInput!): [BuildingsFixedReservationsExceptions!]!
   deleteBuildingsFixedReservationsException(deleteBuildingsFixedReservationExceptionsInput: DeleteBuildingsFixedReservationExceptionsInput!): [BuildingsFixedReservationsExceptions!]!
-  createTransport(createTransportInput: CreateTransportInput!): Transport!
-  updateTransport(updateTransportInput: UpdateTransportInput!): Transport!
-  removeTransport(id: Int!): Transport!
   createCarReservation(createTransportReservationInput: CreateTransportReservationInput!): TransportReservations!
-  updateTransportReservation(updateTransportReservationInput: UpdateTransportReservationInput!): TransportReservations!
   removeTransportReservation(id: Int!): TransportReservations!
   createTransportFixedReservation(createTransportFixedReservationInput: CreateTransportFixedReservationInput!): TransportFixedReservations!
-  updateTransportFixedReservation(updateTransportFixedReservationInput: UpdateTransportFixedReservationInput!): TransportFixedReservations!
   removeTransportFixedReservation(id: Int!): TransportFixedReservations!
-  createTransportFixedReservationsException(createTransportFixedReservationsExceptionInput: CreateTransportFixedReservationsExceptionInput!): TransportFixedReservationsExceptions!
+  createTransportFixedReservationsException(createTransportFixedReservationsExceptionInput: CreateTransportFixedReservationsExceptionInput!): [TransportFixedReservationsExceptions!]!
   updateTransportFixedReservationsException(updateTransportFixedReservationsExceptionInput: UpdateTransportFixedReservationsExceptionInput!): TransportFixedReservationsExceptions!
   removeTransportFixedReservationsException(id: Int!): TransportFixedReservationsExceptions!
 }
@@ -415,23 +397,6 @@ input CreateLibraryReservationInput {
 input UpdateLibraryReservationInput {
   id: Int!
   deleted: String
-}
-
-input UpdateLibraryReservationDateInput {
-  from_date: DateTime
-  till_date: DateTime
-  id: Int!
-}
-
-input CreateLocationInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
-input UpdateLocationInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
 }
 
 input CreateMediaRentInput {
@@ -483,30 +448,11 @@ input CreateProfileInput {
   password: String!
 }
 
-input CreateBuildingsRoomInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
-input UpdateBuildingsRoomInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
-}
-
 input CreateBuildingsRoomsReservationInput {
   building_room_id: Int!
   name: String!
   from_date: DateTime!
   till_date: DateTime!
-}
-
-input UpdateBuildingsRoomsReservationInput {
-  building_room_id: Int
-  name: String
-  from_date: DateTime
-  till_date: DateTime
-  id: Int!
 }
 
 input CreateBuildingsFixedReservationInput {
@@ -541,30 +487,11 @@ input DeleteBuildingsFixedReservationExceptionsInput {
   buildingsFixedReservationExceptionsIds: [Float!]!
 }
 
-input CreateTransportInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
-input UpdateTransportInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
-}
-
 input CreateTransportReservationInput {
   transport_id: Int!
   name: String!
   from_date: DateTime!
   till_date: DateTime!
-}
-
-input UpdateTransportReservationInput {
-  transport_id: Int
-  name: String
-  from_date: DateTime
-  till_date: DateTime
-  id: Int!
 }
 
 input CreateTransportFixedReservationInput {
@@ -578,25 +505,13 @@ input CreateTransportFixedReservationInput {
   end_time: String
 }
 
-input UpdateTransportFixedReservationInput {
-  transport_id: Int
-  name: String
-  frequency: String
-  created_on: DateTime
-  from_date: String
-  till_date: String
-  start_time: String
-  end_time: String
-  id: Int!
-}
-
 input CreateTransportFixedReservationsExceptionInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  transport_fixed_reservations_id: Int!
+  dates: [String!]
 }
 
 input UpdateTransportFixedReservationsExceptionInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  transport_fixed_reservations_id: Int
+  dates: [String!]
   id: Int!
 }

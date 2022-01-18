@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Mutation, Args } from '@nestjs/graphql';
 import { BuildingsFixedReservationsExceptionsService } from './buildings-fixed-reservations-exceptions.service';
 import { BuildingsFixedReservationsExceptions } from './entities/buildings-fixed-reservations-exceptions.entity';
 import { CreateBuildingsFixedReservationExceptionsInput } from './dto/create-buildings-fixed-reservations-exceptions.input';

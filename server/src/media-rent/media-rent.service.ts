@@ -43,8 +43,4 @@ export class MediaRentService {
     rent.rent_till = one.rent_till;
     return this.mediaRentRepository.save(rent);
   }
-
-  remove(id: number) {
-    return `This action removes a #${id} mediaRent`;
-  }
 }

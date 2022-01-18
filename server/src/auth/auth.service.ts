@@ -28,8 +28,6 @@ export class AuthService {
     } else {
       isAdmin = false;
     }
-    //console.log(isAdmin.group.name);
-    //const isAdmin = role.group.name;
     const payload = { email: user.email, sub: user.id, isAdmin: isAdmin };
 
     return {

@@ -10,9 +10,6 @@ export class MediaService {
     @InjectRepository(Media)
     private mediaRepository: Repository<Media>,
   ) {}
-  // create(createMediaInput: CreateMediaInput) {
-  //   return 'This action adds a new media';
-  // }
 
   findAll(): Promise<Media[]> {
     return this.mediaRepository.find({
@@ -37,12 +34,4 @@ export class MediaService {
       where: { id: id },
     });
   }
-
-  // update(id: number, updateMediaInput: UpdateMediaInput) {
-  //   return `This action updates a #${id} media`;
-  // }
-
-  // remove(id: number) {
-  //   return `This action removes a #${id} media`;
-  // }
 }

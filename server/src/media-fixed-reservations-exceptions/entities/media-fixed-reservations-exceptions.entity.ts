@@ -19,9 +19,6 @@ export class MediaFixedReservationsExceptions {
   @ManyToOne(
     () => MediaFixedReservations,
     (mediaFixedReservations) => mediaFixedReservations.excepions,
-    // {
-    //   eager: true,
-    // },
   )
   @JoinColumn({
     name: 'media_fixed_reservations_id',

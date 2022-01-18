@@ -55,9 +55,4 @@ export class MediaRentResolver {
       updateMediaRentInput,
     );
   }
-
-  @Mutation(() => MediaRent)
-  removeMediaRent(@Args('id', { type: () => Int }) id: number) {
-    return this.mediaRentService.remove(id);
-  }
 }

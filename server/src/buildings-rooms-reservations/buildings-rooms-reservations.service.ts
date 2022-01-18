@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateBuildingsRoomsReservationInput } from './dto/create-buildings-rooms-reservation.input';
-import { UpdateBuildingsRoomsReservationInput } from './dto/update-buildings-rooms-reservation.input';
 import { BuildingsRoomsReservations } from './entities/buildings-rooms-reservations.entity';
 
 @Injectable()
@@ -38,13 +37,6 @@ export class BuildingsRoomsReservationsService {
 
   findOne(id: number) {
     return this.buildingsRoomsReservationsRepository.findOneOrFail(id);
-  }
-
-  update(
-    id: number,
-    updateBuildingsRoomsReservationInput: UpdateBuildingsRoomsReservationInput,
-  ) {
-    return `This action updates a #${id} buildingsRoomsReservation`;
   }
 
   async remove(id: number) {

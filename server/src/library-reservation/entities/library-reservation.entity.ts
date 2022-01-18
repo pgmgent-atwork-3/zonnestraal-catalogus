@@ -65,8 +65,6 @@ export class LibraryReservation {
 
   @OneToOne(() => LibraryReservationDate, {
     nullable: true,
-    // cascade: ['remove', 'update'],
-    // eager: true,
   })
   @Field(() => LibraryReservationDate, { nullable: true })
   reservationDate: LibraryReservationDate;

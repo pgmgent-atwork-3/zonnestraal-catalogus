@@ -3,6 +3,9 @@ import { TransportFixedReservationsExceptionsService } from './transport-fixed-r
 import { TransportFixedReservationsExceptions } from './entities/transport-fixed-reservations-exceptions.entity';
 import { CreateTransportFixedReservationsExceptionInput } from './dto/create-transport-fixed-reservations-exception.input';
 import { UpdateTransportFixedReservationsExceptionInput } from './dto/update-transport-fixed-reservations-exception.input';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { HttpException, HttpStatus, UseGuards } from '@nestjs/common';
+import { GetUser } from 'src/auth/getUserFromToken';
 
 @Resolver(() => TransportFixedReservationsExceptions)
 export class TransportFixedReservationsExceptionsResolver {
@@ -10,13 +13,31 @@ export class TransportFixedReservationsExceptionsResolver {
     private readonly transportFixedReservationsExceptionsService: TransportFixedReservationsExceptionsService,
   ) {}
 
-  @Mutation(() => TransportFixedReservationsExceptions)
+  // @Mutation(() => TransportFixedReservationsExceptions)
+  // createTransportFixedReservationsException(
+  //   @Args('createTransportFixedReservationsExceptionInput')
+  //   createTransportFixedReservationsExceptionInput: CreateTransportFixedReservationsExceptionInput,
+  // ) {
+  //   return this.transportFixedReservationsExceptionsService.create(
+  //     createTransportFixedReservationsExceptionInput,
+  //   );
+  // }
+
+  @UseGuards(JwtAuthGuard)
+  @Mutation(() => [TransportFixedReservationsExceptions])
   createTransportFixedReservationsException(
     @Args('createTransportFixedReservationsExceptionInput')
     createTransportFixedReservationsExceptionInput: CreateTransportFixedReservationsExceptionInput,
+    @GetUser() user,
   ) {
-    return this.transportFixedReservationsExceptionsService.create(
-      createTransportFixedReservationsExceptionInput,
+    if (user.isAdmin === true) {
+      return this.transportFixedReservationsExceptionsService.create(
+        createTransportFixedReservationsExceptionInput,
+      );
+    }
+    throw new HttpException(
+      'This function is only available for administrator',
+      HttpStatus.FORBIDDEN,
     );
   }
 

@@ -22,10 +22,10 @@ export class MediaService {
   find(): Promise<MostPopularMedia[]> {
     return this.mediaRepository.query(
       'SELECT m.id, m.title, m.description, mt.title as type, count(mr.id) as total ' +
-        'FROM zonnestr.media_rent mr ' +
+        'FROM media_rent mr ' +
         'JOIN media m on m.id = mr.media_id ' +
         'JOIN media_types mt ON m.type_id = mt.id ' +
-        'GROUP BY mr.media_id ' +
+        'GROUP BY mr.media_id, m.id, mt.title ' +
         'ORDER BY total DESC ' +
         'LIMIT 3;',
     );

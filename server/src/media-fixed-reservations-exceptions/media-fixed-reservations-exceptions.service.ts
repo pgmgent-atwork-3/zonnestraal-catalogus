@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateMediaFixedReservationsExceptionInput } from './dto/create-media-fixed-reservations-exception.input';
 import { CreateMediaFixedReservationsExceptionsInput } from './dto/create-media-fixed-reservations-exceptions.input';
+import { DeleteMediaFixedReservationExceptionsInput } from './dto/delete-media-fixed-reservations-exceptions.input';
 import { UpdateMediaFixedReservationsExceptionsInput } from './dto/update-media-fixed-reservations-exceptions.input';
 import { MediaFixedReservationsExceptions } from './entities/media-fixed-reservations-exceptions.entity';
 
@@ -34,19 +35,22 @@ export class MediaFixedReservationsExceptionsService {
     });
   }
 
-  // findAll() {
-  //   return `This action returns all mediaFixedReservationsExceptions`;
-  // }
+  findOne(id: number) {
+    return this.mediaFixedReservationsExceptionsRepository.findOneOrFail(id);
+  }
 
-  // findOne(id: number) {
-  //   return `This action returns a #${id} mediaFixedReservationsException`;
-  // }
-
-  // update(id: number, updateMediaFixedReservationsExceptionInput: UpdateMediaFixedReservationsExceptionInput) {
-  //   return `This action updates a #${id} mediaFixedReservationsException`;
-  // }
-
-  // remove(id: number) {
-  //   return `This action removes a #${id} mediaFixedReservationsException`;
-  // }
+  async delete(
+    deleteMediaFixedReservationsExceptionInput: DeleteMediaFixedReservationExceptionsInput,
+  ) {
+    return deleteMediaFixedReservationsExceptionInput.mediaFixedReservationExceptionsIds.map(
+      async (id) => {
+        const reservationException = await this.findOne(id);
+        const deleted =
+          this.mediaFixedReservationsExceptionsRepository.remove(
+            reservationException,
+          );
+        return deleted;
+      },
+    );
+  }
 }

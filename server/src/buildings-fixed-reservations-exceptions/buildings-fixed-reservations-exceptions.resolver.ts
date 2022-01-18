@@ -6,7 +6,6 @@ import { DeleteBuildingsFixedReservationExceptionsInput } from './dto/delete-bui
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { HttpException, HttpStatus, UseGuards } from '@nestjs/common';
 import { GetUser } from 'src/auth/getUserFromToken';
-// import { UpdateBuildingsFixedReservationsExceptionInput } from './dto/update-buildings-fixed-reservations-exception.input';
 
 @Resolver(() => BuildingsFixedReservationsExceptions)
 export class BuildingsFixedReservationsExceptionsResolver {
@@ -49,32 +48,4 @@ export class BuildingsFixedReservationsExceptionsResolver {
       HttpStatus.FORBIDDEN,
     );
   }
-  // @Query(() => [BuildingsFixedReservationsExceptions], {
-  //   name: 'buildingsFixedReservationsExceptions',
-  // })
-  // findAll() {
-  //   return this.buildingsFixedReservationsExceptionsService.findAll();
-  // }
-  // @Query(() => BuildingsFixedReservationsExceptions, {
-  //   name: 'buildingsFixedReservationsException',
-  // })
-  // findOne(@Args('id', { type: () => Int }) id: number) {
-  //   return this.buildingsFixedReservationsExceptionsService.findOne(id);
-  // }
-  // @Mutation(() => BuildingsFixedReservationsExceptions)
-  // updateBuildingsFixedReservationsException(
-  //   @Args('updateBuildingsFixedReservationsExceptionInput')
-  //   updateBuildingsFixedReservationsExceptionInput: UpdateBuildingsFixedReservationsExceptionInput,
-  // ) {
-  //   return this.buildingsFixedReservationsExceptionsService.update(
-  //     updateBuildingsFixedReservationsExceptionInput.id,
-  //     updateBuildingsFixedReservationsExceptionInput,
-  //   );
-  // }
-  // @Mutation(() => BuildingsFixedReservationsExceptions)
-  // removeBuildingsFixedReservationsException(
-  //   @Args('id', { type: () => Int }) id: number,
-  // ) {
-  //   return this.buildingsFixedReservationsExceptionsService.remove(id);
-  // }
 }

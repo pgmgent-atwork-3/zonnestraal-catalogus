@@ -373,6 +373,7 @@ type Mutation {
   createMediaFixedReservation(createMediaFixedReservationsInput: CreateMediaFixedReservationsInput!): MediaFixedReservations!
   removeMediaFixedReservation(id: Int!): MediaFixedReservations!
   createMediaFixedReservationsException(createMediaFixedReservationExceptionsInput: CreateMediaFixedReservationsExceptionsInput!): [MediaFixedReservationsExceptions!]!
+  deleteMediaFixedReservationsException(deleteMediaFixedReservationExceptionsInput: DeleteMediaFixedReservationExceptionsInput!): [MediaFixedReservationsExceptions!]!
   createUser(createProfileInput: CreateProfileInput!): Profiles!
   login(password: String!, email: String!): SignInResponse!
   createBuildingsRoom(createBuildingsRoomInput: CreateBuildingsRoomInput!): BuildingsRooms!
@@ -471,6 +472,10 @@ input CreateMediaFixedReservationsInput {
 input CreateMediaFixedReservationsExceptionsInput {
   media_fixed_reservations_id: Int!
   dates: [String!]
+}
+
+input DeleteMediaFixedReservationExceptionsInput {
+  mediaFixedReservationExceptionsIds: [Float!]!
 }
 
 input CreateProfileInput {

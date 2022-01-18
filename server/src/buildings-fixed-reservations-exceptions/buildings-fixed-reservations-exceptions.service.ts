@@ -53,22 +53,4 @@ export class BuildingsFixedReservationsExceptionsService {
   findOne(id: number) {
     return this.buildingsFixedReservationsRepository.findOneOrFail(id);
   }
-  // findAll() {
-  //   return `This action returns all buildingsFixedReservationsExceptions`;
-  // }
-
-  // findOne(id: number) {
-  //   return `This action returns a #${id} buildingsFixedReservationsException`;
-  // }
-
-  // update(
-  //   id: number,
-  //   updateBuildingsFixedReservationsExceptionInput: UpdateBuildingsFixedReservationsExceptionInput,
-  // ) {
-  //   return `This action updates a #${id} buildingsFixedReservationsException`;
-  // }
-
-  // remove(id: number) {
-  //   return `This action removes a #${id} buildingsFixedReservationsException`;
-  // }
 }

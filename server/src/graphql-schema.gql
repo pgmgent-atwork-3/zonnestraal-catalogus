@@ -7,6 +7,7 @@ type BuildingsFixedReservationsExceptions {
   fixed_reservations: BuildingsFixedReservations!
   date: String
   created_on: DateTime
+  buildings_fixed_reservations_id: Float!
 }
 
 """
@@ -381,6 +382,8 @@ type Mutation {
   createRoomFixedReservation(createBuildingsFixedReservationInput: CreateBuildingsFixedReservationInput!): BuildingsFixedReservations!
   updateBuildingsFixedReservation(updateBuildingsFixedReservationInput: UpdateBuildingsFixedReservationInput!): BuildingsFixedReservations!
   removeBuildingsFixedReservation(id: Int!): BuildingsFixedReservations!
+  createBuildingsFixedReservationsException(createBuildingsFixedReservationExceptionsInput: CreateBuildingsFixedReservationExceptionsInput!): [BuildingsFixedReservationsExceptions!]!
+  deleteBuildingsFixedReservationsException(deleteBuildingsFixedReservationExceptionsInput: DeleteBuildingsFixedReservationExceptionsInput!): [BuildingsFixedReservationsExceptions!]!
   createTransport(createTransportInput: CreateTransportInput!): Transport!
   updateTransport(updateTransportInput: UpdateTransportInput!): Transport!
   removeTransport(id: Int!): Transport!
@@ -515,6 +518,15 @@ input UpdateBuildingsFixedReservationInput {
   start_time: String
   end_time: String
   id: Int!
+}
+
+input CreateBuildingsFixedReservationExceptionsInput {
+  buildings_fixed_reservations_id: Int!
+  dates: [String!]
+}
+
+input DeleteBuildingsFixedReservationExceptionsInput {
+  buildingsFixedReservationExceptionsIds: [Float!]!
 }
 
 input CreateTransportInput {

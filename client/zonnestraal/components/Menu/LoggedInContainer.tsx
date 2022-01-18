@@ -15,8 +15,14 @@ const AccountContainer = styled.div`
 `
 
 const LoggedInHeader = styled.div<{show: Boolean}>`
+  position: relative;
   display: flex;
   align-items: center;
+  background-color: ${({ theme }) => theme.colors.white};
+  border-bottom: 3px solid ${({ theme }) => theme.colors.yellow};
+  z-index: 100;
+  height: 5rem;
+  padding-left:  ${({ theme }) => theme.paddings.small};
 
   svg {
     transform: ${({show} ) => (show ? "rotate(0deg)" : "rotate(180deg)")};
@@ -36,21 +42,27 @@ const DetailsUser = styled.div<{show: Boolean}>`
   width: 100%;
   flex-direction: column;
   position: absolute;
-  transform: ${({ show }) => (show ? "translateY(-14rem)" : "translateY(1.7rem)")};
+  transform: ${({ show }) => (show ? "translateY(-16rem)" : "translateY(0)")};
   background: ${({ theme }) => theme.colors.yellow};
   padding:  ${({ theme }) => theme.paddings.normal};
   transition: transform 0.5s ease-in-out;
-  z-index: 100;
+  z-index: 10;
 
   h4 {
     display: block;
   }
 `
 
-const AccountItem = styled.p`
-  color: ${({ theme }) => theme.colors.darkNlue};
+const AccountItem = styled.span`
+  display: block;
+  color: ${({ theme }) => theme.colors.darkBlue};
   margin-bottom:  ${({ theme }) => theme.margins.small};
   cursor: pointer;
+  transition: transform 0.5s ease-in-out;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.black};
+  }
 `
 
 const LoggedInContainer = (props: Props) => {

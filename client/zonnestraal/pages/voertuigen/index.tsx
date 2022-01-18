@@ -32,18 +32,6 @@ const ScheduleContainer = styled.div`
   margin-top:${({ theme }) => theme.margins.large};
 `
 
-/* export async function getServerSideProps() {
-  const { data } = await client.query({
-    query: GET_ALL_CARS_QUERY,
-  });
-
-  return {
-    props: {
-      cars: data.getAllCars
-    },
- };
-} */
-
 function CarPage() {
   const { loading, error, data } = useQuery(GET_ALL_CARS_QUERY)
 

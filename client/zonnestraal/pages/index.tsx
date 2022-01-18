@@ -94,15 +94,15 @@ export default Home;
 /* Fetch data */
 export async function getServerSideProps() {
   const { data } = await client.query({
-    query: GET_MEDIA_AND_BOOKS_QUERY,
+    query: GET_NEW_LIBRARIES_AND_MOST_COMMON_MEDIA,
   });
 
   console.log(data)
   
   return {
     props: {
-      books: data.getAllLibraries,
-      media: data.getAllMedia
+      books: data.getNewLibraries,
+      media: data.getMostCommonlyMedia
     },
  };
 }

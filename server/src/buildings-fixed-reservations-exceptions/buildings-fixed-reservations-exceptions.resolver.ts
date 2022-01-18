@@ -17,10 +17,6 @@ export class BuildingsFixedReservationsExceptionsResolver {
   @UseGuards(JwtAuthGuard)
   @Mutation(() => [BuildingsFixedReservationsExceptions])
   createBuildingsFixedReservationsException(
-    // @Args({
-    //   name: 'createBuildingsFixedReservationExceptionsInput',
-    //   type: () => CreateBuildingsFixedReservationExceptionsInput,
-    // })
     @Args('createBuildingsFixedReservationExceptionsInput')
     createBuildingsFixedReservationsExceptionsInput: CreateBuildingsFixedReservationExceptionsInput,
     @GetUser() user,

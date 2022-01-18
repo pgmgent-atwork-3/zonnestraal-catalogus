@@ -1,9 +1,9 @@
 import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
-export class CreateBuildingsFixedReservationsExceptionInput {
+export class CreateMediaFixedReservationsExceptionInput {
   @Field(() => Number)
-  buildings_fixed_reservations_id: number;
+  media_fixed_reservations_id: number;
 
   @Field({ nullable: true })
   date: string;

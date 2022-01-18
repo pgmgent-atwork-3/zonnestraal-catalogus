@@ -73,6 +73,7 @@ type MediaFixedReservationsExceptions {
   fixed_reservations: MediaFixedReservations!
   date: String
   created_on: DateTime
+  media_fixed_reservations_id: Float!
 }
 
 type MediaTypes {
@@ -371,6 +372,7 @@ type Mutation {
   removeLibraryRent(id: Int!): LibraryRent!
   createMediaFixedReservation(createMediaFixedReservationsInput: CreateMediaFixedReservationsInput!): MediaFixedReservations!
   removeMediaFixedReservation(id: Int!): MediaFixedReservations!
+  createMediaFixedReservationsException(createMediaFixedReservationExceptionsInput: CreateMediaFixedReservationsExceptionsInput!): [MediaFixedReservationsExceptions!]!
   createUser(createProfileInput: CreateProfileInput!): Profiles!
   login(password: String!, email: String!): SignInResponse!
   createBuildingsRoom(createBuildingsRoomInput: CreateBuildingsRoomInput!): BuildingsRooms!
@@ -464,6 +466,11 @@ input CreateMediaFixedReservationsInput {
   till_date: String
   start_time: String
   end_time: String
+}
+
+input CreateMediaFixedReservationsExceptionsInput {
+  media_fixed_reservations_id: Int!
+  dates: [String!]
 }
 
 input CreateProfileInput {

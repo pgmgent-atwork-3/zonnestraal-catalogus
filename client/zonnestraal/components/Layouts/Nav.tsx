@@ -22,7 +22,7 @@ const StyledNav = styled.nav<{open: Boolean}>`
   justify-content: center;
   transition: transform 0.3s ease-in-out;
   transform: ${({ open }) => (open ? "translateX(0)" : "translateX(100%)")};
-  z-index:100;
+  z-index: 100;
 
   ul {
     display: flex;
@@ -90,7 +90,7 @@ const Nav = ({ open }: NavProps) => {
     const newToken = localStorage.getItem(AUTH_TOKEN)
     setAuthToken(newToken)
   }, []) */
-  const { isSignedIn } = useAuth();
+  const { isSignedIn }:any = useAuth();
 
   return (
     <StyledNav open={open}>
@@ -99,10 +99,10 @@ const Nav = ({ open }: NavProps) => {
               <Link href='/bibliotheek'>Bibliotheek / Mediatheek</Link>
           </li>
           <li>
-              <Link href='/voertuigen'>Voertuigen</Link>
+            {isSignedIn() && <Link href='/voertuigen'>Voertuigen</Link>}
           </li>
           <li>
-              <Link href='/zalen'>Zalen</Link>
+            {isSignedIn() && <Link href='/zalen'>Zalen</Link>}
           </li>
           <li>
             {!isSignedIn() && <Link href='/login'>Aanmelden</Link>}

@@ -56,6 +56,7 @@ const AccountItem = styled.p`
 const LoggedInContainer = (props: Props) => {
   const [show, setShow] = useState(true);
   const { signOut }:any = useAuth()
+  const { isAdmin }:any = useAuth();
 
   return (
     <AccountContainer>
@@ -68,6 +69,11 @@ const LoggedInContainer = (props: Props) => {
         <Link href={"/mijnreservaties"}>
           <AccountItem>Mijn reservaties</AccountItem>
         </Link>
+        {isAdmin() && 
+          <Link href={"/admin"}>
+            <AccountItem>Overzicht reservaties</AccountItem>
+          </Link>
+        }
         <SecondaryButton title="afmelden" onClick={() => signOut()}/>
       </DetailsUser>
     </AccountContainer>

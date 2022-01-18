@@ -12,13 +12,13 @@ interface Props {
  
 const LoginContainer = styled.div`
   width: 85rem;
+  height: 80vh;
   max-width: 100%;
   padding: ${({ theme }) => theme.paddings.normal};
   margin: 0 auto;
 
   display: flex;
   flex-direction: column;
-
 
   @media (min-width: ${({theme}) => theme.width.desktop}) {
     justify-content: space-around;  

@@ -1,5 +1,6 @@
 import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache, gql } from '@apollo/client';
 import { createContext, useContext, useState } from 'react';
+import jwt_decode from "jwt-decode";
 
 const authContext = createContext()
 
@@ -22,7 +23,16 @@ function useProvideAuth(){
   const [authToken, setAuthToken] = useState(null);
   const [CurrentUserId, setCurrentUserId] = useState(null);
 
-  console.log(CurrentUserId, authToken);
+  const isAdmin = () => {
+    const decodedJWT = jwt_decode(authToken);
+    const isAdmin = decodedJWT.isAdmin
+
+    if(isAdmin == true) {
+      return true
+    } else {
+      return false
+    }
+  }
 
   const isSignedIn = () => {
     if (authToken) {
@@ -70,8 +80,8 @@ function useProvideAuth(){
       variables: { email, password },
     })
 
-    console.log(result)
-    console.log(result.data.login.id)
+    //console.log(result)
+    //console.log(result.data.login.id)
 
     if (result?.data?.login?.access_token) {
       setAuthToken(result.data.login.access_token)
@@ -89,5 +99,6 @@ function useProvideAuth(){
     isSignedIn,
     signIn,
     signOut,
+    isAdmin
   }
 }

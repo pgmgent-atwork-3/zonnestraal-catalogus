@@ -13,12 +13,12 @@ export default function DataTableMedia({ data }: any) {
   console.log(data);
   
   return (
-    <div style={{ height: 200, width: '100%' }}>
+    <div style={{ height: 530, width: '100%' }}>
       <DataGrid
         rows={data}
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
+        pageSize={8}
+        rowsPerPageOptions={[10]}
         checkboxSelection
         disableSelectionOnClick
       />

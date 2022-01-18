@@ -25,13 +25,13 @@ const StyledCard = styled.div`
 
 const ItemTitle = styled.h3`
   margin-bottom:${({ theme }) => theme.margins.extraSmall};
-  width: 35%;
+  width: 25%;
 `
 
 const Group = styled.div`
   display: flex;
   flex-direction: column;
-  width: 15%;
+  width: 25%;
 `
 
 const SubItemTitle = styled.span`
@@ -64,14 +64,14 @@ const CarCard = ({data}) => {
     <>
       {slicedData.map(data => (
         <StyledCard>
-          <ItemTitle>{data.author}</ItemTitle>
+          <ItemTitle>{data.title}</ItemTitle>
           <Group>
             <SubItemTitle>Merk</SubItemTitle>
-            <p>{data.id}</p>
+            <p>{data.brand}</p>
           </Group>
           <Group>
             <SubItemTitle>Type</SubItemTitle>
-            <p>{data.id}</p>
+            <p>{data.type}</p>
           </Group>
           <ButtonContainer>
             <PrimaryButton title="Reserveren"/>

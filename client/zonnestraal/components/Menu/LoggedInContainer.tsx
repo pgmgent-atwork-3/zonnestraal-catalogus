@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { FiChevronDown } from "react-icons/fi";
 import { SecondaryButton } from '../Buttons';
 import { useAuth } from '../../lib/auth';
+import Link from 'next/link';
 
 
 interface Props {
@@ -14,8 +15,14 @@ const AccountContainer = styled.div`
 `
 
 const LoggedInHeader = styled.div<{show: Boolean}>`
+  position: relative;
   display: flex;
   align-items: center;
+  background-color: ${({ theme }) => theme.colors.white};
+  border-bottom: 3px solid ${({ theme }) => theme.colors.yellow};
+  z-index: 100;
+  height: 5rem;
+  padding-left:  ${({ theme }) => theme.paddings.small};
 
   svg {
     transform: ${({show} ) => (show ? "rotate(0deg)" : "rotate(180deg)")};
@@ -31,14 +38,15 @@ const LoggedInHeader = styled.div<{show: Boolean}>`
 `
 
 const DetailsUser = styled.div<{show: Boolean}>`
+  display: block;
   width: 100%;
-  display: ${({ show }) => (show ? "none" : "flex")};
   flex-direction: column;
   position: absolute;
-  top: 2rem;
+  transform: ${({ show }) => (show ? "translateY(-16rem)" : "translateY(0)")};
   background: ${({ theme }) => theme.colors.yellow};
   padding:  ${({ theme }) => theme.paddings.normal};
   transition: transform 0.5s ease-in-out;
+  z-index: 10;
 
   h4 {
     display: block;
@@ -46,13 +54,21 @@ const DetailsUser = styled.div<{show: Boolean}>`
 `
 
 const AccountItem = styled.span`
+  display: block;
   color: ${({ theme }) => theme.colors.darkBlue};
-  margin-bottom:  ${({ theme }) => theme.margins.normal};
+  margin-bottom:  ${({ theme }) => theme.margins.small};
+  cursor: pointer;
+  transition: transform 0.5s ease-in-out;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.black};
+  }
 `
 
 const LoggedInContainer = (props: Props) => {
   const [show, setShow] = useState(true);
-  const { signOut } = useAuth()
+  const { signOut }:any = useAuth()
+  const { isAdmin }:any = useAuth();
 
   return (
     <AccountContainer>
@@ -62,8 +78,14 @@ const LoggedInContainer = (props: Props) => {
       </LoggedInHeader>
 
       <DetailsUser show={show}>
-        <AccountItem>Mijn reservaties</AccountItem>
-        <AccountItem>Mijn favorieten</AccountItem>
+        <Link href={"/mijnreservaties"}>
+          <AccountItem>Mijn reservaties</AccountItem>
+        </Link>
+        {isAdmin() && 
+          <Link href={"/admin"}>
+            <AccountItem>Overzicht reservaties</AccountItem>
+          </Link>
+        }
         <SecondaryButton title="afmelden" onClick={() => signOut()}/>
       </DetailsUser>
     </AccountContainer>

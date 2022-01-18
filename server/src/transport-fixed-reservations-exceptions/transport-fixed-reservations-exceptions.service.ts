@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateTransportFixedReservationsExceptionInput } from './dto/create-transport-fixed-reservations-exception.input';
 import { CreateTransportFixedReservationsExceptionsInput } from './dto/create-transport-fixed-reservations-exceptions.input';
-import { UpdateTransportFixedReservationsExceptionInput } from './dto/update-transport-fixed-reservations-exception.input';
+import { DeleteTransportFixedReservationsExceptionsInput } from './dto/delete-transport-fixed-reservations-exception.input';
 import { TransportFixedReservationsExceptions } from './entities/transport-fixed-reservations-exceptions.entity';
 
 @Injectable()
@@ -33,22 +33,24 @@ export class TransportFixedReservationsExceptionsService {
     });
   }
 
-  findAll() {
-    return `This action returns all transportFixedReservationsExceptions`;
-  }
-
   findOne(id: number) {
-    return `This action returns a #${id} transportFixedReservationsException`;
+    return this.transportFixedReservationsExceptionsRepository.findOneOrFail(
+      id,
+    );
   }
 
-  update(
-    id: number,
-    updateTransportFixedReservationsExceptionInput: UpdateTransportFixedReservationsExceptionInput,
+  async delete(
+    deleteTransportFixedReservationsExceptionsInput: DeleteTransportFixedReservationsExceptionsInput,
   ) {
-    return `This action updates a #${id} transportFixedReservationsException`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} transportFixedReservationsException`;
+    return deleteTransportFixedReservationsExceptionsInput.transportFixedReservationExceptionsIds.map(
+      async (id) => {
+        const reservationException = await this.findOne(id);
+        const deleted =
+          this.transportFixedReservationsExceptionsRepository.remove(
+            reservationException,
+          );
+        return deleted;
+      },
+    );
   }
 }

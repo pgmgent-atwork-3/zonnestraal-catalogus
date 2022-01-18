@@ -7,5 +7,4 @@ export class CreateTransportFixedReservationsExceptionInput {
 
   @Field(() => [String], { nullable: true })
   dates: string[];
-
 }

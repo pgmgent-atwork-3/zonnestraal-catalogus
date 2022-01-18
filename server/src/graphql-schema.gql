@@ -349,7 +349,6 @@ type Query {
   getAlltransportFixedReservations: [TransportFixedReservations!]!
   getAllCarsFixedReservationForAdmin: [TransportFixedReservations!]!
   getTransportFixedReservationById(id: Int!): TransportFixedReservations!
-  transportFixedReservationsExceptions: [TransportFixedReservationsExceptions!]!
   transportFixedReservationsException(id: Int!): TransportFixedReservationsExceptions!
 }
 
@@ -379,8 +378,7 @@ type Mutation {
   createTransportFixedReservation(createTransportFixedReservationInput: CreateTransportFixedReservationInput!): TransportFixedReservations!
   removeTransportFixedReservation(id: Int!): TransportFixedReservations!
   createTransportFixedReservationsException(createTransportFixedReservationsExceptionInput: CreateTransportFixedReservationsExceptionInput!): [TransportFixedReservationsExceptions!]!
-  updateTransportFixedReservationsException(updateTransportFixedReservationsExceptionInput: UpdateTransportFixedReservationsExceptionInput!): TransportFixedReservationsExceptions!
-  removeTransportFixedReservationsException(id: Int!): TransportFixedReservationsExceptions!
+  deleteTransportFixedReservationsException(deleteTransportFixedReservationsExceptionsInput: DeleteTransportFixedReservationsExceptionsInput!): [TransportFixedReservationsExceptions!]!
 }
 
 input CreateLibraryReservationDateInput {
@@ -510,8 +508,6 @@ input CreateTransportFixedReservationsExceptionInput {
   dates: [String!]
 }
 
-input UpdateTransportFixedReservationsExceptionInput {
-  transport_fixed_reservations_id: Int
-  dates: [String!]
-  id: Int!
+input DeleteTransportFixedReservationsExceptionsInput {
+  transportFixedReservationExceptionsIds: [Float!]!
 }

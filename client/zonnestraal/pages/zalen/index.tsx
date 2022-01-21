@@ -10,7 +10,7 @@ interface Props {
 }
 
 const BuildingsPage = (props: Props) => {
-  const { loading, error, data } = useQuery(GET_ALL_CARS_QUERY)
+  const { loading, error, data } = useQuery(GET_ALLL_BUILDINGS_ROOMS)
 
   if (loading) return 'Loading...'
   if (error) return `Error! ${error.message}`
@@ -20,7 +20,7 @@ const BuildingsPage = (props: Props) => {
     <>
       <div>
         <ul>
-          {data?.getAllCars.map((v) => {
+          {data?.getAllbuildingsRooms.map((v) => {
             return <li key={v.title}>{v.title}</li>
           })}
         </ul>

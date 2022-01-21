@@ -97,7 +97,7 @@ export async function getServerSideProps() {
     query: GET_NEW_LIBRARIES_AND_MOST_COMMON_MEDIA,
   });
 
-  console.log(data)
+  //console.log(data)
   
   return {
     props: {

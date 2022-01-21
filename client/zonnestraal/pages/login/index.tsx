@@ -4,6 +4,7 @@ import Image from 'next/image'
 import styled from 'styled-components';
 import LoginImg from '../../public/login2.jpeg';
 import { LoginButton } from '../../components/Buttons';
+import Router, { useRouter } from 'next/router';
 
 
 interface Props {
@@ -55,14 +56,15 @@ const LoginPage = (props: Props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { signIn, signOut, isSignedIn } = useAuth();
-
+  
   console.log(isSignedIn())
-
+  
   function onSubmit(e: any) {
     e.preventDefault()
     signIn({ email, password })
+    Router.push('/')
   }
-
+  
   return (
     <LoginContainer>
       <FormContainer>

@@ -1,6 +1,7 @@
 import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache, gql } from '@apollo/client';
 import { createContext, useContext, useState } from 'react';
 import jwt_decode from "jwt-decode";
+import Router from 'next/router';
 
 const authContext = createContext()
 
@@ -67,6 +68,7 @@ function useProvideAuth(){
 
   const signIn = async ({ email, password }: {email:string, password:string}) => {
     const client = createApolloClient()
+
     const LoginMutation = gql`
     mutation login ( $email: String!, $password: String!) {
       login( email: $email, password: $password) {
@@ -75,6 +77,7 @@ function useProvideAuth(){
       }
     }
     `
+
     const result = await client.mutate({
       mutation: LoginMutation,
       variables: { email, password },

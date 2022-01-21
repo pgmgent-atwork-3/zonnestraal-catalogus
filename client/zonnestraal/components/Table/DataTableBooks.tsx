@@ -1,25 +1,70 @@
 import * as React from 'react';
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridRenderCellParams, GridValueGetterParams } from '@mui/x-data-grid';
+import { DeleteButton } from '../Buttons';
+import { gql, useMutation } from '@apollo/client';
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 90 },
-  { field: 'name', headerName: 'Op naam van', width: 150, editable: true, },
-  { field: 'media.title', headerName: 'Title', type: 'object', width: 110, editable: true, },
-  { field: 'created_on', headerName: 'Gereserveerd op', type: 'date', width: 200, editable: true, },
+  { 
+    field: 'name', 
+    headerName: 'Op naam van', 
+    width: 150, 
+    editable: true, 
+  },
+  { 
+    field: 'media.title', 
+    headerName: 'Titel', 
+    type: 'object', 
+    width: 550, 
+    editable: true, 
+    renderCell: (params) => (params.row.library.title)
+  },
+  { 
+    field: 'created_on', 
+    headerName: 'Gereserveerd op',
+    width: 200, 
+    renderCell: (params) => new Date(params.row.created_on).toLocaleDateString()
+  },
+  {
+    field: 'delete',
+    headerName: 'Delete',
+    width: 150,
+    renderCell: (params) => {
+      return (
+        <DeleteButton title='Verwijder' />
+      )
+    }
+  }
 ];
 
-export default function DataTableBooks({ data }: any) {
-  console.log(data);
+const DELETE_LIBRARY_MUTATION = gql`
+mutation delete ( $id: ID! ) {
+  removeLibraryReservation( id: $id){
+    name
+  }
+}
+` 
+
+export default function DataTableBooks({ rowsData }: any) {
+  const [mutate, { loading, error, data }] = useMutation(DELETE_LIBRARY_MUTATION);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error, failed to delete item!</p>;
+  if (data) return <p>Your item is Deleted!</p>;
+
   
   return (
     <div style={{ height: 530, width: '100%' }}>
       <DataGrid
-        rows={data}
+        rows={rowsData}
         columns={columns}
         pageSize={8}
         rowsPerPageOptions={[10]}
         checkboxSelection
         disableSelectionOnClick
+        onCellClick={(params) => { if(params.field == 'delete'){
+          mutate({ variables: { id: params.id } })
+        }}}
       />
     </div>
   );

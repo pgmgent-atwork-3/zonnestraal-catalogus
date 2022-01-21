@@ -9,6 +9,7 @@ import { FiMapPin } from "react-icons/fi";
 import { FiCamera } from "react-icons/fi";
 import { FiFilm } from "react-icons/fi";
 import { FiMonitor } from "react-icons/fi";
+import ReservationButton from '../Buttons/reservationBtn';
 
 /* interface Props {
   data: Book[];
@@ -91,7 +92,7 @@ const MediaCard = ({ data } : {data : Library}) => {
                 </IconContainer>
                 <DefaultLink title="Meer info"/>
                 <SecondaryButton title="Uitlenen"/>
-                <PrimaryButton title="Reserveren"/>
+                <ReservationButton title="Reserveren" name={m.title}/>
               </GreyContainer>
 
               <TextContainer>

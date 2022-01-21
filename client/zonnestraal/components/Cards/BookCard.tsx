@@ -6,6 +6,7 @@ import { Library } from '../../interfaces/models/library';
 import { FiBook } from "react-icons/fi";
 import { FiBookOpen } from "react-icons/fi";
 import { FiFolder } from "react-icons/fi";
+import ReservationButton from '../Buttons/reservationBtn';
 
 /* interface Props {
   data: Library[];
@@ -99,8 +100,8 @@ const BookCard = ({ data } : {data: Library}) => {
                 </IconContainer>
                 <DefaultLink title="Meer info"/>
 
-                <PrimaryButton title="Reserveren" name={b.title}/>
                 <SecondaryButton title='Uitlenen' />
+                <ReservationButton title="Reserveren" name={b.title}/>
                 
               </GreyContainer>
 

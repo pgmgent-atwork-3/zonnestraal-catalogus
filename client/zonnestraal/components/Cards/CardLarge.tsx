@@ -8,6 +8,7 @@ import { FiBookOpen } from "react-icons/fi";
 import { FiFolder } from "react-icons/fi";
 import { Media } from '../../interfaces/models/media';
 import ReactPaginate from "react-paginate";
+import ReservationButton from '../Buttons/reservationBtn';
 
 /* interface Props {
   data: Book[];
@@ -247,7 +248,7 @@ const CardLarge = ({ books, media, searchTerm } : {books: Library, media: Media,
 
                 <ButtonContainer>
                   <SecondaryButton title="Uitlenen"/>
-                  <PrimaryButton title="Reserveren"/>
+                  <ReservationButton title="Reserveren" name={b.title}/>
                 </ButtonContainer>
 
               </GreyContainer>

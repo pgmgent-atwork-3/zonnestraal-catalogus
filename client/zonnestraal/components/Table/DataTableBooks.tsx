@@ -38,7 +38,7 @@ const columns: GridColDef[] = [
 ];
 
 const DELETE_LIBRARY_MUTATION = gql`
-mutation delete ( $id: ID! ) {
+mutation delete ( $id: Int! ) {
   removeLibraryReservation( id: $id){
     name
   }

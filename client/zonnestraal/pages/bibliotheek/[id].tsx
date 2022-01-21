@@ -4,6 +4,7 @@ import { gql } from "@apollo/client";
 import styled from 'styled-components';
 import { GoBack, PrimaryButton, SecondaryButton } from '../../components/Buttons';
 import Link from 'next/link';
+import ReservationButton from '../../components/Buttons/reservationBtn';
 
 interface Props {
   
@@ -217,10 +218,8 @@ const Detail = ({ detail }: any) => {
 
           <ButtonContainer>
             <SecondaryButton title="Uitlenen"/>
-            <PrimaryButton title="Reserveren"/>
-            <Link href="/bibliotheek/">
-              <GoBack title="Ga terug naar overzicht"/>
-            </Link>
+            <ReservationButton title="Reserveren" name={detail.title}/>
+            <GoBack title="Ga terug naar overzicht"/>
           </ButtonContainer>
         </GreyContainer>
     </ContentContainer>

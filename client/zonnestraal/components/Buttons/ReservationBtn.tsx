@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 type BtnProps = { 
   title: string;
+  name?: string;
 } 
 
 const StyledPrimaryButton = styled.a`
@@ -27,12 +28,14 @@ const StyledPrimaryButton = styled.a`
   }
 `
 
-const PrimaryButton: React.FC<BtnProps> = ({ title }) => {
+const ReservationButton: React.FC<BtnProps> = ({ title, name }) => {
   return (
       <StyledPrimaryButton type="submit">
+        <Link href={'/reservatie/' + name}> 
           <span>{title}</span>
+        </Link>
       </StyledPrimaryButton>
   )
 }
 
-export default PrimaryButton;
+export default ReservationButton;

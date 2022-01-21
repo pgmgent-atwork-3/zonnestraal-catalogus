@@ -28,10 +28,11 @@ const StyledPrimaryButton = styled.a`
 `
 
 const PrimaryButton: React.FC<BtnProps> = ({ title }) => {
-  return (
-      <StyledPrimaryButton type="submit">
-          <span>{title}</span>
-      </StyledPrimaryButton>
+
+  return (     
+    <StyledPrimaryButton type="submit">
+        <span>{title}</span>
+    </StyledPrimaryButton>
   )
 }
 

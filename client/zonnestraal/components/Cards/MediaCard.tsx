@@ -1,5 +1,5 @@
 import React from 'react'
-import { DefaultLink, PrimaryButton, SecondaryButton } from '../Buttons';
+import { DefaultLink, DisabledButton, DisabledButtonSec, PrimaryButton, SecondaryButton } from '../Buttons';
 import styled from 'styled-components';
 import BookIcon from '../../public/icon-book-open.png';
 import Image from 'next/image'
@@ -10,6 +10,7 @@ import { FiCamera } from "react-icons/fi";
 import { FiFilm } from "react-icons/fi";
 import { FiMonitor } from "react-icons/fi";
 import ReservationButton from '../Buttons/reservationBtn';
+import {useAuth} from '../../lib/auth';
 
 /* interface Props {
   data: Book[];
@@ -65,14 +66,24 @@ const IconContainer = styled.div`
   }
 `
 
+const ButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+
 const MediaCard = ({ data } : {data : Library}) => {
   const NewData = data.slice(0,3);
+
+  const { isSignedIn }:any = useAuth();
 
   //console.log(NewData);
 
   return (
     <CardsContainer>
-        {NewData.map(m => (
+        {NewData.map((m:any) => (
           <Link href={'/bibliotheek/' + m.id}>
             <StyledCard>
               <GreyContainer>
@@ -91,8 +102,18 @@ const MediaCard = ({ data } : {data : Library}) => {
                   })()}
                 </IconContainer>
                 <DefaultLink title="Meer info"/>
-                <SecondaryButton title="Uitlenen"/>
-                <ReservationButton title="Reserveren" name={m.title}/>
+                {isSignedIn() && 
+                  <ButtonContainer>
+                    <SecondaryButton title="Uitlenen"/>
+                    <ReservationButton title="Reserveren" name={m.title}/>
+                  </ButtonContainer>
+                }
+                {!isSignedIn() && 
+                  <ButtonContainer>
+                    <DisabledButtonSec title="Uitlenen"/>
+                    <DisabledButton title="Reserveren"/>
+                  </ButtonContainer>
+                }
               </GreyContainer>
 
               <TextContainer>

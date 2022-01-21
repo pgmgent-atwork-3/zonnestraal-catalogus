@@ -1,5 +1,5 @@
 import React from 'react'
-import { DefaultLink, PrimaryButton, SecondaryButton } from '../Buttons';
+import { DefaultLink, DisabledButton, DisabledButtonSec, PrimaryButton, SecondaryButton } from '../Buttons';
 import styled from 'styled-components';
 import Link from 'next/link';
 import { Library } from '../../interfaces/models/library';
@@ -7,6 +7,7 @@ import { FiBook } from "react-icons/fi";
 import { FiBookOpen } from "react-icons/fi";
 import { FiFolder } from "react-icons/fi";
 import ReservationButton from '../Buttons/reservationBtn';
+import {useAuth} from '../../lib/auth';
 
 /* interface Props {
   data: Library[];
@@ -74,10 +75,18 @@ const IconContainer = styled.div`
   }
 `
 
+const ButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+
 const BookCard = ({ data } : {data: Library}) => {
   const NewData = data.slice(0,4);
 
-  //console.log(NewData)
+  const { isSignedIn }:any = useAuth();
 
   return (
     <CardsContainer>
@@ -100,9 +109,19 @@ const BookCard = ({ data } : {data: Library}) => {
                 </IconContainer>
                 <DefaultLink title="Meer info"/>
 
-                <SecondaryButton title='Uitlenen' />
-                <ReservationButton title="Reserveren" name={b.title}/>
-                
+                {isSignedIn() && 
+                  <ButtonContainer>
+                    <SecondaryButton title="Uitlenen"/>
+                    <ReservationButton title="Reserveren" name={b.title}/>
+                  </ButtonContainer>
+                }
+                {!isSignedIn() && 
+                  <ButtonContainer>
+                    <DisabledButtonSec title="Uitlenen"/>
+                    <DisabledButton title="Reserveren"/>
+                  </ButtonContainer>
+                }
+
               </GreyContainer>
 
               <TextContainer>

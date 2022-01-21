@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { GoBack, PrimaryButton, SecondaryButton } from '../../components/Buttons';
 import Link from 'next/link';
 import ReservationButton from '../../components/Buttons/reservationBtn';
+import { useAuth } from '../../lib/auth';
 
 interface Props {
   
@@ -165,6 +166,8 @@ export async function getServerSideProps(context: any) {
 }
 
 const Detail = ({ detail }: any) => {
+  const { isSignedIn }:any = useAuth();
+
   if (!detail) {
     return <p>Sorry, er is geen data te vinden voor dit boek.</p>
   } 
@@ -216,11 +219,13 @@ const Detail = ({ detail }: any) => {
             </DescriptionGroup>
           </TextContainer>
 
+          {isSignedIn() && 
           <ButtonContainer>
             <SecondaryButton title="Uitlenen"/>
             <ReservationButton title="Reserveren" name={detail.title}/>
             <GoBack title="Ga terug naar overzicht"/>
-          </ButtonContainer>
+          </ButtonContainer> }
+          
         </GreyContainer>
     </ContentContainer>
   );

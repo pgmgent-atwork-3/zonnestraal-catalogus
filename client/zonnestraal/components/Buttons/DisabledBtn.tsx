@@ -4,14 +4,13 @@ import styled from 'styled-components';
 
 type BtnProps = { 
   title: string;
-  name?: string;
 } 
 
-const StyledPrimaryButton = styled.a`
+const StyledDisabledButton = styled.a`
   width: 70%;
   display: flex;
   justify-content: center;
-  background: ${({ theme }) => theme.colors.primaryColor};
+  background: ${({ theme }) => theme.colors.red};
   padding: ${({ theme }) => theme.paddings.extraSmall} ${({ theme }) => theme.paddings.small};
   border: none;
   border-radius: ${({ theme }) => theme.borderRadius.small};
@@ -20,23 +19,19 @@ const StyledPrimaryButton = styled.a`
   cursor: pointer;
 
   span {
-    color: ${({ theme }) => theme.colors.darkBlue};
-  }
-
-  &:hover {
-    background: ${({ theme }) => theme.colors.yellow};
+    color: ${({ theme }) => theme.colors.white};
   }
 `
 
-const ReservationButton: React.FC<BtnProps> = ({ title, name }) => {
+const DisabledButton: React.FC<BtnProps> = ({ title }) => {
 
-  return (
-    <StyledPrimaryButton type="submit">
-      <Link href={'/reservatie/' + name}> 
+  return (     
+    <StyledDisabledButton type="submit">
+      <Link href={"login"}>
         <span>{title}</span>
       </Link>
-    </StyledPrimaryButton>
+    </StyledDisabledButton>
   )
 }
 
-export default ReservationButton;
+export default DisabledButton;

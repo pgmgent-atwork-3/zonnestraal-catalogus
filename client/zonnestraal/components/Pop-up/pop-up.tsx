@@ -6,6 +6,7 @@ type PopProps = {
 }
 
 const PopContainer = styled.div `
+height: 1rem;
   display: flex;
   background: ${({ theme }) => theme.colors.yellow};
   margin-bottom:  ${({ theme }) => theme.margins.small};

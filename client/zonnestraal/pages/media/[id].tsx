@@ -110,20 +110,27 @@ export async function getServerSideProps(context: any) {
   const { data } = await client.query({
     query: gql`
     query {
-      getLibraryById(id: ${id}){
-       serial
+      getMediaById(id: ${id}){
        title
        description
-       publisher
-       author
-       year
        created_on
        edited_on
        hidden
+       show_home
        language
        type {
          id
          title
+         created_on
+         edited_on
+         language 
+       }
+       rent {
+         id
+         name
+         rent_from
+         rent_till
+         returned
        }
        location {
          id
@@ -135,27 +142,18 @@ export async function getServerSideProps(context: any) {
          country
          lat
          lng
-       }
-       rent {
-         name
-         rent_from
-         rent_till
-         returned
-       }
-       reservation {
-         id
-         name
-         deleted
          created_on
+         edited_on
+         show_overview
        }
-     } 
-    }
+     }
+     }
     `
   });
   
   return {
     props: {
-      detail: data.getLibraryById,
+      detail: data.getMediaById,
     },
  };
 }
@@ -163,12 +161,11 @@ export async function getServerSideProps(context: any) {
 const Detail = ({ detail }: any) => {
   const { isSignedIn }:any = useAuth();
 
-  const rentArray = detail.rent
+  //Checking if last person returned item to the vzw
+  const rentArray = detail.rent;
   const lastRent = rentArray[rentArray.length -1]
-
-  console.log(rentArray)
-  console.log(lastRent)
-
+  const dateLastRentFrom = new Date(lastRent.rent_from).toLocaleDateString();
+  const dateLastRentTill = new Date(lastRent.rent_till).toLocaleDateString();
 
   if (!detail) {
     return <p>Sorry, er is geen data te vinden voor dit boek.</p>
@@ -181,29 +178,13 @@ const Detail = ({ detail }: any) => {
           <ItemTitle>{detail.title}</ItemTitle>
 
           <Group>
-            <SubItemTitle>Author</SubItemTitle>
-            <p>{detail.author ? detail.author : 'geen auteur'}</p>
-          </Group>
-
-          <Group>
-            <SubItemTitle>Publisher</SubItemTitle>
-            <p>{detail.publisher ? detail.publisher : 'geen publisher'}</p>
-          </Group>
-
-          <Group>
             <SubItemTitle>Type</SubItemTitle>
             <p>{detail.type.title}</p>
           </Group>
 
           <Group>
-            <SubItemTitle>Serienummer</SubItemTitle>
-            <p>{detail.serial}</p>
-          </Group>
-
-          <Group>
             <SubItemTitle>Status</SubItemTitle>
-            {lastRent == undefined ? 'Beschikbaar' : lastRent?.returned == 'Y' || undefined ? 'Beschikbaar' : 'Niet beschikbaar'}
-            {/* {lastRent?.returned == 'Y' || undefined ? 'Beschikbaar' : 'Niet beschikbaar'} */}
+            <p>{lastRent.returned == 'Y' ? 'Beschikbaar' : 'Niet beschikbaar'}</p>
           </Group>
 
           <Group>
@@ -213,9 +194,7 @@ const Detail = ({ detail }: any) => {
 
           <Group>
             <SubItemTitle>Datum laatste leenbeurt</SubItemTitle>
-            {rentArray.length > 0 &&
-              <p>{new Date(lastRent.rent_from).toLocaleDateString()} - {new Date(lastRent.rent_till).toLocaleDateString()}</p>
-            }
+            <p>{dateLastRentFrom} - {dateLastRentTill}</p>
           </Group>
 
           <DescriptionGroup>

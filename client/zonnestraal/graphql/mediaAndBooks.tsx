@@ -12,6 +12,13 @@ export const GET_MEDIA_AND_BOOKS_QUERY = gql`
     type{
       title
     }
+    rent {
+      id
+      name
+      rent_from
+      rent_till
+      returned
+    }
   }
   getAllMedia {
     id

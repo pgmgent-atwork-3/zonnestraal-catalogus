@@ -12,33 +12,6 @@ import {
   TodayButton,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { appointments } from '../../data/appointments';
-import { gql, useQuery } from '@apollo/client';
-
-const GET_ALL_CARS_RESERVATION = gql`
-query {
-  getAllTransportReservationForAdmin{
-    id
-    transport_id
-    profile_id
-    name
-    from_date
-    till_date
-    created_on
-    edited_on
-    transport {
-      id
-      title
-      brand
-      type
-    }
-    profile {
-      id
-      display_name
-    }
-  } 
-}
-`
-
 
 let date = new Date(Date.now());
 const currentDate = date.toString()
@@ -46,18 +19,10 @@ const currentDate = date.toString()
 console.log(currentDate)
 
 const Schedule = () => {
-  const { loading, error, data } = useQuery(GET_ALL_CARS_RESERVATION)
-
-  if (loading) return 'Loading...'
-  if (error) return `Error! ${error.message}`
-
-  const cars = data.getAllTransportReservationForAdmin
-  console.log(cars)
-
   return (
     <Paper>
       <Scheduler
-        data={cars}
+        data={appointments}
         height={600}
       >
 

@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { PrimaryButton } from '../Buttons'
-import ReservationButton from '../Buttons/ReservationBtn'
+import GET_ALL_ROOMS from '../../data/getAllRooms.json';
+import ReservationButton from '../Buttons/ReservationBtn';
 
 interface Props {
   
@@ -59,23 +60,18 @@ const ButtonContainer = styled.div`
 `
 
 
-const CarCard = ({data}:any) => {
-  const slicedData = data.slice(0, 10)
+const RoomCard = () => {
   return (
     <>
-      {slicedData.map((data:any) => (
+      {GET_ALL_ROOMS.map((data:any) => (
         <StyledCard>
           <ItemTitle>{data.title}</ItemTitle>
           <Group>
-            <SubItemTitle>Merk</SubItemTitle>
-            <p>{data.brand}</p>
-          </Group>
-          <Group>
-            <SubItemTitle>Type</SubItemTitle>
-            <p>{data.type}</p>
+            <SubItemTitle>Gebouw</SubItemTitle>
+            <p>{data.building.title}</p>
           </Group>
           <ButtonContainer>
-            <ReservationButton title="Reserveren" name={data.title}/>
+            <ReservationButton title="Reserveren" name={data.title} />
           </ButtonContainer>
         </StyledCard>
        ))}
@@ -83,4 +79,4 @@ const CarCard = ({data}:any) => {
   )
 }
 
-export default CarCard
+export default RoomCard

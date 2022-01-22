@@ -6,7 +6,7 @@ import { Library } from '../../interfaces/models/library';
 import { FiBook } from "react-icons/fi";
 import { FiBookOpen } from "react-icons/fi";
 import { FiFolder } from "react-icons/fi";
-import ReservationButton from '../Buttons/reservationBtn';
+import ReservationButton from '../Buttons/ReservationBtn';
 import {useAuth} from '../../lib/auth';
 
 /* interface Props {
@@ -85,6 +85,7 @@ const ButtonContainer = styled.div`
 
 const BookCard = ({ data } : {data: Library}) => {
   const NewData = data.slice(0,4);
+  console.log(NewData)
 
   const { isSignedIn }:any = useAuth();
 
@@ -94,7 +95,9 @@ const BookCard = ({ data } : {data: Library}) => {
           <Link href={'/bibliotheek/' + b.id}>
             <StyledCard>
               <GreyContainer>
-                <Availability>Beschikbaar</Availability>
+                <Availability>
+                  {NewData.rent == undefined ? 'Beschikbaar' : 'Niet beschikbaar'}
+                </Availability>
                 <IconContainer>
                   {(() => {
                       switch (b.type.title) {

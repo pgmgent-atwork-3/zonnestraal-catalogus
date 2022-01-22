@@ -28,6 +28,13 @@ export const GET_NEW_LIBRARIES_AND_MOST_COMMON_MEDIA = gql`
      }
      language
      meta_id
+     rent {
+      id
+      name
+      rent_from
+      rent_till
+      returned
+     }
    }
    getMostCommonlyMedia {
     id

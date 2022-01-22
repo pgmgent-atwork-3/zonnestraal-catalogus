@@ -2,11 +2,14 @@ import React from 'react'
 import { useQuery, gql } from '@apollo/client'
 import DataTableOwn from '../../components/Table/DataTableMedia';
 import styled from 'styled-components';
-import DataTableMedia from '../../components/Table/DataTableMedia';
 import DataTableBooks from '../../components/Table/DataTableBooks';
 import DataTableCars from '../../components/Table/DataTableCars';
 import DataTableRooms from '../../components/Table/DataTableRooms';
 import {GET_ALL_ADMIN_RESERVATION} from '../../graphql/getAllAdminReservation';
+import DataTableMediaFixed from '../../components/Table/DataTableMediaFixed';
+import {GET_ALL_FIXED_RESERVATIONS_ADMIN} from '../../graphql/getAllFixedReservationsAdmin';
+import DataTableRoomsFixed from '../../components/Table/DataTableRoomsFixed';
+import DataTableCarsFixed from '../../components/Table/DataTableCarsFixed';
 
 interface Props {
   
@@ -28,36 +31,31 @@ const Title = styled.h3`
   margin-bottom: ${({ theme }) => theme.margins.small};
 `
 
+
 const AdminPage = (props: Props) => {
-  const { loading, error, data } = useQuery(GET_ALL_ADMIN_RESERVATION)
+  const { loading, error, data } = useQuery(GET_ALL_FIXED_RESERVATIONS_ADMIN)
 
   if (loading) return 'Loading...'
   if (error) return `Error! ${error.message}`
   console.log(data)
-  console.log(data.getAllRoomsReservationForAdmin)
 
   return (
     <ContentContainer>
-      <h2>Overzicht reservaties</h2>
+      <h2>Overzicht vaste reservaties</h2>
 
       <div>
         <Title>Media</Title>
-        <DataTableMedia rowsData={data.getAllMediaRentForAdmin} />  
-      </div>
-
-      <div>
-        <Title>Boeken</Title>
-        <DataTableBooks rowsData={data.getAllLibraryReservationForAdmin} />  
-      </div>
+        <DataTableMediaFixed rowsData={data.getAllMediaFixedReservationForAdmin} />  
+      </div> 
 
       <div>
         <Title>Zalen</Title>
-        <DataTableRooms data={data.getAllRoomsReservationForAdmin} />  
+        <DataTableRoomsFixed rowsData={data.getAllRoomsFixedReservationForAdmin} />  
       </div>
 
       <div>
         <Title>Voertuigen</Title>
-        <DataTableCars data={data.getAllTransportReservationForAdmin} />  
+        <DataTableCarsFixed rowsData={data.getAllCarsFixedReservationForAdmin} />  
       </div>
 
     </ContentContainer>

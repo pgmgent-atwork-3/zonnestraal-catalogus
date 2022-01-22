@@ -8,7 +8,7 @@ import { FiBookOpen } from "react-icons/fi";
 import { FiFolder } from "react-icons/fi";
 import { Media } from '../../interfaces/models/media';
 import ReactPaginate from "react-paginate";
-import ReservationButton from '../Buttons/reservationBtn';
+import ReservationButton from '../Buttons/ReservationBtn';
 
 /* interface Props {
   data: Book[];
@@ -193,6 +193,9 @@ const CardLarge = ({ books, media, searchTerm } : {books: Library, media: Media,
   })
 
   const displayData = filteredData.slice(pagesVisited, pagesVisited + dataPerPage).map((b:any) => {
+    const rentArray = b.rent
+    const lastRent = rentArray[rentArray.length -1]
+
     return (
       <CardsContainer>
           <Link href={'/bibliotheek/' + b.id}>
@@ -237,7 +240,7 @@ const CardLarge = ({ books, media, searchTerm } : {books: Library, media: Media,
 
                   <Group>
                     <SubItemTitle>Status</SubItemTitle>
-                    <p>beschikbaar</p>
+                    {lastRent == undefined ? 'Beschikbaar' : lastRent?.returned == 'Y' || undefined ? 'Beschikbaar' : 'Niet beschikbaar'}
                   </Group>
 
                   <DescriptionGroup>

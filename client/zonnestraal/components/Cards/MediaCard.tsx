@@ -9,7 +9,7 @@ import { FiMapPin } from "react-icons/fi";
 import { FiCamera } from "react-icons/fi";
 import { FiFilm } from "react-icons/fi";
 import { FiMonitor } from "react-icons/fi";
-import ReservationButton from '../Buttons/reservationBtn';
+import ReservationButton from '../Buttons/ReservationBtn';
 import {useAuth} from '../../lib/auth';
 
 /* interface Props {
@@ -84,7 +84,7 @@ const MediaCard = ({ data } : {data : Library}) => {
   return (
     <CardsContainer>
         {NewData.map((m:any) => (
-          <Link href={'/bibliotheek/' + m.id}>
+          <Link href={'/media/' + m.id}>
             <StyledCard>
               <GreyContainer>
                 <IconContainer>

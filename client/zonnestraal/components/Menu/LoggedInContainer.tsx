@@ -82,9 +82,14 @@ const LoggedInContainer = (props: Props) => {
           <AccountItem>Mijn reservaties</AccountItem>
         </Link>
         {isAdmin() && 
+        <>
           <Link href={"/admin"}>
             <AccountItem>Overzicht reservaties</AccountItem>
           </Link>
+          <Link href={"/admin/fixed"}>
+            <AccountItem>Vaste reservaties</AccountItem>
+          </Link>
+        </>
         }
         <SecondaryButton title="afmelden" onClick={() => signOut()}/>
       </DetailsUser>

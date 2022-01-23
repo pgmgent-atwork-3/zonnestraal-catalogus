@@ -11,6 +11,7 @@ import DateFnsUtils from '@date-io/date-fns'
 import { useMutation } from '@apollo/client';
 import {CREATE_LIBRARY_RESERVATION_MUTATION} from '../../graphql/mutations/createLibraryReservation';
 import { PrimaryButton } from '../Buttons';
+import moment from 'moment';
 
 const PickerContainer = styled.div`
   margin-top:${({ theme }) => theme.margins.normal};
@@ -49,15 +50,22 @@ export default function DatePickerDef({id}:any) {
   const [value, setValue] = React.useState<DateRange<Date>>([new Date("2022-01-11T12:00:00"), new Date("2022-01-11T12:00:00")]);
   const [ selectedDate, setSelectedDate] = useState(new Date("2022-01-11T12:00:00"));
   const [searchTerm, setSearchTerm] = useState('');
-  const [mutate, { loading, error, data }] = useMutation(CREATE_LIBRARY_RESERVATION_MUTATION);
+  const [ mutate ] = useMutation(CREATE_LIBRARY_RESERVATION_MUTATION, {
+    onCompleted: (response: any) => {
+      console.log(response)
+    },
+    onError: (error) => {
+      console.log(`error: ${error.message}`);
+    }
+  });
 
-  if (loading) return <p>Loading...</p>;
+/*   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error, er is iets fout gelopen tijdens de reservatie! {error}</p>;
   if (data) return <p>Je reservatie is succesvol verwerkt!</p>;
-
+ */
   console.log(id)
-  const from_date = value[0]?.toDateString()
-  const till_date = value[1]?.toDateString()
+  const from_date = moment(value[0]).format("YYYY-MM-DD hh:mm:ss");
+  const till_date = moment(value[1]).format( "YYYY-MM-DD hh:mm:ss");
 
   console.log(from_date)
   console.log(till_date)
@@ -117,7 +125,8 @@ export default function DatePickerDef({id}:any) {
         <h3>Overzicht</h3>
         <p>Van: {from_date} tot {till_date}</p>
         <p>Naam: {searchTerm}</p>
-        <PrimaryButton title="Plaats reservatie" onClick={ () => mutate({ 
+        <button title="Plaats reservatie" onClick={ () => mutate({ 
+          /* fetchPolicy: "network-only", */
           variables: { 
             createLibraryReservationInput: {
               library_id: id, 
@@ -128,7 +137,7 @@ export default function DatePickerDef({id}:any) {
               }
             }
           }
-        })}>Plaats reservatie</PrimaryButton>
+        })}>Plaats reservatie</button>
       </OverviewContainer>
 
     </>

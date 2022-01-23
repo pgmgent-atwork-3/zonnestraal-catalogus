@@ -56,6 +56,11 @@ const GreyContainer = styled.div`
 `
 
 const IconContainer = styled.div`
+  svg {
+    font-size: 3rem;
+    color: ${({ theme }) => theme.colors.darkBlue};
+}
+
   @media (min-width: ${({theme}) => theme.width.desktop}) {
     width: 10%;
 
@@ -170,19 +175,26 @@ const PaginationContainer = styled.div`
   }
 `
 
-const CardLarge = ({ books, media, searchTerm } : {books: Library, media: Media, searchTerm: string }) => {
+const CardLarge = ({ books, searchTerm, selected } : {books: Library, searchTerm: string, selected: string}) => {
   if (!books) {
     return 'no data';
   }
 
-  const [data, setData] = useState(books);
-  /* console.log(data) */
   const [pageNumber, setPagenNumber] = useState(0);
-
   const dataPerPage = 10;
   const pagesVisited = pageNumber * dataPerPage;
 
-  const filteredData = data.filter((b:any) => {
+  const filteredBooks = books.filter((b:any) => {
+    console.log(b.type.title)
+    console.log(selected);  
+    if (selected == undefined) {
+      return b
+    } else if (b.type.title == selected) {
+      return b
+    } 
+  })
+
+  const filteredData = filteredBooks.filter((b:any) => {
     if (searchTerm == "") {
       return b
     } else if (b.title.toLowerCase().includes(searchTerm.toLowerCase())) {
@@ -193,8 +205,8 @@ const CardLarge = ({ books, media, searchTerm } : {books: Library, media: Media,
   })
 
   const displayData = filteredData.slice(pagesVisited, pagesVisited + dataPerPage).map((b:any) => {
-    const rentArray = b.rent
-    const lastRent = rentArray[rentArray.length -1]
+  const rentArray = b.rent
+  const lastRent = rentArray[rentArray.length -1]
 
     return (
       <CardsContainer>
@@ -262,7 +274,7 @@ const CardLarge = ({ books, media, searchTerm } : {books: Library, media: Media,
     )
   })
 
-  const pageCount = Math.ceil(data.length / dataPerPage);
+  const pageCount = Math.ceil(books.length / dataPerPage);
 
   const changePage = ({ selected }:any) => {
     setPagenNumber(selected);

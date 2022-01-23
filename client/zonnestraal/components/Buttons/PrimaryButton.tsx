@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 type BtnProps = { 
   title: string;
-  onClick: () => any;
+  onClick?: () => any;
 } 
 
 const StyledPrimaryButton = styled.button`

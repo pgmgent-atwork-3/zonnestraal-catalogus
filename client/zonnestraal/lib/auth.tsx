@@ -83,8 +83,7 @@ function useProvideAuth(){
       variables: { email, password },
     })
 
-    //console.log(result)
-    //console.log(result.data.login.id)
+    window.localStorage.setItem("authToken", result.data.login.access_token)
 
     if (result?.data?.login?.access_token) {
       setAuthToken(result.data.login.access_token)

@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { PrimaryButton } from '../Buttons'
 import GET_ALL_ROOMS from '../../data/getAllRooms.json';
 import ReservationButton from '../Buttons/ReservationBtn';
+import ReservationButtonRooms from '../Buttons/ReservationBtnRooms';
 
 interface Props {
   
@@ -71,7 +72,7 @@ const RoomCard = () => {
             <p>{data.building.title}</p>
           </Group>
           <ButtonContainer>
-            <ReservationButton title="Reserveren" name={data.title} />
+            <ReservationButtonRooms title="Reserveren" name={data.id} />
           </ButtonContainer>
         </StyledCard>
        ))}

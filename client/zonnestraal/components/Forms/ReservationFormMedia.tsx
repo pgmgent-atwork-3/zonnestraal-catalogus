@@ -9,7 +9,7 @@ import { MuiPickersUtilsProvider, KeyboardTimePicker } from '@material-ui/picker
 import { useState } from 'react';
 import DateFnsUtils from '@date-io/date-fns'
 import { useMutation } from '@apollo/client';
-import {CREATE_LIBRARY_RESERVATION_MUTATION} from '../../graphql/mutations/createLibraryReservation';
+import {CREATE_MEDIA_RESERVATION_MUTATION} from '../../graphql/mutations/createMediaReservation';
 import { PrimaryButton } from '../Buttons';
 
 const PickerContainer = styled.div`
@@ -35,6 +35,12 @@ const FormContainer = styled.div`
   input {
     width: 100%;
   }
+
+  @media (min-width: ${({theme}) => theme.width.desktop}) {
+    input {
+      width: 48%;
+    }  
+  }
 `
 
 const OverviewContainer = styled.div`
@@ -43,34 +49,35 @@ const OverviewContainer = styled.div`
   padding: ${({ theme }) => theme.paddings.normal};
   margin-top: ${({ theme }) => theme.margins.normal};
 
+  button {
+    margin-top: ${({ theme }) => theme.margins.normal};
+  }
+
+  @media (min-width: ${({theme}) => theme.width.desktop}) {
+    width: 48%;
+  }
+
 `
 
-export default function DatePickerDef({id}:any) {
+export default function ReservationFormMedia({ mediaId }:any) {
   const [value, setValue] = React.useState<DateRange<Date>>([new Date("2022-01-11T12:00:00"), new Date("2022-01-11T12:00:00")]);
-  const [ selectedDate, setSelectedDate] = useState(new Date("2022-01-11T12:00:00"));
   const [searchTerm, setSearchTerm] = useState('');
-  const [mutate, { loading, error, data }] = useMutation(CREATE_LIBRARY_RESERVATION_MUTATION);
+  const [mutate, { loading, error, data }] = useMutation(CREATE_MEDIA_RESERVATION_MUTATION);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error, er is iets fout gelopen tijdens de reservatie! {error}</p>;
   if (data) return <p>Je reservatie is succesvol verwerkt!</p>;
 
-  console.log(id)
-  const from_date = value[0]?.toDateString()
-  const till_date = value[1]?.toDateString()
+  const from_date = value[0]?.toLocaleDateString()
+  const till_date = value[1]?.toLocaleDateString()
 
   console.log(from_date)
   console.log(till_date)
   console.log(searchTerm)
 
-  const handleChange = (date: any) => {
-    setSelectedDate(date)
-  }
-
   return (
     <>
       <FormContainer>
-
         <input name='name' placeholder='Jouw naam' onChange={(event:any) => {setSearchTerm(event.target.value)}}/>
 
         <PickerContainer>
@@ -93,42 +100,13 @@ export default function DatePickerDef({id}:any) {
 
           </LocalizationProvider>
         </PickerContainer>
-
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <PickerContainer>
-            <KeyboardTimePicker
-              disableToolbar
-              variant='inline'
-              margin='normal'
-              id='time-picker'
-              label='Kies een uur'
-              value={selectedDate}
-              onChange={handleChange}
-              KeyboardButtonProps={{
-                'aria-label' : 'change hour'
-              }}
-            />
-          </PickerContainer>
-        </MuiPickersUtilsProvider>
-
       </FormContainer>
  
       <OverviewContainer>
         <h3>Overzicht</h3>
-        <p>Van: {from_date} tot {till_date}</p>
         <p>Naam: {searchTerm}</p>
-        <PrimaryButton title="Plaats reservatie" onClick={ () => mutate({ 
-          variables: { 
-            createLibraryReservationInput: {
-              library_id: id, 
-              name: searchTerm, 
-              createLibraryReservationDateInput: {
-                from_date: from_date, 
-                till_date: till_date  
-              }
-            }
-          }
-        })}>Plaats reservatie</PrimaryButton>
+        <p>Periode: {from_date} tot {till_date}</p>
+        <PrimaryButton title="Plaats reservatie" onClick={ () => mutate({ variables: { library_id: mediaId, text: searchTerm, fromDate: from_date, tillDate: till_date  } })}>Plaats reservatie</PrimaryButton>
       </OverviewContainer>
 
     </>

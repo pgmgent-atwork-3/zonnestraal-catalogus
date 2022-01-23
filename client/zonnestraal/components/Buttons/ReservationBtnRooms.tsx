@@ -4,10 +4,10 @@ import styled from 'styled-components';
 
 type BtnProps = { 
   title: string;
-  onClick: () => any;
+  name?: string;
 } 
 
-const StyledPrimaryButton = styled.button`
+const StyledPrimaryButton = styled.a`
   width: 70%;
   display: flex;
   justify-content: center;
@@ -28,13 +28,15 @@ const StyledPrimaryButton = styled.button`
   }
 `
 
-const PrimaryButton: React.FC<BtnProps> = ({ title, onClick }) => {
+const ReservationButtonRooms: React.FC<BtnProps> = ({ title, name }) => {
 
-  return (     
-    <StyledPrimaryButton type="submit" onClick={onClick}>
+  return (
+    <StyledPrimaryButton type="submit">
+      <Link href={'/reservatie/rooms/' + name}> 
         <span>{title}</span>
+      </Link>
     </StyledPrimaryButton>
   )
 }
 
-export default PrimaryButton;
+export default ReservationButtonRooms;

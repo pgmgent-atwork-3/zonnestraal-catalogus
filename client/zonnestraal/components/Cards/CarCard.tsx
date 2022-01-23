@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { PrimaryButton } from '../Buttons'
 import ReservationButton from '../Buttons/ReservationBtn'
+import ReservationButtonCars from '../Buttons/ReservationBtnCars'
 
 interface Props {
   
@@ -75,7 +76,7 @@ const CarCard = ({data}:any) => {
             <p>{data.type}</p>
           </Group>
           <ButtonContainer>
-            <ReservationButton title="Reserveren" name={data.title}/>
+            <ReservationButtonCars title="Reserveren" name={data.id}/>
           </ButtonContainer>
         </StyledCard>
        ))}

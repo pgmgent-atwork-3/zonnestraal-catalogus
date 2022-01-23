@@ -11,6 +11,7 @@ import { FiFilm } from "react-icons/fi";
 import { FiMonitor } from "react-icons/fi";
 import ReservationButton from '../Buttons/ReservationBtn';
 import {useAuth} from '../../lib/auth';
+import ReservationButtonMedia from '../Buttons/ReservationBtnMedia';
 
 /* interface Props {
   data: Book[];
@@ -105,7 +106,7 @@ const MediaCard = ({ data } : {data : Library}) => {
                 {isSignedIn() && 
                   <ButtonContainer>
                     <SecondaryButton title="Uitlenen"/>
-                    <ReservationButton title="Reserveren" name={m.title}/>
+                    <ReservationButtonMedia title="Reserveren" name={m.id}/>
                   </ButtonContainer>
                 }
                 {!isSignedIn() && 

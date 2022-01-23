@@ -115,7 +115,7 @@ const BookCard = ({ data } : {data: Library}) => {
                 {isSignedIn() && 
                   <ButtonContainer>
                     <SecondaryButton title="Uitlenen"/>
-                    <ReservationButton title="Reserveren" name={b.title}/>
+                    <ReservationButton title="Reserveren" name={b.id}/>
                   </ButtonContainer>
                 }
                 {!isSignedIn() && 

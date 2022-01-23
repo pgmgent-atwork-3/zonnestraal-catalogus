@@ -11,8 +11,6 @@ import {
   DateNavigator,
   TodayButton,
 } from '@devexpress/dx-react-scheduler-material-ui';
-import { appointments } from '../../data/appointments';
-import { gql, useQuery } from '@apollo/client';
 import getAllRooms from '../../data/getAllRooms.json'
 
 

@@ -12,6 +12,8 @@ import {
 } from '@material-ui/pickers'
 import { useState } from 'react';
 import DateFnsUtils from '@date-io/date-fns'
+import { InputField } from '../Forms';
+import { gql, useMutation } from '@apollo/client';
 
 const PickerContainer = styled.div`
   margin-top:${({ theme }) => theme.margins.normal};
@@ -30,11 +32,37 @@ const PickerContainer = styled.div`
   }
 `
 
-export default function BasicDateRangePicker() {
+const CREATE_LIBRARY_RESERVATION_MUTATION = gql`
+mutation {
+  createLibraryReservation( createLibraryReservationInput: {
+    library_id: $id
+    name: $text,
+     createLibraryReservationDateInput:{
+      from_date: $fromDate
+      till_date: $tillDate
+    } 
+  ){
+    name
+    library_id
+    created_on
+    profile_id
+  }
+  }
+` 
+
+export default function DatePickerDef({bookId}:any) {
   const [value, setValue] = React.useState<DateRange<Date>>([new Date("2022-01-11T12:00:00"), new Date("2022-01-11T12:00:00")]);
   const [ selectedDate, setSelectedDate] = useState(new Date("2022-01-11T12:00:00"));
+  const [searchTerm, setSearchTerm] = useState('');
+  const [mutate, { loading, error, data }] = useMutation(CREATE_LIBRARY_RESERVATION_MUTATION);
 
-  console.log(value)
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error, failed to delete item!</p>;
+  if (data) return <p>Your item is Deleted!</p>;
+
+
+  const from_date = value[0]?.toLocaleDateString()
+  const till_date = value[1]?.toLocaleDateString()
 
   const handleChange = (date: any) => {
     setSelectedDate(date)
@@ -80,13 +108,15 @@ export default function BasicDateRangePicker() {
         </PickerContainer>
       </MuiPickersUtilsProvider>
 
-
-      {/* <div>
+      <input name='name' placeholder='Jouw naam' onChange={(event:any) => {setSearchTerm(event.target.value)}}/>
+      
+      <div>
         <h3>Overzicht</h3>
-        {value.map((v) => {
-          return <span>{v}</span>
-        })}
-      </div> */}
+        <p>Van: {from_date} tot {till_date}</p>
+        <p>Naam: {searchTerm}</p>
+      </div>
+
+      <button onClick={ () => mutate({ variables: { id: bookId, text: searchTerm, fromDate: from_date, tillDate: till_date  } })}>Plaats reservatie</button>
     </>
   );
 }

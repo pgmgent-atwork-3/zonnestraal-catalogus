@@ -7,12 +7,12 @@ interface Props {
   
 }
 
-const ReservationForm = (props: Props) => {
+const ReservationForm = ({ data }:any ) => {
+  const bookId = data.serial
+
   return (
     <form>
-      <InputField name='name' label='Reservatie op naam van' placeholder='Jouw naam'/>
-      {/* <DateRangePicker/> */}
-      <DateRangePickerDef/>
+      <DateRangePickerDef id={bookId}/>
     </form>
   )
 }

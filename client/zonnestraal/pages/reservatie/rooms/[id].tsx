@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useQuery } from '@apollo/client';
 import { ReservationFormMedia } from '../../../components/Forms';
 import {GET_ONE_ROOM} from '../../../graphql/getOneRoomById';
+import ReservationFormRooms from '../../../components/Forms/ReservationFormRooms';
 
 interface Props {
   
@@ -47,7 +48,7 @@ const ReservationPageMedia = () => {
         <ReservationTitle>"{roomsData.title}"</ReservationTitle>
       </h2>
       
-      <ReservationFormMedia mediaId={roomsData.id}/>
+      <ReservationFormRooms roomId={intId} />
     </ContentContainer>
   )
 }

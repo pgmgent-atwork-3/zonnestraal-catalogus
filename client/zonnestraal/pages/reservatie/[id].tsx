@@ -4,6 +4,8 @@ import ReservationForm from '../../components/Forms/ReservationForm';
 import { useRouter } from 'next/router';
 import { useQuery } from '@apollo/client';
 import {GET_ONE_LIBRARY} from '../../graphql/getOneLibraryById';
+import ReservationFormRooms from '../../components/Forms/ReservationFormRooms';
+import ReservationFormLibrary from '../../components/Forms/ReservationForm';
 
 interface Props {
   
@@ -45,8 +47,7 @@ const ReservationPage = () => {
         Reservatie van
         <ReservationTitle>"{booksData.title}"</ReservationTitle>
       </h2>
-      
-      <ReservationForm data={intId}/>
+      <ReservationFormLibrary bookId={intId}/>
     </ContentContainer>
   )
 }

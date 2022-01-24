@@ -5,11 +5,9 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import Box from '@mui/material/Box';
 import styled from 'styled-components';
-import { MuiPickersUtilsProvider, KeyboardTimePicker } from '@material-ui/pickers'
 import { useState } from 'react';
-import DateFnsUtils from '@date-io/date-fns'
 import { useMutation } from '@apollo/client';
-import {CREATE_MEDIA_RESERVATION_MUTATION} from '../../graphql/mutations/createMediaReservation';
+import {CREATE_ROOM_RESERVATION} from '../../graphql/mutations/createRoomReservation';
 import { PrimaryButton } from '../Buttons';
 import moment from 'moment';
 
@@ -60,19 +58,20 @@ const OverviewContainer = styled.div`
 
 `
 
-export default function ReservationFormMedia({ mediaId }:any) {
+export default function ReservationFormRooms({ roomId }:any) {
   const [value, setValue] = React.useState<DateRange<Date>>([new Date("2022-01-11T12:00:00"), new Date("2022-01-11T12:00:00")]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [mutate, { loading, error, data }] = useMutation(CREATE_MEDIA_RESERVATION_MUTATION);
+  const [mutate, { loading, error, data }] = useMutation(CREATE_ROOM_RESERVATION);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error, er is iets fout gelopen tijdens de reservatie! {error}</p>;
   if (data) return <p>Je reservatie is succesvol verwerkt!</p>;
 
+  
   const from_date = moment(value[0]).format("YYYY-MM-DD hh:mm:ss");
   const till_date = moment(value[1]).format( "YYYY-MM-DD hh:mm:ss");
 
-  console.log(mediaId)
+  console.log(roomId)
   console.log(from_date)
   console.log(till_date)
   console.log(searchTerm)
@@ -110,11 +109,11 @@ export default function ReservationFormMedia({ mediaId }:any) {
         <p>Periode: {from_date} tot {till_date}</p>
         <PrimaryButton title="Plaats reservatie" onClick={ () => mutate({ 
           variables: { 
-            createMediaRentInput: {
-              media_id: mediaId, 
+            createBuildingsRoomsReservationInput: {
+              building_room_id: roomId, 
               name: searchTerm, 
-              rent_from: from_date, 
-              rent_till: till_date  
+              from_date: from_date, 
+              till_date: till_date  
             }
           }
         })}>Plaats reservatie</PrimaryButton>

@@ -49,7 +49,7 @@ const ReservationPageMedia = () => {
         <ReservationTitle>"{mediaData.title}"</ReservationTitle>
       </h2>
       
-      <ReservationFormMedia mediaId={mediaData.id}/>
+      <ReservationFormMedia mediaId={intId}/>
     </ContentContainer>
   )
 }

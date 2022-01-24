@@ -168,6 +168,7 @@ const Detail = ({ detail }: any) => {
 
   console.log(rentArray)
   console.log(lastRent)
+  console.log(detail)
 
 
   if (!detail) {
@@ -227,7 +228,7 @@ const Detail = ({ detail }: any) => {
         {isSignedIn() && 
           <ButtonContainer>
             <SecondaryButton title="Uitlenen"/>
-            <ReservationButton title="Reserveren" name={detail.title}/>
+            <ReservationButton title="Reserveren" name={detail.serial}/>
             <GoBack title="Ga terug naar overzicht"/>
           </ButtonContainer> 
         }

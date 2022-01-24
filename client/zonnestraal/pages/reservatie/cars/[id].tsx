@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import ReservationForm from '../../../components/Forms/ReservationForm';
 import { useRouter } from 'next/router';
-import client from '../../../lib/apollo-client';
-import { gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { ReservationFormMedia } from '../../../components/Forms';
+import {GET_ONE_TRANSPORT} from '../../../graphql/getOneTransport';
 
 interface Props {
   
@@ -25,79 +24,29 @@ const ReservationTitle = styled.h2`
   color: ${({ theme }) => theme.colors.yellow};
 `
 
-export async function getServerSideProps(context: any) {
-  const {params} = context
-  const {id} = params
-  
-  const { data } = await client.query({
-    query: gql`
-    query {
-      getOneTransportById(id: ${id}){
-      title
-      brand
-      type
-      number
-      color
-      color_calendar
-      remarks
-      created_on
-      edited_on
-        
-      
-      reservation {
-        id
-        from_date
-        till_date
-        profile {
-          id
-          display_name
-        }
-        name
-        created_on
-        edited_on
-        
-      }  
-      fixedReservation {
-        id
-        name
-        profile{
-          id
-          display_name
-        }
-        from_date
-        till_date
-        start_time
-        end_time
-        frequency
-        created_on
-        excepions {
-          id
-          date
-          created_on
-        }
-        
-      }  
-    }
-    }
-    `
-  });
-  
-  return {
-    props: {
-      detail: data.getOneTransportById,
-    },
- };
-}
+const ReservationPageCars = () => {
+  const router = useRouter()
+  const { id }:any = router.query
+  const intId = parseInt(id)
+  console.log(intId)
 
-const ReservationPageCars = ({detail}:any) => {
+  const { loading, error, data } = useQuery(GET_ONE_TRANSPORT, {
+    variables: { id: intId }
+  })
+
+  if (loading) return 'Loading...'
+  if (error) return `Error! ${error.message}`
+  console.log(data)
+  const carsData = data.getOneTransportById
+
   return (
     <ContentContainer>
       <h2>
         Reservatie van
-        <ReservationTitle>"{detail.title}"</ReservationTitle>
+        <ReservationTitle>"{carsData.title}"</ReservationTitle>
       </h2>
       
-      <ReservationFormMedia mediaId={detail.id}/>
+      <ReservationFormMedia mediaId={carsData.id}/>
     </ContentContainer>
   )
 }

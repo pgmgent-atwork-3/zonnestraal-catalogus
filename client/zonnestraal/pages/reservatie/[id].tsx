@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import ReservationForm from '../../components/Forms/ReservationForm';
 import { useRouter } from 'next/router';
-import client from '../../lib/apollo-client';
-import { gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
+import {GET_ONE_LIBRARY} from '../../graphql/getOneLibraryById';
 
 interface Props {
   
@@ -24,72 +24,29 @@ const ReservationTitle = styled.h2`
   color: ${({ theme }) => theme.colors.yellow};
 `
 
-export async function getServerSideProps(context: any) {
-  const {params} = context
-  const {id} = params
-  
-  const { data } = await client.query({
-    query: gql`
-    query {
-      getLibraryById(id: ${id}){
-       serial
-       title
-       description
-       publisher
-       author
-       year
-       created_on
-       edited_on
-       hidden
-       language
-       type {
-         id
-         title
-       }
-       location {
-         id
-         title
-         street
-         number
-         zip
-         city
-         country
-         lat
-         lng
-       }
-       rent {
-         name
-         rent_from
-         rent_till
-         returned
-       }
-       reservation {
-         id
-         name
-         deleted
-         created_on
-       }
-     } 
-    }
-    `
-  });
-  
-  return {
-    props: {
-      detail: data.getLibraryById,
-    },
- };
-}
+const ReservationPage = () => {
+  const router = useRouter()
+  const { id }:any = router.query
+  const intId = parseInt(id)
+  console.log(intId)
 
-const ReservationPage = ({detail}:any) => {
+  const { loading, error, data } = useQuery(GET_ONE_LIBRARY, {
+    variables: { id: intId }
+  })
+
+  if (loading) return 'Loading...'
+  if (error) return `Error! ${error.message}`
+  console.log(data)
+  const booksData = data.getLibraryById
+
   return (
     <ContentContainer>
       <h2>
         Reservatie van
-        <ReservationTitle>"{detail.title}"</ReservationTitle>
+        <ReservationTitle>"{booksData.title}"</ReservationTitle>
       </h2>
       
-      <ReservationForm data={detail}/>
+      <ReservationForm data={intId}/>
     </ContentContainer>
   )
 }

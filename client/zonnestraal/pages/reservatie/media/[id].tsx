@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import ReservationForm from '../../../components/Forms/ReservationForm';
 import { useRouter } from 'next/router';
 import client from '../../../lib/apollo-client';
-import { gql } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 import { ReservationFormMedia } from '../../../components/Forms';
+import {GET_ONE_MEDIA} from '../../../graphql/getOneMediaById';
 
 interface Props {
   
@@ -12,6 +13,7 @@ interface Props {
 
 const ContentContainer = styled.div`
   width: 85rem;
+  height: calc(100vh - 10rem);
   max-width: 100%;
   padding: ${({ theme }) => theme.paddings.normal} ${({ theme }) => theme.paddings.normal};
   margin: 0 auto;
@@ -25,87 +27,29 @@ const ReservationTitle = styled.h2`
   color: ${({ theme }) => theme.colors.yellow};
 `
 
-export async function getServerSideProps(context: any) {
-  const {params} = context
-  const {id} = params
-  
-  const { data } = await client.query({
-    query: gql`
-    query {
-      getMediaById(id: ${id}){
-       title
-       description
-       created_on
-       edited_on
-       hidden
-       show_home
-       language
-       type {
-         id
-         title
-         created_on
-         edited_on
-         language 
-       }
-       rent {
-         id
-         name
-         rent_from
-         rent_till
-         returned
-       }
-       fixedReservation {
-         id
-         name
-         from_date
-         till_date
-         start_time
-         end_time
-         frequency
-         created_on
-         excepions {
-           id
-           date
-           created_on
-         }
-         
-       }
-       location {
-         id
-         title
-         street
-         number
-         zip
-         city
-         country
-         lat
-         lng
-         created_on
-         edited_on
-         show_overview
-         
-       }
-     }
-     }
-    `
-  });
-  
-  return {
-    props: {
-      detail: data.getMediaById,
-    },
- };
-}
+const ReservationPageMedia = () => {
+  const router = useRouter()
+  const { id }:any = router.query
+  const intId = parseInt(id)
+  console.log(intId)
 
-const ReservationPageMedia = ({detail}:any) => {
+  const { loading, error, data } = useQuery(GET_ONE_MEDIA, {
+    variables: { id: intId }
+  })
+
+  if (loading) return 'Loading...'
+  if (error) return `Error! ${error.message}`
+  console.log(data)
+  const mediaData = data.getMediaById
+  
   return (
     <ContentContainer>
       <h2>
         Reservatie van
-        <ReservationTitle>"{detail.title}"</ReservationTitle>
+        <ReservationTitle>"{mediaData.title}"</ReservationTitle>
       </h2>
       
-      <ReservationFormMedia mediaId={detail.id}/>
+      <ReservationFormMedia mediaId={mediaData.id}/>
     </ContentContainer>
   )
 }

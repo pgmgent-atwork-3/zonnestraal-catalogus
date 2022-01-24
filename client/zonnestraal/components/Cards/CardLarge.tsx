@@ -263,7 +263,7 @@ const CardLarge = ({ books, searchTerm, selected } : {books: Library, searchTerm
 
                 <ButtonContainer>
                   <SecondaryButton title="Uitlenen"/>
-                  <ReservationButton title="Reserveren" name={b.title}/>
+                  <ReservationButton title="Reserveren" name={b.id}/>
                 </ButtonContainer>
 
               </GreyContainer>

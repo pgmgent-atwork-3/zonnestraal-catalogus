@@ -8,11 +8,11 @@ interface Props {
 }
 
 const ReservationForm = ({ data }:any ) => {
-  const bookId = data.serial
+  console.log(data)
 
   return (
     <form>
-      <DateRangePickerDef id={bookId}/>
+      <DateRangePickerDef id={data}/>
     </form>
   )
 }

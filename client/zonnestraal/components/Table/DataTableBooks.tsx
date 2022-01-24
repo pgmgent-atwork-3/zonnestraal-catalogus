@@ -37,7 +37,7 @@ const columns: GridColDef[] = [
   }
 ];
 
-const DELETE_LIBRARY_MUTATION = gql`
+const DELETE_LIBRARY_RESERVATION = gql`
 mutation delete ( $id: Int! ) {
   removeLibraryReservation( id: $id){
     name
@@ -46,7 +46,7 @@ mutation delete ( $id: Int! ) {
 ` 
 
 export default function DataTableBooks({ rowsData }: any) {
-  const [mutate, { loading, error, data }] = useMutation(DELETE_LIBRARY_MUTATION);
+  const [mutate, { loading, error, data }] = useMutation(DELETE_LIBRARY_RESERVATION);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error, failed to delete item!</p>;

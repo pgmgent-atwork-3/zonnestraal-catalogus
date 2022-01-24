@@ -6,6 +6,7 @@ import DataTableMedia from '../../components/Table/DataTableMedia';
 import DataTableBooks from '../../components/Table/DataTableBooks';
 import DataTableCars from '../../components/Table/DataTableCars';
 import DataTableRooms from '../../components/Table/DataTableRooms';
+import {GET_ALL_OWN_RESERVATION} from '../../graphql/getAllOwnReservation';
 
 interface Props {
   
@@ -25,72 +26,6 @@ const ContentContainer = styled.div`
 const Title = styled.h3`
   margin-top: ${({ theme }) => theme.margins.normal};
   margin-bottom: ${({ theme }) => theme.margins.small};
-`
-
-const GET_ALL_OWN_RESERVATION = gql`
-query {
-  GetAllMediaRentByUser {
-  id
-  media_id
-  profile_id
-  name
-  returned
-  rent_till
-  rent_from
-  media{
-    id
-    title
-  }
-  profile {
-    id
-    display_name
-  }
-} GetAlltransportReservationsByUser{
-  id
-  transport_id
-  profile_id
-  name
-  from_date
-  till_date
-  created_on
-  edited_on
-  transport {
-    id
-    title
-    brand
-    type
-  }
-} GetAllLibraryReservationByUser{
-  id
-  library_id
-  profile_id
-  name
-  deleted
-  created_on
-  library{
-    id
-    title
-  }
-  profile {
-    id
-    display_name
-  }
-} GetAllRoomsReservationByUser{
-  id
-  building_room_id
-  profile_id
-  name
-  from_date
-  till_date
-  created_on
-  edited_on
-    room {
-      id
-      title
-      color_calendar
-    }
-  }
-}
 `
 
 const index = (props: Props) => {

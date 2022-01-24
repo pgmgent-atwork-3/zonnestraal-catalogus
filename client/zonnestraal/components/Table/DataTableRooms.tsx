@@ -56,8 +56,21 @@ const columns: GridColDef[] = [
   }
 ];
 
+const DELETE_ROOM_RESERVATION = gql`
+mutation delete ( $id: Int! ) {
+  removeBuildingsRoomsReservation(id: $id){
+  name
+  }
+}
+` 
+
 export default function DataTableRooms({ rowsData }: any) {
-  
+  const [mutate, { loading, error, data }] = useMutation(DELETE_ROOM_RESERVATION);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error, failed to delete item!</p>;
+  if (data) return <p>Your item is Deleted!</p>;
+
   return (
     <div style={{ height: 530, width: '100%' }}>
       <DataGrid
@@ -67,7 +80,10 @@ export default function DataTableRooms({ rowsData }: any) {
         rowsPerPageOptions={[10]}
         checkboxSelection
         disableSelectionOnClick
-        onCellClick={(params) => console.log(params)}/>
+        onCellClick={(params) => { if(params.field == 'delete'){
+          mutate({ variables: { id: params.id } })
+        }}}
+      />
     </div>
   );
 }

@@ -15,6 +15,7 @@ const ContentContainer = styled.div`
   max-width: 100%;
   padding: ${({ theme }) => theme.paddings.normal} ${({ theme }) => theme.paddings.normal};
   margin: 0 auto;
+  min-height: calc(100vh - 5rem);
 
   @media (min-width: ${({theme}) => theme.width.desktop}) {
     padding: ${({ theme }) => theme.paddings.medium} ${({ theme }) => theme.paddings.extraLarge};

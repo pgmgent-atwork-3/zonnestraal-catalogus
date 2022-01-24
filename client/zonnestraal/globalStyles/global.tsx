@@ -56,7 +56,9 @@ h2 {
 
 h3 {
   font-size: ${({ theme }) => theme.fontSizes.subtitle1};
+  text-transform: uppercase;
   line-height: 1.2;
+  margin-bottom: ${({ theme }) => theme.margins.small};
 
   @media (min-width: ${({ theme }) => theme.width.tablet}) {
     font-size: ${({ theme }) => theme.fontSizes.subtitle1};

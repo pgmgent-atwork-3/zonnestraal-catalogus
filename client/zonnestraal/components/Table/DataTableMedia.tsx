@@ -47,12 +47,9 @@ const columns: GridColDef[] = [
   }
 ];
 
-const DELETE_MEDIA_MUTATION = gql`
-mutation {
-  updateMediaRent(updateMediaRentInput: {
-    id: 1
-   returned: "Y"
-  }){
+const UPDATE_MEDIA_RENT_STATUS = gql`
+mutation updateMediaRent($updateMediaRentInput: UpdateMediaRentInput!){
+  updateMediaRent(updateMediaRentInput: $updateMediaRentInput){
     id
    returned
   }
@@ -60,11 +57,11 @@ mutation {
 ` 
 
 export default function DataTableMedia({ rowsData }: any) {
-  const [mutate, { loading, error, data }] = useMutation(DELETE_MEDIA_MUTATION);
+  const [mutate, { loading, error, data }] = useMutation(UPDATE_MEDIA_RENT_STATUS);
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error, failed to delete item!</p>;
-  if (data) return <p>Your item is Deleted!</p>;
+  if (error) return <p>Error, kon media niet verwijderen!</p>;
+  if (data) return <p>De status van je media is aangepast!</p>;
 
   
   return (
@@ -77,7 +74,12 @@ export default function DataTableMedia({ rowsData }: any) {
         checkboxSelection
         disableSelectionOnClick
         onCellClick={(params) => { if(params.field == 'delete'){
-          mutate({ variables: { id: params.id } })
+          mutate({ 
+            variables: { 
+              updateMediaRentInput: {
+                id: params.id
+              }
+             }})
         }}}
       />
     </div>

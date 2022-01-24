@@ -6,7 +6,7 @@ interface Props {
 }
 
 const StyledFooter = styled.div`
-  height: 5rem;
+  height: 10rem;
   display: flex;
   flex-direction: column;
   padding: ${({ theme }) => theme.paddings.normal};
@@ -14,6 +14,7 @@ const StyledFooter = styled.div`
   text-align: center;
 
   @media (min-width: ${({theme}) => theme.width.tablet}) {
+    height: 5rem;
     flex-direction: row;
     justify-content: center;
     align-items: center;

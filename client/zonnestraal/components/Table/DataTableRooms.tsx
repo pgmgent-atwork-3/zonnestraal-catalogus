@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import { gql, useMutation } from '@apollo/client';
+import { DeleteButton } from '../Buttons';
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 90 },
@@ -31,7 +32,7 @@ const columns: GridColDef[] = [
     field: 'from_date', 
     headerName: 'Gereserveerd van', 
     type: 'date', 
-    width: 200, 
+    width: 150, 
     editable: true, 
     renderCell: (params) => new Date(params.row.from_date).toLocaleDateString()
   },
@@ -39,19 +40,28 @@ const columns: GridColDef[] = [
     field: 'till_date', 
     headerName: 'Gereserveerd tot', 
     type: 'date', 
-    width: 200, 
+    width: 150, 
     editable: true, 
     renderCell: (params) => new Date(params.row.till_date).toLocaleDateString()
   },
+  {
+    field: 'delete',
+    headerName: 'Acties',
+    width: 150,
+    renderCell: (cellValues) => {
+      return (
+        <DeleteButton title='Verwijder'/>
+      )
+    }
+  }
 ];
 
-export default function DataTableRooms({ data }: any) {
-  console.log(data);
+export default function DataTableRooms({ rowsData }: any) {
   
   return (
     <div style={{ height: 530, width: '100%' }}>
       <DataGrid
-        rows={data}
+        rows={rowsData}
         columns={columns}
         pageSize={8}
         rowsPerPageOptions={[10]}

@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import DataTableMedia from '../../components/Table/DataTableMedia';
 import DataTableBooks from '../../components/Table/DataTableBooks';
 import DataTableCars from '../../components/Table/DataTableCars';
+import DataTableRooms from '../../components/Table/DataTableRooms';
 
 interface Props {
   
@@ -74,7 +75,21 @@ query {
     id
     display_name
   }
-}
+} GetAllRoomsReservationByUser{
+  id
+  building_room_id
+  profile_id
+  name
+  from_date
+  till_date
+  created_on
+  edited_on
+    room {
+      id
+      title
+      color_calendar
+    }
+  }
 }
 `
 
@@ -97,6 +112,11 @@ const index = (props: Props) => {
       <div>
         <Title>Boeken</Title>
         <DataTableBooks rowsData={data.GetAllLibraryReservationByUser} />  
+      </div>
+
+      <div>
+        <Title>Zalen</Title>
+        <DataTableRooms rowsData={data.GetAllRoomsReservationByUser} />  
       </div>
 
       <div>

@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useQuery } from '@apollo/client';
 import { ReservationFormMedia } from '../../../components/Forms';
 import {GET_ONE_TRANSPORT} from '../../../graphql/getOneTransport';
+import ReservationFormCars from '../../../components/Forms/ReservationFormCars';
 
 interface Props {
   
@@ -45,8 +46,7 @@ const ReservationPageCars = () => {
         Reservatie van
         <ReservationTitle>"{carsData.title}"</ReservationTitle>
       </h2>
-      
-      <ReservationFormMedia mediaId={carsData.id}/>
+      <ReservationFormCars carId={intId}/>
     </ContentContainer>
   )
 }

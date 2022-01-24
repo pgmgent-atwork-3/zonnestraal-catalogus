@@ -25,7 +25,7 @@ function useProvideAuth(){
   const [CurrentUserId, setCurrentUserId] = useState(null);
 
   const isAdmin = () => {
-    const decodedJWT = jwt_decode(authToken);
+    const decodedJWT:any = jwt_decode(authToken!);
     const isAdmin = decodedJWT.isAdmin
 
     if(isAdmin == true) {
@@ -64,6 +64,7 @@ function useProvideAuth(){
 
   const signOut = () => {
     setAuthToken(null)
+    Router.push('/')
   }
 
   const signIn = async ({ email, password }: {email:string, password:string}) => {

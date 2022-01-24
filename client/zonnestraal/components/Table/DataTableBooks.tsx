@@ -64,7 +64,7 @@ export default function DataTableBooks({ rowsData }: any) {
   React.useState<HTMLButtonElement | null>(null);
   
   return (
-    <div style={{ height: 530, width: '100%' }}>
+    <div style={{ height: 560, width: '100%' }}>
       <DataGrid
         rows={rowsData}
         columns={columns}

@@ -60,7 +60,7 @@ export default function DataTableCars({ data }: any) {
   React.useState<HTMLButtonElement | null>(null);
   
   return (
-    <div style={{ height: 530, width: '100%' }}>
+    <div style={{ height: 560, width: '100%' }}>
       <DataGrid
         rows={data}
         columns={columns}

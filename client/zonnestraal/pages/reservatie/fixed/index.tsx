@@ -40,6 +40,8 @@ const ReservationPageFixedReservations = () => {
   const [frequency, setFrequency] = useState();
   console.log(selected);
 
+  const intId = parseInt(selected)
+
   if (loading) return 'Loading...'
   if (error) return `Error! ${error.message}`
   console.log(data)
@@ -50,27 +52,27 @@ const ReservationPageFixedReservations = () => {
         Vaste reservatie
       </h2>
 
-      <StyledSelect name="Alle velden" value={selected} onChange={e => setSelected(e.target.value)}>
+      <StyledSelect name="Alle velden" value={selected} onChange={(e:any) => setSelected(e.target.value)}>
         <option value="" selected>Selecteer een auto</option>
-        <option value="Ford Transit">Ford Transit</option>
-        <option value="Ford Transit Wit">Ford Transit Wit</option>
-        <option value="FIAT">FIAT</option>
-        <option value="Citroën Cactus">Citroën Cactus</option>
-        <option value="Ford Transit Rood">Ford Transit Rood</option>
-        <option value="Opel Vivaro">Opel Vivaro</option>
-        <option value="VW Passat">VW Passat</option>
-        <option value="FIAT DOBLO">FIAT DOBLO</option>
-        <option value="Citroen Nemo">Citroen Nemo</option>
+        <option value="21">Ford Transit</option>
+        <option value="5">Ford Transit Wit</option>
+        <option value="9">FIAT</option>
+        <option value="19">Citroën Cactus</option>
+        <option value="7">Ford Transit Rood</option>
+        <option value="4">Opel Vivaro</option>
+        <option value="10">VW Passat</option>
+        <option value="18">FIAT DOBLO</option>
+        <option value="20">Citroen Nemo</option>
       </StyledSelect>
 
-      <StyledSelect name="Alle velden" value={selected} onChange={e => setFrequency(e.target.value)}>
+      <StyledSelect name="Alle velden" value={selected} onChange={(e:any) => setFrequency(e.target.value)}>
         <option value="" selected>Selecteer frequenty</option>
         <option value="Daily">Dagelijks</option>
         <option value="Weekly">Weekelijks</option>
         <option value="monthly">Maandelijks</option>
       </StyledSelect>
 
-      <FixedReservationForm car={selected} frequency={frequency}/>
+      <FixedReservationForm car={intId} frequency={frequency}/>
     </ContentContainer>
   )
 }

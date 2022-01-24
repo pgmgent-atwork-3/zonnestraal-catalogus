@@ -4,7 +4,6 @@ import { Repository } from 'typeorm';
 import { CreateMediaFixedReservationsExceptionInput } from './dto/create-media-fixed-reservations-exception.input';
 import { CreateMediaFixedReservationsExceptionsInput } from './dto/create-media-fixed-reservations-exceptions.input';
 import { DeleteMediaFixedReservationExceptionsInput } from './dto/delete-media-fixed-reservations-exceptions.input';
-import { UpdateMediaFixedReservationsExceptionsInput } from './dto/update-media-fixed-reservations-exceptions.input';
 import { MediaFixedReservationsExceptions } from './entities/media-fixed-reservations-exceptions.entity';
 
 @Injectable()

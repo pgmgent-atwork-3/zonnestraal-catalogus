@@ -17,21 +17,9 @@ export class LibraryRentService {
     return this.libraryRentRepository.save(rent);
   }
 
-  findAll() {
-    return `This action returns all libraryRent`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} libraryRent`;
-  }
-
   update(id: number, updateLibraryRentInput: UpdateLibraryRentInput) {
     const rent = this.libraryRentRepository.create(updateLibraryRentInput);
     rent.id = id;
     return this.libraryRentRepository.save(rent);
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} libraryRent`;
   }
 }

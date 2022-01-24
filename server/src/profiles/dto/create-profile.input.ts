@@ -6,7 +6,6 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { Column } from 'typeorm';
 
 export enum Status {
   ACTIVE = 'active',

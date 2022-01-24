@@ -6,6 +6,7 @@ import DataTableMedia from '../../components/Table/DataTableMedia';
 import DataTableBooks from '../../components/Table/DataTableBooks';
 import DataTableCars from '../../components/Table/DataTableCars';
 import DataTableRooms from '../../components/Table/DataTableRooms';
+import {GET_ALL_ADMIN_RESERVATION} from '../../graphql/getAllAdminReservation';
 
 interface Props {
   
@@ -27,81 +28,6 @@ const Title = styled.h3`
   margin-bottom: ${({ theme }) => theme.margins.small};
 `
 
-const GET_ALL_ADMIN_RESERVATION = gql`
-query {
-  getAllLibraryReservationForAdmin{
-   id
-   library_id
-   profile_id
-   name
-   deleted
-   created_on
-   library{
-     id
-     title
-     
-   }
-   profile {
-     id
-     display_name
-   }
- } getAllMediaRentForAdmin{
-  id
-  media_id
-  profile_id
-  name
-  returned
-  rent_from
-  rent_till
-  media{
-    id
-    title
-    
-  }
-  profile {
-    id
-    display_name
-  }
- } getAllTransportReservationForAdmin{
-  id
-  transport_id
-  profile_id
-  name
-  from_date
-  till_date
-  created_on
-  edited_on
-  transport {
-    id
-    title
-    brand
-    type
-  }
-  profile {
-    id
-    display_name
-  }
- } getAllRoomsReservationForAdmin {
-  id
-  building_room_id
-  profile_id
-  name
-  from_date
-  till_date
-  created_on
-  edited_on
-  room {
-    id
-    title
-  }
-  profile {
-    id
-    display_name
-  }
- }
-}
-`
-
 const AdminPage = (props: Props) => {
   const { loading, error, data } = useQuery(GET_ALL_ADMIN_RESERVATION)
 
@@ -116,12 +42,12 @@ const AdminPage = (props: Props) => {
 
       <div>
         <Title>Media</Title>
-        <DataTableMedia data={data.getAllMediaRentForAdmin} />  
+        <DataTableMedia rowsData={data.getAllMediaRentForAdmin} />  
       </div>
 
       <div>
         <Title>Boeken</Title>
-        <DataTableBooks data={data.getAllLibraryReservationForAdmin} />  
+        <DataTableBooks rowsData={data.getAllLibraryReservationForAdmin} />  
       </div>
 
       <div>

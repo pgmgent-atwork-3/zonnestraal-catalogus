@@ -2,6 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import ReservationForm from '../../components/Forms/ReservationForm';
 import { useRouter } from 'next/router';
+import { useQuery } from '@apollo/client';
+import {GET_ONE_LIBRARY} from '../../graphql/getOneLibraryById';
+import ReservationFormRooms from '../../components/Forms/ReservationFormRooms';
+import ReservationFormLibrary from '../../components/Forms/ReservationForm';
 
 interface Props {
   
@@ -22,18 +26,28 @@ const ReservationTitle = styled.h2`
   color: ${({ theme }) => theme.colors.yellow};
 `
 
-const ReservationPage = (props: Props) => {
-  const { query } = useRouter();
-  console.log(query)
+const ReservationPage = () => {
+  const router = useRouter()
+  const { id }:any = router.query
+  const intId = parseInt(id)
+  console.log(intId)
+
+  const { loading, error, data } = useQuery(GET_ONE_LIBRARY, {
+    variables: { id: intId }
+  })
+
+  if (loading) return 'Loading...'
+  if (error) return `Error! ${error.message}`
+  console.log(data)
+  const booksData = data.getLibraryById
 
   return (
     <ContentContainer>
       <h2>
         Reservatie van
-        <ReservationTitle>"{query.name}"</ReservationTitle>
+        <ReservationTitle>"{booksData.title}"</ReservationTitle>
       </h2>
-      
-      <ReservationForm />
+      <ReservationFormLibrary bookId={intId}/>
     </ContentContainer>
   )
 }

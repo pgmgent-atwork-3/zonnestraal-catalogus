@@ -53,20 +53,23 @@ const FilterTitle = styled.span`
   font-weight: 500;
 `
 
-const CheckboxContainer = styled.div`
-  display: flex;
-  align-items: center;
+const StyledSelect = styled.select`
+  height: 2.5rem;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  outline: none;
+  display: block;
+  margin-top: ${({ theme }) => theme.margins.extraSmall};
 
-  input {
-    margin-right: ${({ theme }) => theme.margins.extraSmall};
+  @media (min-width: ${({theme}) => theme.width.desktop}) {
+    width: 100%;
   }
 `
 
 const LibraryPage = ({ books, media } : {books: GetAllBooks, media: GetAllMedia}) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [checked, setChecked] = useState(false);
-
-  console.log(checked);
+  const [ selected, setSelected ] = useState();
 
     /* books en media bevatten data */
     return (
@@ -83,19 +86,24 @@ const LibraryPage = ({ books, media } : {books: GetAllBooks, media: GetAllMedia}
               <SearchBar type="text" placeholder="Zoek op titel of auteur" onChange={event => {setSearchTerm(event.target.value)}}/>
 
               <FilterTitle>Filter</FilterTitle>
-              <CheckboxContainer>
-                <input type="checkbox" id="book" name="Boek" onChange={event => setChecked(event.target.checked)}/>
-                <p>Book</p>  
-              </CheckboxContainer> 
-              <CheckboxContainer>
-                <input type="checkbox" id="map" name="Map" onChange={event => setChecked(event.target.checked)}/>
-                <p>Map</p>  
-              </CheckboxContainer>
+              <StyledSelect name="Alle velden" value={selected} onChange={e => setSelected(e.target.value)}>
+                <option value="Map" selected>Map</option>
+                <option value="Boek">Boek</option>
+                <option value="Tijdschrift">Tijdschrift</option>
+                <option value="Brochure">Brochure</option>
+                <option value="CD-ROM">CD-ROM</option>
+                <option value="Thesis">Thesis</option>
+                <option value="Educatief materiaal">Educatief materiaal</option>
+                <option value="Casette">Casette</option>
+                <option value="CD">CD</option>
+                <option value="Map Bewoners">Map Bewoners</option>
+                <option value="Video">Video</option>
+              </StyledSelect>
             </>
           </FilterContainer>
 
           <ResultsContainer>
-            <CardLarge checked={checked} searchTerm={searchTerm} books={books} media={media}/>
+            <CardLarge checked={checked} searchTerm={searchTerm} books={books} selected={selected}/>
           </ResultsContainer>
 
         </ContentContainer>

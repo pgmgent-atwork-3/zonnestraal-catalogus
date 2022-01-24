@@ -1,7 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
-import {AUTH_TOKEN} from '../../lib/constants';
 import {useAuth} from '../../lib/auth';
 import LoggedInContainer from '../Menu/LoggedInContainer';
 

@@ -38,11 +38,10 @@ const LoggedInHeader = styled.div<{show: Boolean}>`
 `
 
 const DetailsUser = styled.div<{show: Boolean}>`
-  display: block;
   width: 100%;
   flex-direction: column;
   position: absolute;
-  transform: ${({ show }) => (show ? "translateY(-16rem)" : "translateY(0)")};
+  display: ${({ show }) => (show ? "none" : "block")};
   background: ${({ theme }) => theme.colors.yellow};
   padding:  ${({ theme }) => theme.paddings.normal};
   transition: transform 0.5s ease-in-out;
@@ -51,6 +50,12 @@ const DetailsUser = styled.div<{show: Boolean}>`
   h4 {
     display: block;
   }
+
+  @media (min-width: ${({theme}) => theme.width.desktop}) {
+    display: block;
+    transform: ${({ show }) => (show ? "translateY(-16rem)" : "translateY(0)")};
+  }
+
 `
 
 const AccountItem = styled.span`
@@ -82,9 +87,14 @@ const LoggedInContainer = (props: Props) => {
           <AccountItem>Mijn reservaties</AccountItem>
         </Link>
         {isAdmin() && 
+        <>
           <Link href={"/admin"}>
             <AccountItem>Overzicht reservaties</AccountItem>
           </Link>
+          <Link href={"/admin/fixed"}>
+            <AccountItem>Vaste reservaties</AccountItem>
+          </Link>
+        </>
         }
         <SecondaryButton title="afmelden" onClick={() => signOut()}/>
       </DetailsUser>

@@ -4,28 +4,33 @@ import { GET_ALLL_BUILDINGS_ROOMS } from '../../graphql/getAllBuildingsRooms'
 import { GET_ALL_CARS_QUERY } from '../../graphql/getAllCars';
 import { GET_ALLL_BOOKS_QUERY } from '../../graphql/getAllBooks';
 import { useAuth } from '../../lib/auth';
+import RoomCard from '../../components/Cards/RoomCard';
+import styled from 'styled-components';
 
 interface Props {
   
 }
 
+export const ContentContainer = styled.div`
+  width: 85rem;
+  max-width: 100%;
+  padding: ${({ theme }) => theme.paddings.normal} ${({ theme }) => theme.paddings.normal};
+  margin: 0 auto;
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  @media (min-width: ${({theme}) => theme.width.desktop}) {
+    padding: ${({ theme }) => theme.paddings.medium} ${({ theme }) => theme.paddings.extraLarge};
+  }
+`
+
+
 const BuildingsPage = (props: Props) => {
-  const { loading, error, data } = useQuery(GET_ALL_CARS_QUERY)
-
-  if (loading) return 'Loading...'
-  if (error) return `Error! ${error.message}`
-  console.log(data)
-
   return (
-    <>
-      <div>
-        <ul>
-          {data?.getAllCars.map((v) => {
-            return <li key={v.title}>{v.title}</li>
-          })}
-        </ul>
-      </div>
-    </>
+    <ContentContainer>
+      <RoomCard />
+    </ContentContainer>
   )
 }
 

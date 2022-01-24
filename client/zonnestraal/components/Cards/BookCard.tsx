@@ -1,11 +1,13 @@
 import React from 'react'
-import { DefaultLink, PrimaryButton, SecondaryButton } from '../Buttons';
+import { DefaultLink, DisabledButton, DisabledButtonSec, PrimaryButton, SecondaryButton } from '../Buttons';
 import styled from 'styled-components';
 import Link from 'next/link';
 import { Library } from '../../interfaces/models/library';
 import { FiBook } from "react-icons/fi";
 import { FiBookOpen } from "react-icons/fi";
 import { FiFolder } from "react-icons/fi";
+import ReservationButton from '../Buttons/ReservationBtn';
+import {useAuth} from '../../lib/auth';
 
 /* interface Props {
   data: Library[];
@@ -73,10 +75,19 @@ const IconContainer = styled.div`
   }
 `
 
+const ButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+
 const BookCard = ({ data } : {data: Library}) => {
   const NewData = data.slice(0,4);
+  console.log(NewData)
 
-  //console.log(NewData)
+  const { isSignedIn }:any = useAuth();
 
   return (
     <CardsContainer>
@@ -84,7 +95,9 @@ const BookCard = ({ data } : {data: Library}) => {
           <Link href={'/bibliotheek/' + b.id}>
             <StyledCard>
               <GreyContainer>
-                <Availability>Beschikbaar</Availability>
+                <Availability>
+                  {NewData.rent == undefined ? 'Beschikbaar' : 'Niet beschikbaar'}
+                </Availability>
                 <IconContainer>
                   {(() => {
                       switch (b.type.title) {
@@ -99,9 +112,19 @@ const BookCard = ({ data } : {data: Library}) => {
                 </IconContainer>
                 <DefaultLink title="Meer info"/>
 
-                <PrimaryButton title="Reserveren" name={b.title}/>
-                <SecondaryButton title='Uitlenen' />
-                
+                {isSignedIn() && 
+                  <ButtonContainer>
+                    <SecondaryButton title="Uitlenen"/>
+                    <ReservationButton title="Reserveren" name={b.id}/>
+                  </ButtonContainer>
+                }
+                {!isSignedIn() && 
+                  <ButtonContainer>
+                    <DisabledButtonSec title="Uitlenen"/>
+                    <DisabledButton title="Reserveren"/>
+                  </ButtonContainer>
+                }
+
               </GreyContainer>
 
               <TextContainer>

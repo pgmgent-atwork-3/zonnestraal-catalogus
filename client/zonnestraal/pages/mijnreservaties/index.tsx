@@ -4,6 +4,7 @@ import DataTableOwn from '../../components/Table/DataTableMedia';
 import styled from 'styled-components';
 import DataTableMedia from '../../components/Table/DataTableMedia';
 import DataTableBooks from '../../components/Table/DataTableBooks';
+import DataTableCars from '../../components/Table/DataTableCars';
 
 interface Props {
   
@@ -52,6 +53,12 @@ query {
   till_date
   created_on
   edited_on
+  transport {
+    id
+    title
+    brand
+    type
+  }
 } GetAllLibraryReservationByUser{
   id
   library_id
@@ -77,7 +84,6 @@ const index = (props: Props) => {
   if (loading) return 'Loading...'
   if (error) return `Error! ${error.message}`
   console.log(data)
-  console.log(data.GetAllLibraryReservationByUser)
 
   return (
     <ContentContainer>
@@ -85,17 +91,17 @@ const index = (props: Props) => {
 
       <div>
         <Title>Media</Title>
-        <DataTableMedia data={data.GetAllMediaRentByUser} />  
+        <DataTableMedia rowsData={data.GetAllMediaRentByUser} />  
       </div>
 
       <div>
         <Title>Boeken</Title>
-        <DataTableBooks data={data.GetAllLibraryReservationByUser} />  
+        <DataTableBooks rowsData={data.GetAllLibraryReservationByUser} />  
       </div>
 
       <div>
         <Title>Voertuigen</Title>
-        <DataTableMedia data={data.GetAlltransportReservationsByUser} />  
+        <DataTableCars data={data.GetAlltransportReservationsByUser} />  
       </div>
 
     </ContentContainer>

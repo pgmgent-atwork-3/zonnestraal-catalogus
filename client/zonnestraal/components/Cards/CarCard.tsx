@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { PrimaryButton } from '../Buttons'
+import ReservationButton from '../Buttons/ReservationBtn'
+import ReservationButtonCars from '../Buttons/ReservationBtnCars'
 
 interface Props {
   
@@ -58,11 +60,11 @@ const ButtonContainer = styled.div`
 `
 
 
-const CarCard = ({data}) => {
+const CarCard = ({data}:any) => {
   const slicedData = data.slice(0, 10)
   return (
     <>
-      {slicedData.map(data => (
+      {slicedData.map((data:any) => (
         <StyledCard>
           <ItemTitle>{data.title}</ItemTitle>
           <Group>
@@ -74,7 +76,7 @@ const CarCard = ({data}) => {
             <p>{data.type}</p>
           </Group>
           <ButtonContainer>
-            <PrimaryButton title="Reserveren"/>
+            <ReservationButtonCars title="Reserveren" name={data.id}/>
           </ButtonContainer>
         </StyledCard>
        ))}

@@ -3,6 +3,7 @@ import Img from '../public/banner.jpeg';
 import styled from 'styled-components';
 import Image from 'next/image'
 import { PrimaryButton, SecondaryButton } from '../Buttons';
+import Link from 'next/link';
 
 interface Props {
   image?: string;
@@ -93,8 +94,10 @@ const Hero = (props: Props) => {
             <StyledInput type="search" id="site-search" name="q" aria-label="Search through site content" placeholder="Zoek op titel, auteur of trefwoord" /> 
 
             <ButtonContainer>
-              <SecondaryButton title="Clear"/>         
-              <PrimaryButton title="Zoeken"/>
+              <SecondaryButton title="Clear"/>      
+              <Link href={'bibliotheek'}>
+                <PrimaryButton title="Zoeken"/>
+              </Link>
             </ButtonContainer>
 
           </SearchInputContainer>

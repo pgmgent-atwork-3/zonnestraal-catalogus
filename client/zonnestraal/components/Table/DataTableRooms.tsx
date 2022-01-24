@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridRenderCellParams, GridValueGetterParams, GridToolbarContainer, GridToolbarFilterButton } from '@mui/x-data-grid';
 import { gql, useMutation } from '@apollo/client';
 import { DeleteButton } from '../Buttons';
 
@@ -56,6 +56,15 @@ const columns: GridColDef[] = [
   }
 ];
 
+const CustomToolbar: React.FunctionComponent<{
+  setFilterButtonEl: React.Dispatch<React.SetStateAction<HTMLButtonElement | null>>;
+}> = ({ setFilterButtonEl }) => (
+  <GridToolbarContainer>
+    <GridToolbarFilterButton ref={setFilterButtonEl} />
+  </GridToolbarContainer>
+);
+
+
 const DELETE_ROOM_RESERVATION = gql`
 mutation delete ( $id: Int! ) {
   removeBuildingsRoomsReservation(id: $id){
@@ -71,6 +80,9 @@ export default function DataTableRooms({ rowsData }: any) {
   if (error) return <p>Error, failed to delete item!</p>;
   if (data) return <p>Your item is Deleted!</p>;
 
+  const [filterButtonEl, setFilterButtonEl] =
+  React.useState<HTMLButtonElement | null>(null);
+
   return (
     <div style={{ height: 530, width: '100%' }}>
       <DataGrid
@@ -83,6 +95,17 @@ export default function DataTableRooms({ rowsData }: any) {
         onCellClick={(params) => { if(params.field == 'delete'){
           mutate({ variables: { id: params.id } })
         }}}
+        components={{
+          Toolbar: CustomToolbar,
+        }}
+        componentsProps={{
+          panel: {
+            anchorEl: filterButtonEl,
+          },
+          toolbar: {
+            setFilterButtonEl,
+          },
+        }}
       />
     </div>
   );

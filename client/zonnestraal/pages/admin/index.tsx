@@ -18,6 +18,10 @@ const ContentContainer = styled.div`
   padding: ${({ theme }) => theme.paddings.normal} ${({ theme }) => theme.paddings.normal};
   margin: 0 auto;
 
+  .MuiInputLabel-root {
+    margin-bottom: ${({ theme }) => theme.margins.normal};
+  }
+
   @media (min-width: ${({theme}) => theme.width.desktop}) {
     padding: ${({ theme }) => theme.paddings.medium} ${({ theme }) => theme.paddings.extraLarge};
   }

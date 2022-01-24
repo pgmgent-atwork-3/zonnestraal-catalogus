@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridRenderCellParams, GridValueGetterParams, GridToolbarContainer, GridToolbarFilterButton } from '@mui/x-data-grid';
 import { DeleteButton } from '../Buttons';
 import { gql, useMutation } from '@apollo/client';
 
@@ -47,6 +47,15 @@ const columns: GridColDef[] = [
   }
 ];
 
+const CustomToolbar: React.FunctionComponent<{
+  setFilterButtonEl: React.Dispatch<React.SetStateAction<HTMLButtonElement | null>>;
+}> = ({ setFilterButtonEl }) => (
+  <GridToolbarContainer>
+    <GridToolbarFilterButton ref={setFilterButtonEl} />
+  </GridToolbarContainer>
+);
+
+
 const UPDATE_MEDIA_RENT_STATUS = gql`
 mutation updateMediaRent($updateMediaRentInput: UpdateMediaRentInput!){
   updateMediaRent(updateMediaRentInput: $updateMediaRentInput){
@@ -63,6 +72,8 @@ export default function DataTableMedia({ rowsData }: any) {
   if (error) return <p>Error, kon media niet verwijderen!</p>;
   if (data) return <p>De status van je media is aangepast!</p>;
 
+  const [filterButtonEl, setFilterButtonEl] =
+  React.useState<HTMLButtonElement | null>(null);
   
   return (
     <div style={{ height: 530, width: '100%' }}>
@@ -81,6 +92,17 @@ export default function DataTableMedia({ rowsData }: any) {
               }
              }})
         }}}
+        components={{
+          Toolbar: CustomToolbar,
+        }}
+        componentsProps={{
+          panel: {
+            anchorEl: filterButtonEl,
+          },
+          toolbar: {
+            setFilterButtonEl,
+          },
+        }}
       />
     </div>
   );

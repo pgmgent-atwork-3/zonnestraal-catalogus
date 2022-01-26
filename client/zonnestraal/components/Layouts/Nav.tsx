@@ -83,12 +83,6 @@ const StyledNav = styled.nav<{open: Boolean}>`
 `;
 
 const Nav = ({ open }: NavProps) => {
-  /* const [authToken, setAuthToken] = useState();
-
-  useEffect(() => {
-    const newToken = localStorage.getItem(AUTH_TOKEN)
-    setAuthToken(newToken)
-  }, []) */
   const { isSignedIn }:any = useAuth();
 
   return (

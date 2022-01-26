@@ -59,7 +59,7 @@ const OverviewContainer = styled.div`
 `
 
 export default function ReservationFormRooms({ roomId }:any) {
-  const [value, setValue] = React.useState<DateRange<Date>>([new Date("2022-01-11T12:00:00"), new Date("2022-01-11T12:00:00")]);
+  const [value, setValue] = React.useState<DateRange<Date>>([new Date(), new Date()]);
   const [searchTerm, setSearchTerm] = useState('');
   const [mutate, { loading, error, data }] = useMutation(CREATE_ROOM_RESERVATION);
 
@@ -70,11 +70,6 @@ export default function ReservationFormRooms({ roomId }:any) {
   
   const from_date = moment(value[0]).format("YYYY-MM-DD hh:mm:ss");
   const till_date = moment(value[1]).format( "YYYY-MM-DD hh:mm:ss");
-
-  console.log(roomId)
-  console.log(from_date)
-  console.log(till_date)
-  console.log(searchTerm)
 
   return (
     <>

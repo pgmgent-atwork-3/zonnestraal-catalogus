@@ -166,11 +166,6 @@ const Detail = ({ detail }: any) => {
   const rentArray = detail.rent
   const lastRent = rentArray[rentArray.length -1]
 
-  console.log(rentArray)
-  console.log(lastRent)
-  console.log(detail)
-
-
   if (!detail) {
     return <p>Sorry, er is geen data te vinden voor dit boek.</p>
   } 

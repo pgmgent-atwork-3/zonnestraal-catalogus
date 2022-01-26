@@ -38,13 +38,11 @@ const ReservationPageFixedReservations = () => {
   const { loading, error, data } = useQuery(GET_ALL_CARS_QUERY)
   const [selected, setSelected] = useState();
   const [frequency, setFrequency] = useState();
-  console.log(selected);
 
-  const intId = parseInt(selected)
+  const intId = parseInt(selected!)
 
   if (loading) return 'Loading...'
   if (error) return `Error! ${error.message}`
-  console.log(data)
 
   return (
     <ContentContainer>

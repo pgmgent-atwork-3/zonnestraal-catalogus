@@ -55,7 +55,6 @@ const CustomToolbar: React.FunctionComponent<{
 );
 
 export default function DataTableCars({ data }: any) {
-  console.log(data);
   const [filterButtonEl, setFilterButtonEl] =
   React.useState<HTMLButtonElement | null>(null);
   

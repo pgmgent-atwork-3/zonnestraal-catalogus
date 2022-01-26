@@ -12,19 +12,18 @@ import {
   TodayButton,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import getAllRooms from '../../data/getAllRooms.json'
+import {appointmentsRooms} from '../../data/appointmentsRooms';
 
 
 let date = new Date(Date.now());
 const currentDate = date.toString()
 
-console.log(getAllRooms)
-
-const Schedule = () => {
+const ScheduleRooms = () => {
 
   return (
     <Paper>
       <Scheduler
-        data={getAllRooms}
+        data={appointmentsRooms}
         height={600}
       >
 
@@ -51,4 +50,4 @@ const Schedule = () => {
   )
 }
 
-export default Schedule
+export default ScheduleRooms

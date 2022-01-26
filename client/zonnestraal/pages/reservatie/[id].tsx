@@ -30,7 +30,6 @@ const ReservationPage = () => {
   const router = useRouter()
   const { id }:any = router.query
   const intId = parseInt(id)
-  console.log(intId)
 
   const { loading, error, data } = useQuery(GET_ONE_LIBRARY, {
     variables: { id: intId }
@@ -38,7 +37,6 @@ const ReservationPage = () => {
 
   if (loading) return 'Loading...'
   if (error) return `Error! ${error.message}`
-  console.log(data)
   const booksData = data.getLibraryById
 
   return (

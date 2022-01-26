@@ -8,6 +8,7 @@ import { FiBookOpen } from "react-icons/fi";
 import { FiFolder } from "react-icons/fi";
 import ReservationButton from '../Buttons/ReservationBtn';
 import {useAuth} from '../../lib/auth';
+import { GetAllBooks } from '../../interfaces/api/getAllBooks';
 
 /* interface Props {
   data: Library[];
@@ -83,9 +84,8 @@ const ButtonContainer = styled.div`
   align-items: center;
 `
 
-const BookCard = ({ data } : {data: Library}) => {
+const BookCard = ({ data } : {data: GetAllBooks}) => {
   const NewData = data.slice(0,4);
-  console.log(NewData)
 
   const { isSignedIn }:any = useAuth();
 

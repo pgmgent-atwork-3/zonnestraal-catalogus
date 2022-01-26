@@ -59,18 +59,8 @@ export default function DatePickerDef({id}:any) {
     }
   });
 
-/*   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error, er is iets fout gelopen tijdens de reservatie! {error}</p>;
-  if (data) return <p>Je reservatie is succesvol verwerkt!</p>;
- */
-
   const from_date = moment(value[0]).format("YYYY-MM-DD hh:mm:ss");
   const till_date = moment(value[1]).format( "YYYY-MM-DD hh:mm:ss");
-
-  console.log(id)
-  console.log(from_date)
-  console.log(till_date)
-  console.log(searchTerm)
 
   const handleChange = (date: any) => {
     setSelectedDate(date)

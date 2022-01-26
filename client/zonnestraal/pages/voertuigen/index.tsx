@@ -6,14 +6,14 @@ import { GET_ALL_CARS_QUERY } from "../../graphql/getAllCars";
 import { GetAllCars } from "../../interfaces/api/getAllCars";
 import { CarCard } from "../../components/Cards";
 import styled from "styled-components";
-import Schedule from "../../components/Agenda/schedule";
+import Schedule from "../../components/Agenda/ScheduleCars";
 import {useAuth} from '../../lib/auth';
 import { useQuery, gql } from '@apollo/client'
 
 
 /* import { gql, useQuery } from '@apollo/client';
  */
-const ContentContainer = styled.div`
+export const ContentContainer = styled.div`
   width: 85rem;
   max-width: 100%;
   padding: ${({ theme }) => theme.paddings.normal} ${({ theme }) => theme.paddings.normal};
@@ -38,7 +38,6 @@ function CarPage() {
   if (loading) return 'Loading...'
   if (error) return `Error! ${error.message}`
 
-  console.log(data)
   const cars = data.getAllCars
 
   return (

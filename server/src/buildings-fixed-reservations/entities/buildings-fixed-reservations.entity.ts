@@ -39,7 +39,7 @@ export class BuildingsFixedReservations {
     referencedColumnName: 'id',
   })
   @Field(() => BuildingsRooms, { nullable: true })
-  room: BuildingsRooms;
+  room: BuildingsRooms; 
 
   @Column({ nullable: true })
   @Field(() => String, { nullable: true })

@@ -8,6 +8,9 @@ import { FiBookOpen } from "react-icons/fi";
 import { FiFolder } from "react-icons/fi";
 import { Media } from '../../interfaces/models/media';
 import ReactPaginate from "react-paginate";
+import ReservationButton from '../Buttons/ReservationBtn';
+import { GetAllBooks } from "../../interfaces/api/getAllBooks";
+
 
 /* interface Props {
   data: Book[];
@@ -55,6 +58,11 @@ const GreyContainer = styled.div`
 `
 
 const IconContainer = styled.div`
+  svg {
+    font-size: 3rem;
+    color: ${({ theme }) => theme.colors.darkBlue};
+}
+
   @media (min-width: ${({theme}) => theme.width.desktop}) {
     width: 10%;
 
@@ -169,19 +177,24 @@ const PaginationContainer = styled.div`
   }
 `
 
-const CardLarge = ({ books, media, searchTerm } : {books: Library, media: Media, searchTerm: string }) => {
+const CardLarge = ({ books, searchTerm, selected } : {books: GetAllBooks, searchTerm: string, selected: any}) => {
   if (!books) {
     return 'no data';
   }
 
-  const [data, setData] = useState(books);
-  /* console.log(data) */
   const [pageNumber, setPagenNumber] = useState(0);
-
   const dataPerPage = 10;
   const pagesVisited = pageNumber * dataPerPage;
 
-  const filteredData = data.filter((b:any) => {
+  const filteredBooks = books.filter((b:any) => {
+    if (selected == undefined) {
+      return b
+    } else if (b.type.title == selected) {
+      return b
+    } 
+  })
+
+  const filteredData = filteredBooks.filter((b:any) => {
     if (searchTerm == "") {
       return b
     } else if (b.title.toLowerCase().includes(searchTerm.toLowerCase())) {
@@ -192,6 +205,9 @@ const CardLarge = ({ books, media, searchTerm } : {books: Library, media: Media,
   })
 
   const displayData = filteredData.slice(pagesVisited, pagesVisited + dataPerPage).map((b:any) => {
+  const rentArray = b.rent
+  const lastRent = rentArray[rentArray.length -1]
+
     return (
       <CardsContainer>
           <Link href={'/bibliotheek/' + b.id}>
@@ -236,7 +252,7 @@ const CardLarge = ({ books, media, searchTerm } : {books: Library, media: Media,
 
                   <Group>
                     <SubItemTitle>Status</SubItemTitle>
-                    <p>beschikbaar</p>
+                    {lastRent == undefined ? 'Beschikbaar' : lastRent?.returned == 'Y' || undefined ? 'Beschikbaar' : 'Niet beschikbaar'}
                   </Group>
 
                   <DescriptionGroup>
@@ -247,7 +263,7 @@ const CardLarge = ({ books, media, searchTerm } : {books: Library, media: Media,
 
                 <ButtonContainer>
                   <SecondaryButton title="Uitlenen"/>
-                  <PrimaryButton title="Reserveren"/>
+                  <ReservationButton title="Reserveren" name={b.id}/>
                 </ButtonContainer>
 
               </GreyContainer>
@@ -258,7 +274,7 @@ const CardLarge = ({ books, media, searchTerm } : {books: Library, media: Media,
     )
   })
 
-  const pageCount = Math.ceil(data.length / dataPerPage);
+  const pageCount = Math.ceil(books.length / dataPerPage);
 
   const changePage = ({ selected }:any) => {
     setPagenNumber(selected);

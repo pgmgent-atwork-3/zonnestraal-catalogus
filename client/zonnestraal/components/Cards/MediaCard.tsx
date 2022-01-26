@@ -1,5 +1,5 @@
 import React from 'react'
-import { DefaultLink, PrimaryButton, SecondaryButton } from '../Buttons';
+import { DefaultLink, DisabledButton, DisabledButtonSec, PrimaryButton, SecondaryButton } from '../Buttons';
 import styled from 'styled-components';
 import BookIcon from '../../public/icon-book-open.png';
 import Image from 'next/image'
@@ -9,6 +9,10 @@ import { FiMapPin } from "react-icons/fi";
 import { FiCamera } from "react-icons/fi";
 import { FiFilm } from "react-icons/fi";
 import { FiMonitor } from "react-icons/fi";
+import ReservationButton from '../Buttons/ReservationBtn';
+import {useAuth} from '../../lib/auth';
+import ReservationButtonMedia from '../Buttons/ReservationBtnMedia';
+import { GetAllMedia } from '../../interfaces/api/getAllMedia';
 
 /* interface Props {
   data: Book[];
@@ -54,6 +58,10 @@ const ItemTitle = styled.h3`
 
 const IconContainer = styled.div`
   margin-top:${({ theme }) => theme.margins.small};
+  svg {
+    font-size: 3rem;
+    stroke-width: 1;
+  }
 
   @media (min-width: ${({theme}) => theme.width.desktop}) {
     svg {
@@ -64,15 +72,23 @@ const IconContainer = styled.div`
   }
 `
 
-const MediaCard = ({ data } : {data : Library}) => {
+const ButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+
+const MediaCard = ({ data } : {data : GetAllMedia}) => {
   const NewData = data.slice(0,3);
 
-  //console.log(NewData);
+  const { isSignedIn }:any = useAuth();
 
   return (
     <CardsContainer>
-        {NewData.map(m => (
-          <Link href={'/bibliotheek/' + m.id}>
+        {NewData.map((m:any) => (
+          <Link href={'/media/' + m.id}>
             <StyledCard>
               <GreyContainer>
                 <IconContainer>
@@ -90,8 +106,18 @@ const MediaCard = ({ data } : {data : Library}) => {
                   })()}
                 </IconContainer>
                 <DefaultLink title="Meer info"/>
-                <SecondaryButton title="Uitlenen"/>
-                <PrimaryButton title="Reserveren"/>
+                {isSignedIn() && 
+                  <ButtonContainer>
+                    <SecondaryButton title="Uitlenen"/>
+                    <ReservationButtonMedia title="Reserveren" name={m.id}/>
+                  </ButtonContainer>
+                }
+                {!isSignedIn() && 
+                  <ButtonContainer>
+                    <DisabledButtonSec title="Uitlenen"/>
+                    <DisabledButton title="Reserveren"/>
+                  </ButtonContainer>
+                }
               </GreyContainer>
 
               <TextContainer>

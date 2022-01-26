@@ -3,11 +3,8 @@ import client from '../../lib/apollo-client';
 import { gql } from "@apollo/client";
 import styled from 'styled-components';
 import { GoBack, PrimaryButton, SecondaryButton } from '../../components/Buttons';
-import Link from 'next/link';
-
-interface Props {
-  
-}
+import ReservationButton from '../../components/Buttons/ReservationBtn';
+import { useAuth } from '../../lib/auth';
 
 export const ContentContainer = styled.div`
   display: flex;
@@ -151,7 +148,7 @@ export async function getServerSideProps(context: any) {
          deleted
          created_on
        }
-     }
+     } 
     }
     `
   });
@@ -164,65 +161,74 @@ export async function getServerSideProps(context: any) {
 }
 
 const Detail = ({ detail }: any) => {
+  const { isSignedIn }:any = useAuth();
+
+  const rentArray = detail.rent
+  const lastRent = rentArray[rentArray.length -1]
+
   if (!detail) {
     return <p>Sorry, er is geen data te vinden voor dit boek.</p>
   } 
 
   return (
     <ContentContainer>
-        <GreyContainer key={detail.id}>
-          <TextContainer>
-            <ItemTitle>{detail.title}</ItemTitle>
+      <GreyContainer key={detail.id}>
+        <TextContainer>
+          <ItemTitle>{detail.title}</ItemTitle>
 
-            <Group>
-              <SubItemTitle>Author</SubItemTitle>
-              <p>{detail.author ? detail.author : 'geen auteur'}</p>
-            </Group>
+          <Group>
+            <SubItemTitle>Author</SubItemTitle>
+            <p>{detail.author ? detail.author : 'geen auteur'}</p>
+          </Group>
 
-            <Group>
-              <SubItemTitle>Publisher</SubItemTitle>
-              <p>{detail.publisher ? detail.publisher : 'geen publisher'}</p>
-            </Group>
+          <Group>
+            <SubItemTitle>Publisher</SubItemTitle>
+            <p>{detail.publisher ? detail.publisher : 'geen publisher'}</p>
+          </Group>
 
-            <Group>
-              <SubItemTitle>Type</SubItemTitle>
-              <p>{detail.type.title}</p>
-            </Group>
+          <Group>
+            <SubItemTitle>Type</SubItemTitle>
+            <p>{detail.type.title}</p>
+          </Group>
 
-            <Group>
-              <SubItemTitle>Serienummer</SubItemTitle>
-              <p>{detail.serial}</p>
-            </Group>
+          <Group>
+            <SubItemTitle>Serienummer</SubItemTitle>
+            <p>{detail.serial}</p>
+          </Group>
 
-            <Group>
-              <SubItemTitle>Status</SubItemTitle>
-              <p>beschikbaar</p>
-            </Group>
+          <Group>
+            <SubItemTitle>Status</SubItemTitle>
+            {lastRent == undefined ? 'Beschikbaar' : lastRent?.returned == 'Y' || undefined ? 'Beschikbaar' : 'Niet beschikbaar'}
+            {/* {lastRent?.returned == 'Y' || undefined ? 'Beschikbaar' : 'Niet beschikbaar'} */}
+          </Group>
 
-            <Group>
-              <SubItemTitle>Locatie</SubItemTitle>
-              <p>{detail.location.title}</p>
-            </Group>
+          <Group>
+            <SubItemTitle>Locatie</SubItemTitle>
+            <p>{detail.location.title}</p>
+          </Group>
 
-            <Group>
-              <SubItemTitle>Datum laatste leenbeurt</SubItemTitle>
-              <p>{detail.rent.rent_from ? detail.rent.rent_from : 'Jij kan de eerste zijn!'} - {detail.rent.rent_till}</p>
-            </Group>
+          <Group>
+            <SubItemTitle>Datum laatste leenbeurt</SubItemTitle>
+            {rentArray.length > 0 &&
+              <p>{new Date(lastRent.rent_from).toLocaleDateString()} - {new Date(lastRent.rent_till).toLocaleDateString()}</p>
+            }
+          </Group>
 
-            <DescriptionGroup>
-              <SubItemTitle>Beschrijving</SubItemTitle>
-              <ItemDescription dangerouslySetInnerHTML={{__html:detail.description.replace(/\\r\\n/g,'')}}></ItemDescription>
-            </DescriptionGroup>
-          </TextContainer>
+          <DescriptionGroup>
+            <SubItemTitle>Beschrijving</SubItemTitle>
+            <ItemDescription dangerouslySetInnerHTML={{__html:detail.description.replace(/\\r\\n/g,'')}}></ItemDescription>
+          </DescriptionGroup>
+        </TextContainer>
 
+        {isSignedIn() && 
           <ButtonContainer>
             <SecondaryButton title="Uitlenen"/>
-            <PrimaryButton title="Reserveren"/>
-            <Link href="/bibliotheek/">
-              <GoBack title="Ga terug naar overzicht"/>
-            </Link>
-          </ButtonContainer>
-        </GreyContainer>
+            <ReservationButton title="Reserveren" name={detail.serial}/>
+            <GoBack title="Ga terug naar overzicht"/>
+          </ButtonContainer> 
+        }
+        
+      </GreyContainer>
     </ContentContainer>
   );
 }

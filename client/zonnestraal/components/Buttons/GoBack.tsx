@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -26,7 +27,9 @@ const StyledGoBack = styled.a`
 const GoBack: React.FC<BtnProps> = ({ title }) => {
   return (
     <StyledGoBack>
-      <span>{title}</span>
+      <Link href={'/bibliotheek'}> 
+        <span>{title}</span>
+      </Link>
     </StyledGoBack>
   )
 }

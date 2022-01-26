@@ -1,7 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
-import {AUTH_TOKEN} from '../../lib/constants';
 import {useAuth} from '../../lib/auth';
 import LoggedInContainer from '../Menu/LoggedInContainer';
 
@@ -84,12 +83,6 @@ const StyledNav = styled.nav<{open: Boolean}>`
 `;
 
 const Nav = ({ open }: NavProps) => {
-  /* const [authToken, setAuthToken] = useState();
-
-  useEffect(() => {
-    const newToken = localStorage.getItem(AUTH_TOKEN)
-    setAuthToken(newToken)
-  }, []) */
   const { isSignedIn }:any = useAuth();
 
   return (

@@ -4,6 +4,7 @@ import Image from 'next/image'
 import styled from 'styled-components';
 import LoginImg from '../../public/login2.jpeg';
 import { LoginButton } from '../../components/Buttons';
+import Router from 'next/router';
 
 
 interface Props {
@@ -12,7 +13,7 @@ interface Props {
  
 const LoginContainer = styled.div`
   width: 85rem;
-  height: 80vh;
+  height: calc(100vh - 10rem);
   max-width: 100%;
   padding: ${({ theme }) => theme.paddings.normal};
   margin: 0 auto;
@@ -54,15 +55,14 @@ const ImageContainer = styled.div`
 const LoginPage = (props: Props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { signIn, signOut, isSignedIn } = useAuth();
-
-  console.log(isSignedIn())
-
+  const { signIn, signOut, isSignedIn }:any = useAuth();
+    
   function onSubmit(e: any) {
     e.preventDefault()
     signIn({ email, password })
+    Router.push('/')
   }
-
+  
   return (
     <LoginContainer>
       <FormContainer>

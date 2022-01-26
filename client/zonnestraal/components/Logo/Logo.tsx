@@ -16,7 +16,7 @@ const LogoContainer = styled.div `
   }
 
   p {
-    font-size: ${({ theme }) => theme.fontSizes.headline5};
+    font-size: ${({ theme }) => theme.fontSizes.headline6};
     font-weight: 400;
     margin-left: ${({ theme }) => theme.margins.extraSmall};
   }

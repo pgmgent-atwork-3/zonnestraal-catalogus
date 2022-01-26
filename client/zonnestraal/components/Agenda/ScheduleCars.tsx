@@ -16,8 +16,6 @@ import { appointments } from '../../data/appointments';
 let date = new Date(Date.now());
 const currentDate = date.toString()
 
-console.log(currentDate)
-
 const Schedule = () => {
   return (
     <Paper>

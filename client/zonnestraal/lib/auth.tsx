@@ -1,8 +1,10 @@
+import React from 'react';
 import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache, gql } from '@apollo/client';
 import { createContext, useContext, useState } from 'react';
 import jwt_decode from "jwt-decode";
+import Router from 'next/router';
 
-const authContext = createContext()
+const authContext = React.createContext()
 
 export function AuthProvider({children}:any) {
   const auth = useProvideAuth()
@@ -24,7 +26,7 @@ function useProvideAuth(){
   const [CurrentUserId, setCurrentUserId] = useState(null);
 
   const isAdmin = () => {
-    const decodedJWT = jwt_decode(authToken);
+    const decodedJWT:any = jwt_decode(authToken!);
     const isAdmin = decodedJWT.isAdmin
 
     if(isAdmin == true) {
@@ -63,10 +65,12 @@ function useProvideAuth(){
 
   const signOut = () => {
     setAuthToken(null)
+    Router.push('/')
   }
 
   const signIn = async ({ email, password }: {email:string, password:string}) => {
     const client = createApolloClient()
+
     const LoginMutation = gql`
     mutation login ( $email: String!, $password: String!) {
       login( email: $email, password: $password) {
@@ -75,13 +79,13 @@ function useProvideAuth(){
       }
     }
     `
+
     const result = await client.mutate({
       mutation: LoginMutation,
       variables: { email, password },
     })
 
-    //console.log(result)
-    //console.log(result.data.login.id)
+    window.localStorage.setItem("authToken", result.data.login.access_token)
 
     if (result?.data?.login?.access_token) {
       setAuthToken(result.data.login.access_token)

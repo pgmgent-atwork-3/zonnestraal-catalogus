@@ -59,7 +59,7 @@ const OverviewContainer = styled.div`
 `
 
 export default function ReservationFormCars({ carId }:any) {
-  const [value, setValue] = React.useState<DateRange<Date>>([new Date("2022-01-11T12:00:00"), new Date("2022-01-11T12:00:00")]);
+  const [value, setValue] = React.useState<DateRange<Date>>([new Date(), new Date()]);
   const [searchTerm, setSearchTerm] = useState('');
   const [mutate, { loading, error, data }] = useMutation(CREATE_CAR_RESERVATION);
 

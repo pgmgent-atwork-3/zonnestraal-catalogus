@@ -79,8 +79,6 @@ export default function FixedReservationForm({ car, frequency }:any) {
   const till_date = moment(value[1]).format( "YYYY-MM-DD");
   const from_time = moment(selectedDateFrom).format("hh:mm:ss");
   const till_time = moment(selectedDateTill).format( "hh:mm:ss");
-/*   const enumFrequency = Enum.Parse(frequency)
- */
 
   return (
     <>

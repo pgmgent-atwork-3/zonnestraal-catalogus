@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridToolbarContainer, GridToolbarFilterButton } from '@mui/x-data-grid';
 import { DeleteButton, ExceptionsButton } from '../Buttons';
 import { gql, useMutation } from '@apollo/client';
 
@@ -70,28 +70,35 @@ const columns: GridColDef[] = [
   }
 ];
 
-const DELETE_MEDIA_MUTATION = gql`
-mutation {
-  updateMediaRent(updateMediaRentInput: {
-    id: 1
-   returned: "Y"
-  }){
-    id
-   returned
-  }
+const CustomToolbar: React.FunctionComponent<{
+  setFilterButtonEl: React.Dispatch<React.SetStateAction<HTMLButtonElement | null>>;
+}> = ({ setFilterButtonEl }) => (
+  <GridToolbarContainer>
+    <GridToolbarFilterButton ref={setFilterButtonEl} />
+  </GridToolbarContainer>
+);
+
+
+const REMOVE_ROOM_FIXED_RESERVATION = gql`
+mutation delete($id: Int!){
+  removeBuildingsFixedReservation(id: $id){
+   name
+ }
 }
 ` 
 
 export default function DataTableRoomsFixed({ rowsData }: any) {
-  const [mutate, { loading, error, data }] = useMutation(DELETE_MEDIA_MUTATION);
+  const [mutate, { loading, error, data }] = useMutation(REMOVE_ROOM_FIXED_RESERVATION);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error, failed to delete item!</p>;
   if (data) return <p>Your item is Deleted!</p>;
 
+  const [filterButtonEl, setFilterButtonEl] =
+  React.useState<HTMLButtonElement | null>(null);
   
   return (
-    <div style={{ height: 530, width: '100%' }}>
+    <div style={{ height: 560, width: '100%' }}>
       <DataGrid
         rows={rowsData}
         columns={columns}
@@ -101,6 +108,17 @@ export default function DataTableRoomsFixed({ rowsData }: any) {
         onCellClick={(params) => { if(params.field == 'delete'){
           mutate({ variables: { id: params.id } })
         }}}
+        components={{
+          Toolbar: CustomToolbar,
+        }}
+        componentsProps={{
+          panel: {
+            anchorEl: filterButtonEl,
+          },
+          toolbar: {
+            setFilterButtonEl,
+          },
+        }}
       />
     </div>
   );

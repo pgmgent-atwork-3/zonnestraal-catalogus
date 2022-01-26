@@ -83,10 +83,10 @@ const LibraryPage = ({ books, media } : {books: GetAllBooks, media: GetAllMedia}
           <FilterContainer>
             <>
               <FilterTitle>Zoeken</FilterTitle>
-              <SearchBar type="text" placeholder="Zoek op titel of auteur" onChange={event => {setSearchTerm(event.target.value)}}/>
+              <SearchBar type="text" placeholder="Zoek op titel of auteur" onChange={(event:any) => {setSearchTerm(event.target.value)}}/>
 
               <FilterTitle>Filter</FilterTitle>
-              <StyledSelect name="Alle velden" value={selected} onChange={e => setSelected(e.target.value)}>
+              <StyledSelect name="Alle velden" value={selected} onChange={(e:any) => setSelected(e.target.value)}>
                 <option value="Map" selected>Map</option>
                 <option value="Boek">Boek</option>
                 <option value="Tijdschrift">Tijdschrift</option>
@@ -103,7 +103,7 @@ const LibraryPage = ({ books, media } : {books: GetAllBooks, media: GetAllMedia}
           </FilterContainer>
 
           <ResultsContainer>
-            <CardLarge checked={checked} searchTerm={searchTerm} books={books} selected={selected}/>
+            <CardLarge searchTerm={searchTerm} books={books} selected={selected} />
           </ResultsContainer>
 
         </ContentContainer>

@@ -31,6 +31,7 @@ const LoggedInHeader = styled.div<{show: Boolean}>`
 
   h3 {
     margin-left:  ${({ theme }) => theme.margins.extraSmall};
+    margin-bottom: 0;
     color: ${({ theme }) => theme.colors.darkBlue};
     font-size: ${({ theme }) => theme.fontSizes.headline6};
     font-weight: 600;

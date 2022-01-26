@@ -52,7 +52,7 @@ const AdminPage = (props: Props) => {
 
       <div>
         <Title>Zalen</Title>
-        <DataTableRooms data={data.getAllRoomsReservationForAdmin} />  
+        <DataTableRooms rowsData={data.getAllRoomsReservationForAdmin} />  
       </div>
 
       <div>

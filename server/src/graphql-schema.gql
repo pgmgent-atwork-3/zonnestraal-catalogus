@@ -369,7 +369,6 @@ type Mutation {
   createRoomReservation(createBuildingsRoomsReservationInput: CreateBuildingsRoomsReservationInput!): BuildingsRoomsReservations!
   removeBuildingsRoomsReservation(id: Int!): BuildingsRoomsReservations!
   createRoomFixedReservation(createBuildingsFixedReservationInput: CreateBuildingsFixedReservationInput!): BuildingsFixedReservations!
-  updateBuildingsFixedReservation(updateBuildingsFixedReservationInput: UpdateBuildingsFixedReservationInput!): BuildingsFixedReservations!
   removeBuildingsFixedReservation(id: Int!): BuildingsFixedReservations!
   createBuildingsFixedReservationsException(createBuildingsFixedReservationExceptionsInput: CreateBuildingsFixedReservationExceptionsInput!): [BuildingsFixedReservationsExceptions!]!
   deleteBuildingsFixedReservationsException(deleteBuildingsFixedReservationExceptionsInput: DeleteBuildingsFixedReservationExceptionsInput!): [BuildingsFixedReservationsExceptions!]!
@@ -462,18 +461,6 @@ input CreateBuildingsFixedReservationInput {
   till_date: String
   start_time: String
   end_time: String
-}
-
-input UpdateBuildingsFixedReservationInput {
-  building_room_id: Int
-  name: String
-  frequency: String
-  created_on: DateTime
-  from_date: String
-  till_date: String
-  start_time: String
-  end_time: String
-  id: Int!
 }
 
 input CreateBuildingsFixedReservationExceptionsInput {

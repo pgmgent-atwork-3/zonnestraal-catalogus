@@ -10,6 +10,8 @@ import DataTableMediaFixed from '../../components/Table/DataTableMediaFixed';
 import {GET_ALL_FIXED_RESERVATIONS_ADMIN} from '../../graphql/getAllFixedReservationsAdmin';
 import DataTableRoomsFixed from '../../components/Table/DataTableRoomsFixed';
 import DataTableCarsFixed from '../../components/Table/DataTableCarsFixed';
+import { PrimaryButton } from '../../components/Buttons';
+import Link from 'next/link';
 
 interface Props {
   
@@ -23,6 +25,10 @@ const ContentContainer = styled.div`
 
   @media (min-width: ${({theme}) => theme.width.desktop}) {
     padding: ${({ theme }) => theme.paddings.medium} ${({ theme }) => theme.paddings.extraLarge};
+
+    button {
+      width: 30%;
+    }
   }
 `
 
@@ -42,6 +48,11 @@ const AdminPage = (props: Props) => {
   return (
     <ContentContainer>
       <h2>Overzicht vaste reservaties</h2>
+
+      <Link href={'/reservatie/fixed'}>
+        <PrimaryButton title='Vaste reservatie toevoegen'/>
+      </Link>
+
 
       <div>
         <Title>Media</Title>

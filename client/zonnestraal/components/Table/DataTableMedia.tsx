@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridRenderCellParams, GridValueGetterParams, GridToolbarContainer, GridToolbarFilterButton } from '@mui/x-data-grid';
 import { DeleteButton } from '../Buttons';
 import { gql, useMutation } from '@apollo/client';
 
@@ -47,12 +47,18 @@ const columns: GridColDef[] = [
   }
 ];
 
-const DELETE_MEDIA_MUTATION = gql`
-mutation {
-  updateMediaRent(updateMediaRentInput: {
-    id: 1
-   returned: "Y"
-  }){
+const CustomToolbar: React.FunctionComponent<{
+  setFilterButtonEl: React.Dispatch<React.SetStateAction<HTMLButtonElement | null>>;
+}> = ({ setFilterButtonEl }) => (
+  <GridToolbarContainer>
+    <GridToolbarFilterButton ref={setFilterButtonEl} />
+  </GridToolbarContainer>
+);
+
+
+const UPDATE_MEDIA_RENT_STATUS = gql`
+mutation updateMediaRent($updateMediaRentInput: UpdateMediaRentInput!){
+  updateMediaRent(updateMediaRentInput: $updateMediaRentInput){
     id
    returned
   }
@@ -60,15 +66,17 @@ mutation {
 ` 
 
 export default function DataTableMedia({ rowsData }: any) {
-  const [mutate, { loading, error, data }] = useMutation(DELETE_MEDIA_MUTATION);
+  const [mutate, { loading, error, data }] = useMutation(UPDATE_MEDIA_RENT_STATUS);
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error, failed to delete item!</p>;
-  if (data) return <p>Your item is Deleted!</p>;
+  if (error) return <p>Error, kon media niet verwijderen!</p>;
+  if (data) return <p>De status van je media is aangepast!</p>;
 
+  const [filterButtonEl, setFilterButtonEl] =
+  React.useState<HTMLButtonElement | null>(null);
   
   return (
-    <div style={{ height: 530, width: '100%' }}>
+    <div style={{ height: 560, width: '100%' }}>
       <DataGrid
         rows={rowsData}
         columns={columns}
@@ -77,8 +85,24 @@ export default function DataTableMedia({ rowsData }: any) {
         checkboxSelection
         disableSelectionOnClick
         onCellClick={(params) => { if(params.field == 'delete'){
-          mutate({ variables: { id: params.id } })
+          mutate({ 
+            variables: { 
+              updateMediaRentInput: {
+                id: params.id
+              }
+             }})
         }}}
+        components={{
+          Toolbar: CustomToolbar,
+        }}
+        componentsProps={{
+          panel: {
+            anchorEl: filterButtonEl,
+          },
+          toolbar: {
+            setFilterButtonEl,
+          },
+        }}
       />
     </div>
   );

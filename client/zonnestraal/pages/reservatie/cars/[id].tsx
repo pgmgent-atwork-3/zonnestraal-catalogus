@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useQuery } from '@apollo/client';
 import { ReservationFormMedia } from '../../../components/Forms';
 import {GET_ONE_TRANSPORT} from '../../../graphql/getOneTransport';
+import ReservationFormCars from '../../../components/Forms/ReservationFormCars';
 
 interface Props {
   
@@ -14,6 +15,7 @@ const ContentContainer = styled.div`
   max-width: 100%;
   padding: ${({ theme }) => theme.paddings.normal} ${({ theme }) => theme.paddings.normal};
   margin: 0 auto;
+  min-height: calc(100vh - 5rem);
 
   @media (min-width: ${({theme}) => theme.width.desktop}) {
     padding: ${({ theme }) => theme.paddings.medium} ${({ theme }) => theme.paddings.extraLarge};
@@ -45,8 +47,7 @@ const ReservationPageCars = () => {
         Reservatie van
         <ReservationTitle>"{carsData.title}"</ReservationTitle>
       </h2>
-      
-      <ReservationFormMedia mediaId={carsData.id}/>
+      <ReservationFormCars carId={intId}/>
     </ContentContainer>
   )
 }

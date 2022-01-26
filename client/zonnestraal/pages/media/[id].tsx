@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import { GoBack, PrimaryButton, SecondaryButton } from '../../components/Buttons';
 import ReservationButton from '../../components/Buttons/ReservationBtn';
 import { useAuth } from '../../lib/auth';
+import ReservationButtonMedia from '../../components/Buttons/ReservationBtnMedia';
+import { useRouter } from 'next/router';
 
 export const ContentContainer = styled.div`
   display: flex;
@@ -161,6 +163,10 @@ export async function getServerSideProps(context: any) {
 
 const Detail = ({ detail }: any) => {
   const { isSignedIn }:any = useAuth();
+  
+  const router = useRouter()
+  const { id }:any = router.query
+  const intId:any = parseInt(id)
 
   //Checking if last person returned item to the vzw
   const rentArray = detail.rent;
@@ -171,6 +177,8 @@ const Detail = ({ detail }: any) => {
   if (!detail) {
     return <p>Sorry, er is geen data te vinden voor dit boek.</p>
   } 
+
+  console.log(detail)
 
   return (
     <ContentContainer>
@@ -207,7 +215,8 @@ const Detail = ({ detail }: any) => {
         {isSignedIn() && 
           <ButtonContainer>
             <SecondaryButton title="Uitlenen"/>
-            <ReservationButton title="Reserveren" name={detail.id}/>
+            <ReservationButtonMedia title="Reserveren" name={intId}/>
+            {detail.id}
             <GoBack title="Ga terug naar overzicht"/>
           </ButtonContainer> 
         }

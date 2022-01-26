@@ -18,7 +18,8 @@ export class AuthService {
       const { password, ...result } = user;
       return result;
     }
-    throw new HttpException('Wrong Email or Password', HttpStatus.FORBIDDEN);
+  throw new HttpException('Wrong Email or Password', HttpStatus.FORBIDDEN);
+
   }
   async login(user: any) {
     const role = await this.profilesGroupsRightsService.findOne(user.id);

@@ -89,7 +89,9 @@ function useProvideAuth(){
 
     if (result?.data?.login?.access_token) {
       setAuthToken(result.data.login.access_token)
-    } else 'No acces token!'
+    } else {
+      <p>Verkeerd wachtwoord en/of email</p>
+    }
 
     if (result?.data?.login?.id) {
       setCurrentUserId(result.data.login.id)

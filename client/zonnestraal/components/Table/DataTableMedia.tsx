@@ -66,14 +66,15 @@ mutation updateMediaRent($updateMediaRentInput: UpdateMediaRentInput!){
 ` 
 
 export default function DataTableMedia({ rowsData }: any) {
+  const [filterButtonEl, setFilterButtonEl] =
+  React.useState<HTMLButtonElement | null>(null);
+  
   const [mutate, { loading, error, data }] = useMutation(UPDATE_MEDIA_RENT_STATUS);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error, kon media niet verwijderen!</p>;
   if (data) return <p>De status van je media is aangepast!</p>;
 
-  const [filterButtonEl, setFilterButtonEl] =
-  React.useState<HTMLButtonElement | null>(null);
   
   return (
     <div style={{ height: 560, width: '100%' }}>

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { DataGrid, GridColDef, GridRenderCellParams, GridValueGetterParams, GridToolbarContainer, GridToolbarFilterButton } from '@mui/x-data-grid';
 import { DeleteButton } from '../Buttons';
+import { gql, useMutation } from '@apollo/client';
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 90 },
@@ -35,7 +36,7 @@ const columns: GridColDef[] = [
     renderCell: (params) => new Date(params.row.till_date).toLocaleDateString()
   },
   {
-    field: 'actions',
+    field: 'delete',
     headerName: 'Acties',
     width: 150,
     renderCell: (cellValues) => {
@@ -54,19 +55,36 @@ const CustomToolbar: React.FunctionComponent<{
   </GridToolbarContainer>
 );
 
-export default function DataTableCars({ data }: any) {
+const DELETE_TRANSPORT_RESERVATION = gql`
+mutation delete ( $id: Int! ) {
+  removeTransportReservation(id: $id){
+  name
+  }
+}
+` 
+
+export default function DataTableCars({ rowsData }: any) {
   const [filterButtonEl, setFilterButtonEl] =
   React.useState<HTMLButtonElement | null>(null);
+
+  const [mutate, { loading, error, data }] = useMutation(DELETE_TRANSPORT_RESERVATION);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error, failed to delete item!</p>;
+  if (data) return <p>Je reservatie is verwijdert!</p>;
   
   return (
     <div style={{ height: 560, width: '100%' }}>
       <DataGrid
-        rows={data}
+        rows={rowsData}
         columns={columns}
         pageSize={8}
         rowsPerPageOptions={[10]}
         checkboxSelection
         disableSelectionOnClick
+        onCellClick={(params) => { if(params.field == 'delete'){
+          mutate({ variables: { id: params.id } })
+        }}}
         components={{
           Toolbar: CustomToolbar,
         }}

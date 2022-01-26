@@ -93,14 +93,15 @@ mutation delete($id: Int!){
 ` 
 
 export default function DataTableMediaFixed({ rowsData }: any) {
+  const [filterButtonEl, setFilterButtonEl] =
+  React.useState<HTMLButtonElement | null>(null);
+  
   const [mutate, { loading, error, data }] = useMutation(REMOVE_MEDIA_FIXED_RESERVATION);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error, failed to delete item!</p>;
   if (data) return <p>Je reservatie is verwijdert!</p>;
 
-  const [filterButtonEl, setFilterButtonEl] =
-  React.useState<HTMLButtonElement | null>(null);
 
   return (
     <div style={{ height: 560, width: '100%' }}>

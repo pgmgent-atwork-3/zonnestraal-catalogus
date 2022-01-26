@@ -54,14 +54,15 @@ mutation delete ( $id: Int! ) {
 ` 
 
 export default function DataTableBooks({ rowsData }: any) {
+  const [filterButtonEl, setFilterButtonEl] =
+  React.useState<HTMLButtonElement | null>(null);
+  
   const [mutate, { loading, error, data }] = useMutation(DELETE_LIBRARY_RESERVATION);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error, failed to delete item!</p>;
   if (data) return <p>Your item is Deleted!</p>;
 
-  const [filterButtonEl, setFilterButtonEl] =
-  React.useState<HTMLButtonElement | null>(null);
   
   return (
     <div style={{ height: 560, width: '100%' }}>

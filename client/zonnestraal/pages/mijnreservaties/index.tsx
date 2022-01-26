@@ -55,7 +55,7 @@ const index = (props: Props) => {
 
       <div>
         <Title>Voertuigen</Title>
-        <DataTableCars data={data.GetAlltransportReservationsByUser} />  
+        <DataTableCars rowsData={data.GetAlltransportReservationsByUser} />  
       </div>
 
     </ContentContainer>

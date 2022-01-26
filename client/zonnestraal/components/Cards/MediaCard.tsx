@@ -58,6 +58,10 @@ const ItemTitle = styled.h3`
 
 const IconContainer = styled.div`
   margin-top:${({ theme }) => theme.margins.small};
+  svg {
+    font-size: 3rem;
+    stroke-width: 1;
+  }
 
   @media (min-width: ${({theme}) => theme.width.desktop}) {
     svg {
@@ -80,8 +84,6 @@ const MediaCard = ({ data } : {data : GetAllMedia}) => {
   const NewData = data.slice(0,3);
 
   const { isSignedIn }:any = useAuth();
-
-  //console.log(NewData);
 
   return (
     <CardsContainer>

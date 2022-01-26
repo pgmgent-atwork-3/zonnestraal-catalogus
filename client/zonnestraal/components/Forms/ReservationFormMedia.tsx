@@ -70,11 +70,6 @@ export default function ReservationFormMedia({ mediaId }:any) {
   const from_date = moment(value[0]).format("YYYY-MM-DD hh:mm:ss");
   const till_date = moment(value[1]).format( "YYYY-MM-DD hh:mm:ss");
 
-  console.log(mediaId)
-  console.log(from_date)
-  console.log(till_date)
-  console.log(searchTerm)
-
   return (
     <>
       <FormContainer>

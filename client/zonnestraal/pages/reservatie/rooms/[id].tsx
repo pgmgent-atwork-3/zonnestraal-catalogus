@@ -30,7 +30,6 @@ const ReservationPageMedia = () => {
   const router = useRouter()
   const { id }:any = router.query
   const intId = parseInt(id)
-  console.log(intId)
 
   const { loading, error, data } = useQuery(GET_ONE_ROOM, {
     variables: { id: intId }
@@ -38,7 +37,6 @@ const ReservationPageMedia = () => {
 
   if (loading) return 'Loading...'
   if (error) return `Error! ${error.message}`
-  console.log(data)
   const roomsData = data.getOneBuildingsRoomById
 
   return (

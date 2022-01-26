@@ -24,7 +24,6 @@ const PickerContainer = styled.div`
 const DatePickerRange = (props: Props) => {
 
   const [ selectedDate, setSelectedDate] = useState(new Date("2022-01-11T12:00:00"));
-  console.log(selectedDate)
 
   const handleChange = (date: any) => {
     setSelectedDate(date)

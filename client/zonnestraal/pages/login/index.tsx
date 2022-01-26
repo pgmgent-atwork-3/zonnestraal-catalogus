@@ -56,9 +56,7 @@ const LoginPage = (props: Props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { signIn, signOut, isSignedIn }:any = useAuth();
-  
-  console.log(isSignedIn())
-  
+    
   function onSubmit(e: any) {
     e.preventDefault()
     signIn({ email, password })

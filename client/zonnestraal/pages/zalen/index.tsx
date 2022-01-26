@@ -32,7 +32,6 @@ const ScheduleContainer = styled.div`
   margin-top:${({ theme }) => theme.margins.large};
 `
 
-
 const BuildingsPage = (props: Props) => {
   return (
     <ContentContainer>

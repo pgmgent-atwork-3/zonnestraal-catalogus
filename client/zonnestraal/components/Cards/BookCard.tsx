@@ -86,7 +86,6 @@ const ButtonContainer = styled.div`
 
 const BookCard = ({ data } : {data: GetAllBooks}) => {
   const NewData = data.slice(0,4);
-  console.log(NewData)
 
   const { isSignedIn }:any = useAuth();
 

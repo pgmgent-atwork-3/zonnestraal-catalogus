@@ -187,8 +187,6 @@ const CardLarge = ({ books, searchTerm, selected } : {books: GetAllBooks, search
   const pagesVisited = pageNumber * dataPerPage;
 
   const filteredBooks = books.filter((b:any) => {
-    console.log(b.type.title)
-    console.log(selected);  
     if (selected == undefined) {
       return b
     } else if (b.type.title == selected) {

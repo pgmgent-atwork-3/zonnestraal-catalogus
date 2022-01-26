@@ -34,7 +34,12 @@ const ItemTitle = styled.h3`
 const Group = styled.div`
   display: flex;
   flex-direction: column;
-  width: 25%;
+  width: 50%;
+
+  @media (min-width: ${({theme}) => theme.width.desktop}) {
+    width: 33%;
+  }
+
 `
 
 const SubItemTitle = styled.span`

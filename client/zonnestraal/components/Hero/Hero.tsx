@@ -80,7 +80,6 @@ const Hero = (props: Props) => {
   return (
     <>
       <StyledHero style={{ backgroundImage: 'url("https://one-photo.zonnestraal-vzw.be/____gallery/images/5/b36/cfc/b06/a57/8a5/910/228/dea/e1e/7cf/678/7a1/2a7.jpg_l.jpg?progressive&_1&webp")' }}>
-        {/* <Image src={img}/> */}
         <SearchContainer>
           <h2>Ga op zoek naar media</h2>
 

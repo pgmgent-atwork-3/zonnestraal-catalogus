@@ -12,6 +12,7 @@ import { FiMonitor } from "react-icons/fi";
 import ReservationButton from '../Buttons/ReservationBtn';
 import {useAuth} from '../../lib/auth';
 import ReservationButtonMedia from '../Buttons/ReservationBtnMedia';
+import { GetAllMedia } from '../../interfaces/api/getAllMedia';
 
 /* interface Props {
   data: Book[];
@@ -75,7 +76,7 @@ const ButtonContainer = styled.div`
   align-items: center;
 `
 
-const MediaCard = ({ data } : {data : Library}) => {
+const MediaCard = ({ data } : {data : GetAllMedia}) => {
   const NewData = data.slice(0,3);
 
   const { isSignedIn }:any = useAuth();

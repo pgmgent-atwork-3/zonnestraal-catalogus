@@ -19,7 +19,7 @@ const currentDate = date.toString()
 
 console.log(getAllRooms)
 
-const Schedule = () => {
+const ScheduleRooms = () => {
 
   return (
     <Paper>
@@ -51,4 +51,4 @@ const Schedule = () => {
   )
 }
 
-export default Schedule
+export default ScheduleRooms

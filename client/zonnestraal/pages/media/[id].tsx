@@ -12,6 +12,7 @@ export const ContentContainer = styled.div`
   flex-grow: 1;
   width: 85rem;
   max-width: 100%;
+  min-height: calc(100vh - 10rem);
   padding: 0 ${({ theme }) => theme.paddings.normal};
   margin: 0 auto;
 
@@ -206,7 +207,7 @@ const Detail = ({ detail }: any) => {
         {isSignedIn() && 
           <ButtonContainer>
             <SecondaryButton title="Uitlenen"/>
-            <ReservationButton title="Reserveren" name={detail.title}/>
+            <ReservationButton title="Reserveren" name={detail.id}/>
             <GoBack title="Ga terug naar overzicht"/>
           </ButtonContainer> 
         }

@@ -87,7 +87,8 @@ const LibraryPage = ({ books, media } : {books: GetAllBooks, media: GetAllMedia}
 
               <FilterTitle>Filter</FilterTitle>
               <StyledSelect name="Alle velden" value={selected} onChange={(e:any) => setSelected(e.target.value)}>
-                <option value="Map" selected>Map</option>
+                <option value="" selected>Selecteer een type</option>
+                <option value="Map">Map</option>
                 <option value="Boek">Boek</option>
                 <option value="Tijdschrift">Tijdschrift</option>
                 <option value="Brochure">Brochure</option>

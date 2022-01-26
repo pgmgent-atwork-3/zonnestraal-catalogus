@@ -39,7 +39,7 @@ export class BuildingsFixedReservations {
     referencedColumnName: 'id',
   })
   @Field(() => BuildingsRooms, { nullable: true })
-  room: BuildingsRooms;
+  room: BuildingsRooms; 
 
   @Column({ nullable: true })
   @Field(() => String, { nullable: true })
@@ -99,6 +99,9 @@ export class BuildingsFixedReservations {
     () => BuildingsFixedReservationsExceptions,
     (buildingsFixedReservationsExceptions) =>
       buildingsFixedReservationsExceptions.fixed_reservations,
+    {
+      eager: true,
+    },
   )
   @Field(() => [BuildingsFixedReservationsExceptions], { nullable: true })
   excepions: BuildingsFixedReservationsExceptions[];

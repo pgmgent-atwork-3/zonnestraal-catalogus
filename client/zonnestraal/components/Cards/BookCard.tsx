@@ -1,14 +1,18 @@
 import React from 'react'
-import { DefaultLink, PrimaryButton, SecondaryButton } from '../Buttons';
+import { DefaultLink, DisabledButton, DisabledButtonSec, PrimaryButton, SecondaryButton } from '../Buttons';
 import styled from 'styled-components';
-import BookIcon from '../../public/icon-book-open.png';
-import Image from 'next/image'
 import Link from 'next/link';
-import { Book } from '../../interfaces/models/book';
+import { Library } from '../../interfaces/models/library';
+import { FiBook } from "react-icons/fi";
+import { FiBookOpen } from "react-icons/fi";
+import { FiFolder } from "react-icons/fi";
+import ReservationButton from '../Buttons/ReservationBtn';
+import {useAuth} from '../../lib/auth';
+import { GetAllBooks } from '../../interfaces/api/getAllBooks';
 
-interface Props {
-  data: Book[];
-}
+/* interface Props {
+  data: Library[];
+} */
 
 const GreyContainer = styled.div`
   position: relative;
@@ -30,6 +34,7 @@ const CardsContainer = styled.div`
 `
 
 const StyledCard = styled.div`
+  cursor: pointer;
   display: flex;
   position: relative;
   flex-direction: column;
@@ -56,22 +61,70 @@ const Availability = styled.span`
   color: ${({ theme }) => theme.colors.darkBlue};
 `
 
-const BookCard = ({ data }) => {
+const IconContainer = styled.div`
+  svg {
+    font-size: 4rem;
+    color: ${({ theme }) => theme.colors.darkBlue};
+    stroke-width: 1;
+  }
+
+  @media (min-width: ${({theme}) => theme.width.desktop}) {
+    svg {
+      font-size: 5rem;
+      stroke-width: 1;
+    }
+  }
+`
+
+const ButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+
+const BookCard = ({ data } : {data: GetAllBooks}) => {
   const NewData = data.slice(0,4);
 
-  console.log(NewData)
+  const { isSignedIn }:any = useAuth();
 
   return (
     <CardsContainer>
-        {NewData.map(b => (
+        {NewData.map((b:any) => (
           <Link href={'/bibliotheek/' + b.id}>
             <StyledCard>
               <GreyContainer>
-                <Availability>Beschikbaar</Availability>
-                <Image src={BookIcon} height={80} width={80}/>
+                <Availability>
+                  {NewData.rent == undefined ? 'Beschikbaar' : 'Niet beschikbaar'}
+                </Availability>
+                <IconContainer>
+                  {(() => {
+                      switch (b.type.title) {
+                        case 'Boek':
+                          return <FiBook/>;
+                        case 'Map':
+                          return <FiFolder/>;
+                        default:
+                          return <FiBookOpen/>;
+                        }
+                  })()}
+                </IconContainer>
                 <DefaultLink title="Meer info"/>
-                <SecondaryButton title="Uitlenen"/>
-                <PrimaryButton title="Reserveren"/>
+
+                {isSignedIn() && 
+                  <ButtonContainer>
+                    <SecondaryButton title="Uitlenen"/>
+                    <ReservationButton title="Reserveren" name={b.id}/>
+                  </ButtonContainer>
+                }
+                {!isSignedIn() && 
+                  <ButtonContainer>
+                    <DisabledButtonSec title="Uitlenen"/>
+                    <DisabledButton title="Reserveren"/>
+                  </ButtonContainer>
+                }
+
               </GreyContainer>
 
               <TextContainer>

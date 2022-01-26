@@ -3,6 +3,7 @@ import Img from '../public/banner.jpeg';
 import styled from 'styled-components';
 import Image from 'next/image'
 import { PrimaryButton, SecondaryButton } from '../Buttons';
+import Link from 'next/link';
 
 interface Props {
   image?: string;
@@ -79,7 +80,6 @@ const Hero = (props: Props) => {
   return (
     <>
       <StyledHero style={{ backgroundImage: 'url("https://one-photo.zonnestraal-vzw.be/____gallery/images/5/b36/cfc/b06/a57/8a5/910/228/dea/e1e/7cf/678/7a1/2a7.jpg_l.jpg?progressive&_1&webp")' }}>
-        {/* <Image src={img}/> */}
         <SearchContainer>
           <h2>Ga op zoek naar media</h2>
 
@@ -93,8 +93,10 @@ const Hero = (props: Props) => {
             <StyledInput type="search" id="site-search" name="q" aria-label="Search through site content" placeholder="Zoek op titel, auteur of trefwoord" /> 
 
             <ButtonContainer>
-              <SecondaryButton title="Clear"/>         
-              <PrimaryButton title="Zoeken"/>
+              <SecondaryButton title="Clear"/>      
+              <Link href={'bibliotheek'}>
+                <PrimaryButton title="Zoeken"/>
+              </Link>
             </ButtonContainer>
 
           </SearchInputContainer>

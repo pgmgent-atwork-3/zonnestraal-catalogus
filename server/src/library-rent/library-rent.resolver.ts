@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Mutation, Args } from '@nestjs/graphql';
 import { LibraryRentService } from './library-rent.service';
 import { LibraryRent } from './entities/library-rent.entity';
 import { CreateLibraryRentInput } from './dto/create-library-rent.input';
@@ -21,16 +21,6 @@ export class LibraryRentResolver {
     return this.libraryRentService.create(user.id, createLibraryRentInput);
   }
 
-  @Query(() => [LibraryRent], { name: 'libraryRent' })
-  findAll() {
-    return this.libraryRentService.findAll();
-  }
-
-  @Query(() => LibraryRent, { name: 'libraryRent' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.libraryRentService.findOne(id);
-  }
-
   @UseGuards(JwtAuthGuard)
   @Mutation(() => LibraryRent)
   updateLibraryRent(
@@ -41,10 +31,5 @@ export class LibraryRentResolver {
       updateLibraryRentInput.id,
       updateLibraryRentInput,
     );
-  }
-
-  @Mutation(() => LibraryRent)
-  removeLibraryRent(@Args('id', { type: () => Int }) id: number) {
-    return this.libraryRentService.remove(id);
   }
 }

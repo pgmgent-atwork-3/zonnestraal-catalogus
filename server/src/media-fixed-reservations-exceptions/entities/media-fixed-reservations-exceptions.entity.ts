@@ -19,9 +19,6 @@ export class MediaFixedReservationsExceptions {
   @ManyToOne(
     () => MediaFixedReservations,
     (mediaFixedReservations) => mediaFixedReservations.excepions,
-    {
-      eager: true,
-    },
   )
   @JoinColumn({
     name: 'media_fixed_reservations_id',
@@ -41,4 +38,8 @@ export class MediaFixedReservationsExceptions {
   })
   @Field({ nullable: true })
   created_on: Date;
+
+  @Column()
+  @Field()
+  media_fixed_reservations_id: number;
 }

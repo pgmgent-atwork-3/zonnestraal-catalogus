@@ -6,6 +6,7 @@ type PopProps = {
 }
 
 const PopContainer = styled.div `
+  height: 4rem;
   display: flex;
   background: ${({ theme }) => theme.colors.yellow};
   margin-bottom:  ${({ theme }) => theme.margins.small};
@@ -15,6 +16,7 @@ const PopContainer = styled.div `
   }
 
   @media (min-width: ${({theme}) => theme.width.desktop}) {
+    height: 1rem;
     margin-bottom: 0;
   }
 `

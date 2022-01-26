@@ -2,7 +2,6 @@ import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { BuildingsFixedReservationsService } from './buildings-fixed-reservations.service';
 import { BuildingsFixedReservations } from './entities/buildings-fixed-reservations.entity';
 import { CreateBuildingsFixedReservationInput } from './dto/create-buildings-fixed-reservation.input';
-import { UpdateBuildingsFixedReservationInput } from './dto/update-buildings-fixed-reservation.input';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { HttpException, HttpStatus, UseGuards } from '@nestjs/common';
 import { GetUser } from 'src/auth/getUserFromToken';
@@ -62,19 +61,18 @@ export class BuildingsFixedReservationsResolver {
     return this.buildingsFixedReservationsService.findOne(id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Mutation(() => BuildingsFixedReservations)
-  updateBuildingsFixedReservation(
-    @Args('updateBuildingsFixedReservationInput')
-    updateBuildingsFixedReservationInput: UpdateBuildingsFixedReservationInput,
+  removeBuildingsFixedReservation(
+    @Args('id', { type: () => Int }) id: number,
+    @GetUser() user,
   ) {
-    return this.buildingsFixedReservationsService.update(
-      updateBuildingsFixedReservationInput.id,
-      updateBuildingsFixedReservationInput,
+    if (user.isAdmin === true) {
+      return this.buildingsFixedReservationsService.remove(id);
+    }
+    throw new HttpException(
+      'This function is only available for administrator',
+      HttpStatus.FORBIDDEN,
     );
-  }
-
-  @Mutation(() => BuildingsFixedReservations)
-  removeBuildingsFixedReservation(@Args('id', { type: () => Int }) id: number) {
-    return this.buildingsFixedReservationsService.remove(id);
   }
 }

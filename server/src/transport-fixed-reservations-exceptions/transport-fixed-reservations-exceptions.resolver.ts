@@ -2,7 +2,10 @@ import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { TransportFixedReservationsExceptionsService } from './transport-fixed-reservations-exceptions.service';
 import { TransportFixedReservationsExceptions } from './entities/transport-fixed-reservations-exceptions.entity';
 import { CreateTransportFixedReservationsExceptionInput } from './dto/create-transport-fixed-reservations-exception.input';
-import { UpdateTransportFixedReservationsExceptionInput } from './dto/update-transport-fixed-reservations-exception.input';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { HttpException, HttpStatus, UseGuards } from '@nestjs/common';
+import { GetUser } from 'src/auth/getUserFromToken';
+import { DeleteTransportFixedReservationsExceptionsInput } from './dto/delete-transport-fixed-reservations-exception.input';
 
 @Resolver(() => TransportFixedReservationsExceptions)
 export class TransportFixedReservationsExceptionsResolver {
@@ -10,21 +13,22 @@ export class TransportFixedReservationsExceptionsResolver {
     private readonly transportFixedReservationsExceptionsService: TransportFixedReservationsExceptionsService,
   ) {}
 
-  @Mutation(() => TransportFixedReservationsExceptions)
+  @UseGuards(JwtAuthGuard)
+  @Mutation(() => [TransportFixedReservationsExceptions])
   createTransportFixedReservationsException(
     @Args('createTransportFixedReservationsExceptionInput')
     createTransportFixedReservationsExceptionInput: CreateTransportFixedReservationsExceptionInput,
+    @GetUser() user,
   ) {
-    return this.transportFixedReservationsExceptionsService.create(
-      createTransportFixedReservationsExceptionInput,
+    if (user.isAdmin === true) {
+      return this.transportFixedReservationsExceptionsService.create(
+        createTransportFixedReservationsExceptionInput,
+      );
+    }
+    throw new HttpException(
+      'This function is only available for administrator',
+      HttpStatus.FORBIDDEN,
     );
-  }
-
-  @Query(() => [TransportFixedReservationsExceptions], {
-    name: 'transportFixedReservationsExceptions',
-  })
-  findAll() {
-    return this.transportFixedReservationsExceptionsService.findAll();
   }
 
   @Query(() => TransportFixedReservationsExceptions, {
@@ -34,21 +38,21 @@ export class TransportFixedReservationsExceptionsResolver {
     return this.transportFixedReservationsExceptionsService.findOne(id);
   }
 
-  @Mutation(() => TransportFixedReservationsExceptions)
-  updateTransportFixedReservationsException(
-    @Args('updateTransportFixedReservationsExceptionInput')
-    updateTransportFixedReservationsExceptionInput: UpdateTransportFixedReservationsExceptionInput,
+  @UseGuards(JwtAuthGuard)
+  @Mutation(() => [TransportFixedReservationsExceptions])
+  deleteTransportFixedReservationsException(
+    @Args('deleteTransportFixedReservationsExceptionsInput')
+    deleteTransportFixedReservationsExceptionsInput: DeleteTransportFixedReservationsExceptionsInput,
+    @GetUser() user,
   ) {
-    return this.transportFixedReservationsExceptionsService.update(
-      updateTransportFixedReservationsExceptionInput.id,
-      updateTransportFixedReservationsExceptionInput,
+    if (user.isAdmin === true) {
+      return this.transportFixedReservationsExceptionsService.delete(
+        deleteTransportFixedReservationsExceptionsInput,
+      );
+    }
+    throw new HttpException(
+      'This function is only available for administrator',
+      HttpStatus.FORBIDDEN,
     );
-  }
-
-  @Mutation(() => TransportFixedReservationsExceptions)
-  removeTransportFixedReservationsException(
-    @Args('id', { type: () => Int }) id: number,
-  ) {
-    return this.transportFixedReservationsExceptionsService.remove(id);
   }
 }

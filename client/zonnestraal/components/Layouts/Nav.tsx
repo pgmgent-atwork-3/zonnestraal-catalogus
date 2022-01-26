@@ -1,6 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
+import {useAuth} from '../../lib/auth';
+import LoggedInContainer from '../Menu/LoggedInContainer';
+
 
 interface NavProps {
   open: Boolean;
@@ -18,7 +21,7 @@ const StyledNav = styled.nav<{open: Boolean}>`
   justify-content: center;
   transition: transform 0.3s ease-in-out;
   transform: ${({ open }) => (open ? "translateX(0)" : "translateX(100%)")};
-  z-index:100;
+  z-index: 100;
 
   ul {
     display: flex;
@@ -80,21 +83,24 @@ const StyledNav = styled.nav<{open: Boolean}>`
 `;
 
 const Nav = ({ open }: NavProps) => {
+  const { isSignedIn }:any = useAuth();
+
   return (
     <StyledNav open={open}>
         <ul>
-            <li>
-                <Link href='/bibliotheek'>Bibliotheek / Mediatheek</Link>
-            </li>
-            <li>
-                <Link href='/voertuigen'>Voertuigen</Link>
-            </li>
-            <li>
-                <Link href='/zalen'>Zalen</Link>
-            </li>
-            <li>
-                <Link href='/login'>Aanmelden</Link>
-            </li>
+          <li>
+              <Link href='/bibliotheek'>Bibliotheek / Mediatheek</Link>
+          </li>
+          <li>
+            {isSignedIn() && <Link href='/voertuigen'>Voertuigen</Link>}
+          </li>
+          <li>
+            {isSignedIn() && <Link href='/zalen'>Zalen</Link>}
+          </li>
+          <li>
+            {!isSignedIn() && <Link href='/login'>Aanmelden</Link>}
+            {isSignedIn() && <LoggedInContainer/>}
+          </li>
         </ul>
     </StyledNav>
   )

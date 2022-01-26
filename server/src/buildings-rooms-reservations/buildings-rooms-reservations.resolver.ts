@@ -2,7 +2,6 @@ import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { BuildingsRoomsReservationsService } from './buildings-rooms-reservations.service';
 import { BuildingsRoomsReservations } from './entities/buildings-rooms-reservations.entity';
 import { CreateBuildingsRoomsReservationInput } from './dto/create-buildings-rooms-reservation.input';
-import { UpdateBuildingsRoomsReservationInput } from './dto/update-buildings-rooms-reservation.input';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { HttpException, HttpStatus, UseGuards } from '@nestjs/common';
 import { GetUser } from 'src/auth/getUserFromToken';
@@ -53,17 +52,6 @@ export class BuildingsRoomsReservationsResolver {
   })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.buildingsRoomsReservationsService.findOne(id);
-  }
-
-  @Mutation(() => BuildingsRoomsReservations)
-  updateBuildingsRoomsReservation(
-    @Args('updateBuildingsRoomsReservationInput')
-    updateBuildingsRoomsReservationInput: UpdateBuildingsRoomsReservationInput,
-  ) {
-    return this.buildingsRoomsReservationsService.update(
-      updateBuildingsRoomsReservationInput.id,
-      updateBuildingsRoomsReservationInput,
-    );
   }
 
   @Mutation(() => BuildingsRoomsReservations)

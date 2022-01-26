@@ -2,6 +2,9 @@ import { InputType, Int, Field } from '@nestjs/graphql';
 
 @InputType()
 export class CreateMediaFixedReservationsExceptionsInput {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+  @Field(() => Int)
+  media_fixed_reservations_id: number;
+
+  @Field(() => [String], { nullable: true })
+  dates: string[];
 }

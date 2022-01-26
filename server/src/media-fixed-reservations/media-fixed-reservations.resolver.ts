@@ -2,7 +2,6 @@ import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { MediaFixedReservationsService } from './media-fixed-reservations.service';
 import { MediaFixedReservations } from './entities/media-fixed-reservations.entity';
 import { CreateMediaFixedReservationsInput } from './dto/create-media-fixed-reservations.input';
-import { UpdateMediaFixedReservationsInput } from './dto/update-media-fixed-reservations.input';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { HttpException, HttpStatus, UseGuards } from '@nestjs/common';
 import { GetUser } from 'src/auth/getUserFromToken';
@@ -12,11 +11,6 @@ export class MediaFixedReservationsResolver {
   constructor(
     private readonly mediaFixedReservationsService: MediaFixedReservationsService,
   ) {}
-
-  // @Mutation(() => MediaFixedReservations)
-  // createMediaFixedReservation(@Args('createMediaFixedReservationsInput') createMediaFixedReservationsInput: CreateMediaFixedReservationInput) {
-  //   return this.mediaFixedReservationsService.create(createMediaFixedReservationsInput);
-  // }
 
   @UseGuards(JwtAuthGuard)
   @Mutation(() => MediaFixedReservations, {
@@ -39,15 +33,10 @@ export class MediaFixedReservationsResolver {
     );
   }
 
-  // @Query(() => [MediaFixedReservations], { name: 'mediaFixedReservations' })
-  // findAll() {
-  //   return this.mediaFixedReservationsService.findAll();
-  // }
-
-  // @Query(() => MediaFixedReservations, { name: 'mediaFixedReservation' })
-  // findOne(@Args('id', { type: () => Int }) id: number) {
-  //   return this.mediaFixedReservationsService.findOne(id);
-  // }
+  @Query(() => MediaFixedReservations, { name: 'getOnemediaFixedReservation' })
+  findOne(@Args('id', { type: () => Int }) id: number) {
+    return this.mediaFixedReservationsService.findOne(id);
+  }
 
   @UseGuards(JwtAuthGuard)
   @Query(() => [MediaFixedReservations], {
@@ -63,13 +52,18 @@ export class MediaFixedReservationsResolver {
     );
   }
 
-  // @Mutation(() => MediaFixedReservations)
-  // updateMediaFixedReservation(@Args('updateMediaFixedReservationsInput') updateMediaFixedReservationsInput: UpdateMediaFixedReservationInput) {
-  //   return this.mediaFixedReservationsService.update(updateMediaFixedReservationsInput.id, updateMediaFixedReservationsInput);
-  // }
-
-  // @Mutation(() => MediaFixedReservations)
-  // removeMediaFixedReservation(@Args('id', { type: () => Int }) id: number) {
-  //   return this.mediaFixedReservationsService.remove(id);
-  // }
+  @UseGuards(JwtAuthGuard)
+  @Mutation(() => MediaFixedReservations)
+  removeMediaFixedReservation(
+    @Args('id', { type: () => Int }) id: number,
+    @GetUser() user,
+  ) {
+    if (user.isAdmin === true) {
+      return this.mediaFixedReservationsService.remove(id);
+    }
+    throw new HttpException(
+      'This function is only available for administrator',
+      HttpStatus.FORBIDDEN,
+    );
+  }
 }

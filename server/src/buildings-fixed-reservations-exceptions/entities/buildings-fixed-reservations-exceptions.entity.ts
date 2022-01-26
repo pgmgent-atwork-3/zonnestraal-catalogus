@@ -1,6 +1,7 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { BuildingsFixedReservations } from 'src/buildings-fixed-reservations/entities/buildings-fixed-reservations.entity';
 import {
+  Column,
   CreateDateColumn,
   Entity,
   JoinColumn,
@@ -18,9 +19,9 @@ export class BuildingsFixedReservationsExceptions {
   @ManyToOne(
     () => BuildingsFixedReservations,
     (buildingsFixedReservations) => buildingsFixedReservations.excepions,
-    {
-      eager: true,
-    },
+    // {
+    //   eager: true,
+    // },
   )
   @JoinColumn({
     name: 'buildings_fixed_reservations_id',
@@ -44,4 +45,8 @@ export class BuildingsFixedReservationsExceptions {
   })
   @Field({ nullable: true })
   created_on: Date;
+
+  @Column()
+  @Field()
+  buildings_fixed_reservations_id: number;
 }

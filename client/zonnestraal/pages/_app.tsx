@@ -1,4 +1,3 @@
-import type { AppProps } from 'next/app';
 import {BaseLayout} from '../components/Layouts';
 import GlobalStyles from '../globalStyles/global'; 
 import theme from '../themes/Theme';
@@ -6,44 +5,27 @@ import { ThemeProvider } from 'styled-components';
    
 import App from "next/app";
 import React from "react";
-import { ApolloProvider } from "react-apollo";
-import withApollo from "../lib/withApollo";
+
+// Authprovider is a wrapper with new apollo client and settings for the header
+import {AuthProvider} from '../lib/auth';
+
 
 class MyApp extends App<any> {
   render() {
-    const { Component, pageProps, apolloClient } = this.props;
+    const { Component, pageProps } = this.props;
     return (
       <>
-        <ApolloProvider client={apolloClient}>
+        <AuthProvider>
           <ThemeProvider theme={theme}>
             <GlobalStyles />
             <BaseLayout>
               <Component {...pageProps} />
             </BaseLayout>
           </ThemeProvider>
-        </ApolloProvider>
+        </AuthProvider>
       </>
     );
   }
 }
 
-export default withApollo(MyApp);
-
-
-
-/* import { ThemeProvider } from 'styled-components';
-
-function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <>
-      <ThemeProvider theme={theme}>
-        <GlobalStyles />
-        <BaseLayout>
-          <Component {...pageProps} />
-        </BaseLayout>
-      </ThemeProvider>
-    </>
-    )
-}
-
-export default MyApp; */
+export default MyApp;

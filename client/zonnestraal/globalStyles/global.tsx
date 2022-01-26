@@ -7,7 +7,8 @@ export type MyProps = {
 
 
 const GlobalStyle = createGlobalStyle<MyProps>`
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&display=swap');
+ */
 
 * {
   box-sizing: border-box;
@@ -55,7 +56,9 @@ h2 {
 
 h3 {
   font-size: ${({ theme }) => theme.fontSizes.subtitle1};
+  text-transform: uppercase;
   line-height: 1.2;
+  margin-bottom: ${({ theme }) => theme.margins.small};
 
   @media (min-width: ${({ theme }) => theme.width.tablet}) {
     font-size: ${({ theme }) => theme.fontSizes.subtitle1};

@@ -2,7 +2,6 @@ import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { TransportFixedReservationsService } from './transport-fixed-reservations.service';
 import { TransportFixedReservations } from './entities/transport-fixed-reservations.entity';
 import { CreateTransportFixedReservationInput } from './dto/create-transport-fixed-reservation.input';
-import { UpdateTransportFixedReservationInput } from './dto/update-transport-fixed-reservation.input';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { HttpException, HttpStatus, UseGuards } from '@nestjs/common';
 import { GetUser } from 'src/auth/getUserFromToken';
@@ -13,21 +12,11 @@ export class TransportFixedReservationsResolver {
     private readonly transportFixedReservationsService: TransportFixedReservationsService,
   ) {}
 
-  // @Mutation(() => TransportFixedReservations)
-  // createTransportFixedReservation(
-  //   @Args('createTransportFixedReservationInput')
-  //   createTransportFixedReservationInput: CreateTransportFixedReservationInput,
-  // ) {
-  //   return this.transportFixedReservationsService.create(
-  //     createTransportFixedReservationInput,
-  //   );
-  // }
-
   @UseGuards(JwtAuthGuard)
   @Mutation(() => TransportFixedReservations, {
     name: 'createTransportFixedReservation',
   })
-  createMediaFixedReservation(
+  createTransportFixedReservation(
     @Args('createTransportFixedReservationInput')
     createTransportFixedReservationInput: CreateTransportFixedReservationInput,
     @GetUser() user,
@@ -66,25 +55,24 @@ export class TransportFixedReservationsResolver {
   }
 
   @Query(() => TransportFixedReservations, {
-    name: 'transportFixedReservation',
+    name: 'getTransportFixedReservationById',
   })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.transportFixedReservationsService.findOne(id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Mutation(() => TransportFixedReservations)
-  updateTransportFixedReservation(
-    @Args('updateTransportFixedReservationInput')
-    updateTransportFixedReservationInput: UpdateTransportFixedReservationInput,
+  removeTransportFixedReservation(
+    @Args('id', { type: () => Int }) id: number,
+    @GetUser() user,
   ) {
-    return this.transportFixedReservationsService.update(
-      updateTransportFixedReservationInput.id,
-      updateTransportFixedReservationInput,
+    if (user.isAdmin === true) {
+      return this.transportFixedReservationsService.remove(id);
+    }
+    throw new HttpException(
+      'This function is only available for administrator',
+      HttpStatus.FORBIDDEN,
     );
-  }
-
-  @Mutation(() => TransportFixedReservations)
-  removeTransportFixedReservation(@Args('id', { type: () => Int }) id: number) {
-    return this.transportFixedReservationsService.remove(id);
   }
 }

@@ -6,13 +6,15 @@ interface Props {
 }
 
 const StyledFooter = styled.div`
-  height: 5rem;
+  height: 10rem;
   display: flex;
   flex-direction: column;
   padding: ${({ theme }) => theme.paddings.normal};
   background: ${({ theme }) => theme.colors.lightGrey};
+  text-align: center;
 
   @media (min-width: ${({theme}) => theme.width.tablet}) {
+    height: 5rem;
     flex-direction: row;
     justify-content: center;
     align-items: center;

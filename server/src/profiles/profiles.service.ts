@@ -25,18 +25,4 @@ export class ProfilesService {
   findOneByEmail(email: string) {
     return this.profileRepository.findOne({ where: { email: email } });
   }
-
-  // findOne(id: number) {
-  //   return `This action returns a #${id} profile`;
-  // }
-
-  // update(id: number, updateProfileInput: UpdateProfileInput) {
-  //   const profile: Profiles = this.profileRepository.create(updateProfileInput);
-  //   profile.id = id;
-  //   return this.profileRepository.save(profile);
-  // }
-
-  // remove(id: number) {
-  //   return `This action removes a #${id} profile`;
-  // }
 }

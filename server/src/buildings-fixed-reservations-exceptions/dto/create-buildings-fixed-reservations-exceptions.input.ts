@@ -1,12 +1,10 @@
-// import { InputType, Int, Field } from '@nestjs/graphql';
-// import { IsInt, IsString } from 'class-validator';
+import { InputType, Int, Field } from '@nestjs/graphql';
 
-// @InputType()
-// export class CreateBuildingsFixedReservationExceptionsInput {
-//   @IsInt()
-//   @Field(() => Int)
-//   buildings_fixed_reservations_id: number;
+@InputType()
+export class CreateBuildingsFixedReservationExceptionsInput {
+  @Field(() => Int)
+  buildings_fixed_reservations_id: number;
 
-//   @Field({ nullable: true })
-//   dates: Date[];
-// }
+  @Field(() => [String], { nullable: true })
+  dates: string[];
+}

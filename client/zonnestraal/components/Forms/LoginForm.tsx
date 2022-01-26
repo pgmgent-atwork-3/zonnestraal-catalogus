@@ -1,6 +1,4 @@
 import React from 'react';
-import { Formik } from 'formik';
-import * as yup from 'yup';
 import PrimaryButton from '../Buttons/PrimaryButton';
 
 interface Props {

@@ -1,9 +1,10 @@
+import React from 'react';
 import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache, gql } from '@apollo/client';
 import { createContext, useContext, useState } from 'react';
 import jwt_decode from "jwt-decode";
 import Router from 'next/router';
 
-const authContext = createContext()
+const authContext = React.createContext()
 
 export function AuthProvider({children}:any) {
   const auth = useProvideAuth()

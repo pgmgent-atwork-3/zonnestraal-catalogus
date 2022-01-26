@@ -9,6 +9,8 @@ import { FiFolder } from "react-icons/fi";
 import { Media } from '../../interfaces/models/media';
 import ReactPaginate from "react-paginate";
 import ReservationButton from '../Buttons/ReservationBtn';
+import { GetAllBooks } from "../../interfaces/api/getAllBooks";
+
 
 /* interface Props {
   data: Book[];
@@ -175,7 +177,7 @@ const PaginationContainer = styled.div`
   }
 `
 
-const CardLarge = ({ books, searchTerm, selected } : {books: Library, searchTerm: string, selected: string}) => {
+const CardLarge = ({ books, searchTerm, selected } : {books: GetAllBooks, searchTerm: string, selected: any}) => {
   if (!books) {
     return 'no data';
   }

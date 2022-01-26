@@ -22,6 +22,8 @@ const Input: FC<InputProps> = ({ name, placeholder, label, ...otherProps}, ref) 
   );
 };
 
-const InputField = React.forwardRef(Input);
+export default Input;
 
-export default InputField;
+/* const InputField = React.forwardRef(Input);
+
+export default InputField; */
